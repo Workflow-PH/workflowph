@@ -1,6 +1,6 @@
 # 06 — Backlog
 
-Live issues: [github.com/slvdrvncntjvr/workflowph/issues](https://github.com/slvdrvncntjvr/workflowph/issues)
+Live issues: [github.com/Workflow-PH/workflowph/issues](https://github.com/Workflow-PH/workflowph/issues)
 
 This file is the reference copy. The issue tracker is the source of truth once the sprint starts.
 

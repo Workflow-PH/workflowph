@@ -10,7 +10,7 @@ Not a "portfolio" in the visual-agency sense. This is a **proof surface**: event
 | Freeze | Sun Aug 30, 11:59 PM PHT |
 | Launch | **Mon Aug 31, 2026** (fallback: Sep 15) |
 | Team | 4–6 volunteers, async-first |
-| Issues | [github.com/slvdrvncntjvr/workflowph/issues](https://github.com/slvdrvncntjvr/workflowph/issues) |
+| Issues | [github.com/Workflow-PH/workflowph/issues](https://github.com/Workflow-PH/workflowph/issues) |
 | Facebook | [facebook.com/workflowph](https://facebook.com/workflowph) |
 
 ## Run it
@@ -41,6 +41,7 @@ with Zod validation · sharp · static output. Zero JavaScript on content routes
 | [05 – Sprint Plan](docs/05-sprint-plan.md) | Day-by-day, ceremonies, roles, descope ladder |
 | [06 – Backlog](docs/06-backlog.md) | Every ticket with acceptance criteria and estimate |
 | [07 – Launch Checklist](docs/07-launch-checklist.md) | Pre-flight before we point the domain |
+| [08 – Brand & Colour](docs/08-brand-and-color.md) | Palette, measured contrast, role rules, complements |
 | [ANNOUNCEMENT.md](ANNOUNCEMENT.md) | Copy-paste post for the dev channel + role signup |
 
 ## The one thing that will kill this sprint
