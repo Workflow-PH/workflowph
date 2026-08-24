@@ -118,8 +118,6 @@ Review these before the Sep 7 kickoff. Ten minutes each on mobile *and* desktop.
 
 | Site | Read |
 |---|---|
-| [awsccpup.cloud](https://awsccpup.cloud/) | Strong IA: departments, offices, timeline, mascots, dev team credits, and a real tools section. Their events list pulls from Meetup. **Their weakness: it's illustration-led, so it reads student-org.** Ours should be photo-led to read national-org. |
-| [gdgpup.org](https://gdgpup.org/) | Google-community template look. Familiar but generic — we should not look like this. |
 | [pupmsc.vercel.app/events](https://pupmsc.vercel.app/events) | Clean event listing baseline |
 | [devcon.ph](https://devcon.ph/) | The national-scale PH tech org comparison point |
 
