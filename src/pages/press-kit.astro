@@ -10,12 +10,42 @@ const boilerplate50 =
 
 const boilerplate100 = `WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. Founded and run entirely by volunteers, we host workshops, community days, and partner collaborations that teach practical automation to Filipino builders. We platform local engineers as speakers, publish the workflows and playbooks our community produces as open templates, and connect members to partner organisations. Our work has been supported by organisations including Tutorials Dojo, AWS User Group Philippines, Jia Talent Vault, and Echelon Philippines.`;
 
-const swatches = [
-  { name: 'Ink 950', token: '--color-ink-950', hex: '#07080A', note: 'Primary canvas' },
-  { name: 'Ink 900', token: '--color-ink-900', hex: '#0B0D10', note: 'Elevated surface' },
-  { name: 'Flow', token: '--color-flow', hex: '#00D992', note: 'Accent — interactive states, stats' },
-  { name: 'Ink 50', token: '--color-ink-50', hex: '#F5F7F9', note: 'Primary text' },
-  { name: 'Ink 400', token: '--color-ink-400', hex: '#7C8593', note: 'Secondary text' },
+const brand = [
+  {
+    name: 'Blue Green',
+    hex: '#1EBDA5',
+    token: '--color-flow',
+    role: 'Primary accent',
+    note: 'Links, buttons, focus. 8.5:1 on canvas.',
+  },
+  {
+    name: 'Orange',
+    hex: '#E26A00',
+    token: '--color-ember',
+    role: 'Secondary accent',
+    note: 'Categories and event types. 6.0:1.',
+  },
+  {
+    name: 'Yellow',
+    hex: '#FFE046',
+    token: '--color-beam',
+    role: 'Highlight',
+    note: 'Key numbers only. Never on white.',
+  },
+  {
+    name: 'White',
+    hex: '#FFFFFF',
+    token: '--color-brand-white',
+    role: 'Display type',
+    note: 'Headlines only, not body copy.',
+  },
+  {
+    name: 'Ink',
+    hex: '#07080A',
+    token: '--color-ink-950',
+    role: 'Canvas',
+    note: 'Near-black, not pure black.',
+  },
 ];
 
 const fonts = [
@@ -65,21 +95,41 @@ const fonts = [
     </div>
   </Section>
 
-  <Section kicker="Colour" title="Palette" class="hairline border-t">
-    <ul class="hairline grid gap-px overflow-hidden rounded-[--radius-card] border sm:grid-cols-2 lg:grid-cols-5" role="list">
+  <Section
+    kicker="Colour"
+    title="Palette"
+    lead="Four brand colours on a near-black canvas. Each has one job — the separation is deliberate."
+    class="hairline border-t"
+  >
+    <ul
+      class="hairline grid gap-px overflow-hidden rounded-[--radius-card] border sm:grid-cols-2 lg:grid-cols-5"
+      role="list"
+    >
       {
-        swatches.map((s) => (
+        brand.map((s) => (
           <li class="flex flex-col bg-ink-950">
-            <span class="h-24 w-full" style={`background:${s.hex}`} aria-hidden="true" />
-            <div class="flex flex-col gap-1 p-4">
+            <span
+              class="hairline h-28 w-full border-b"
+              style={`background:${s.hex}`}
+              aria-hidden="true"
+            />
+            <div class="flex flex-col gap-1.5 p-4">
               <p class="text-[0.8125rem] font-medium text-ink-100">{s.name}</p>
               <p class="font-mono text-[0.6875rem] tracking-wide text-flow">{s.hex}</p>
-              <p class="text-[0.6875rem] text-ink-500">{s.note}</p>
+              <p class="font-mono text-[0.625rem] tracking-[0.1em] text-ember-300 uppercase">
+                {s.role}
+              </p>
+              <p class="text-[0.6875rem] leading-relaxed text-ink-500">{s.note}</p>
             </div>
           </li>
         ))
       }
     </ul>
+
+    <p class="mt-6 max-w-2xl text-[0.8125rem] leading-relaxed text-ink-500">
+      Full token reference, contrast ratios, and usage rules are in
+      <code class="font-mono text-flow">docs/08-brand-and-color.md</code>.
+    </p>
   </Section>
 
   <Section kicker="Typography" title="Typefaces" class="hairline border-t">

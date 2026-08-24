@@ -27,9 +27,12 @@ const { stats } = Astro.props;
               i === 3 && 'lg:border-l',
             ]}
           >
+            {/* beam (brand yellow) is rationed to exactly this: the numbers a
+                sponsor scans first. It is the brightest thing in the palette,
+                so it earns the most important job on the page. */}
             <dd
               data-stat
-              class="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-none font-semibold tracking-tight text-ink-50"
+              class="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-none font-semibold tracking-tight text-beam"
             >
               {s.data.value}
             </dd>

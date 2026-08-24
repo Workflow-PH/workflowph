@@ -68,8 +68,8 @@ const media = data.card ?? data.hero;
         aria-hidden="true"></span>
 
       {upcoming && (
-        <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-[--radius-pill] bg-ink-950/80 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.12em] text-flow uppercase backdrop-blur-sm">
-          <span class="size-1.5 animate-pulse rounded-full bg-flow"></span>
+        <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-[--radius-pill] bg-ink-950/80 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.12em] text-beam uppercase backdrop-blur-sm">
+          <span class="size-1.5 animate-pulse rounded-full bg-beam"></span>
           Upcoming
         </span>
       )}
@@ -93,7 +93,9 @@ const media = data.card ?? data.hero;
         {data.venue}
       </p>
 
-      <p class="mt-1 font-mono text-[0.6875rem] tracking-[0.12em] text-flow/70 uppercase">
+      {/* ember (brand orange) marks classification, flow marks interaction.
+          Keeping them separate is what lets "teal means clickable" hold. */}
+      <p class="mt-1 font-mono text-[0.6875rem] tracking-[0.12em] text-ember-300 uppercase">
         {eventTypeLabels[data.type]}
       </p>
     </div>

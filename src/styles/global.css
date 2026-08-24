@@ -25,18 +25,49 @@
   --color-ink-100: #e6eaef;
   --color-ink-50: #f5f7f9;
 
-  /* --- Accent -----------------------------------------------------------
-     "Flow" green. Signals automation/throughput without the corporate-blue
-     default. Used only for interactive states, stats, and rules. */
-  --color-flow-100: #b8ffe4;
-  --color-flow-300: #5cf0bb;
-  --color-flow: #00d992;
-  --color-flow-600: #00a874;
-  --color-flow-900: #053d2c;
+  /* ==========================================================================
+     BRAND PALETTE
+     Source of truth: WorkFlow PH brand colours. Full rationale and usage
+     rules in docs/08-brand-and-color.md. Each colour has one job — the
+     separation is what stops the page turning into confetti.
+     ========================================================================== */
 
-  /* Secondary — gradients and poster-card fallbacks only. Never for text. */
-  --color-signal: #6e7bff;
-  --color-ember: #ff8a4c;
+  /* --- flow · blue-green #1ebda5 — PRIMARY ACCENT -------------------------
+     Every interactive thing. Links, focus rings, primary buttons, active nav,
+     rules, the flow-mesh motif. 8.5:1 on the canvas, so it is safe for text
+     at any size. This is the colour people should associate with the org. */
+  --color-flow-100: #a8efe2;
+  --color-flow-300: #4fd6c1; /* hover — brighter, because we sit on dark */
+  --color-flow: #1ebda5; /* BRAND */
+  --color-flow-600: #159683; /* pressed */
+  --color-flow-900: #0a312b; /* tinted surface */
+
+  /* --- ember · orange #e26a00 — SECONDARY ACCENT --------------------------
+     Classification, not interaction. Event types, build kinds, category
+     metadata, the partner-facing half of the CTA. 6.0:1 on the canvas.
+     Never use for links — it would compete with flow and break the rule
+     that "teal means clickable". */
+  --color-ember-100: #ffd5a6;
+  --color-ember-300: #ff9633;
+  --color-ember: #e26a00; /* BRAND */
+  --color-ember-600: #b15200;
+  --color-ember-900: #331a00;
+
+  /* --- beam · yellow #ffe046 — HIGHLIGHT, RATIONED ------------------------
+     15.3:1 on the canvas — brighter than our body text. It wins any
+     attention contest it enters, so it gets exactly one job: numbers that
+     matter (impact stats) and the live/upcoming pulse. Keep it under ~1% of
+     the pixels on any screen. Unusable on white (1.2:1). */
+  --color-beam-100: #fff4b3;
+  --color-beam: #ffe046; /* BRAND */
+  --color-beam-600: #c9a800;
+  --color-beam-900: #332c00;
+
+  /* --- white #ffffff — DISPLAY TYPE ONLY ----------------------------------
+     Reserved for h1 and display headlines. Body copy uses ink-200: pure
+     white paragraphs on a near-black canvas halate on OLED screens, which
+     is most phones. */
+  --color-brand-white: #ffffff;
 
   /* --- Type -------------------------------------------------------------- */
   --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;

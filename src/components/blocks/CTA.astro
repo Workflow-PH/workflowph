@@ -7,8 +7,10 @@ import { site } from '../../lib/site';
 
 <section class="relative isolate overflow-hidden py-20 sm:py-28">
   <FlowMesh intensity={0.55} />
+  {/* Signature brand wash: ember under the partner half, flow under the
+      builder half. Reinforces the split without adding any UI. */}
   <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_50%_120%,color-mix(in_oklab,var(--color-flow)_9%,transparent),transparent_65%)]"
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_120%_at_20%_120%,color-mix(in_oklab,var(--color-ember)_10%,transparent),transparent_60%),radial-gradient(70%_120%_at_80%_120%,color-mix(in_oklab,var(--color-flow)_10%,transparent),transparent_60%)]"
     aria-hidden="true"
   >
   </div>
@@ -16,7 +18,10 @@ import { site } from '../../lib/site';
   <Container class="relative">
     <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
       <div class="hairline flex flex-col gap-4 lg:border-r lg:pr-16" data-reveal>
-        <p class="kicker">For organisations</p>
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-ember" aria-hidden="true"></span>
+          For organisations
+        </p>
         <h2 class="text-[length:var(--text-h2)]">Partner with us</h2>
         <p class="max-w-md leading-relaxed text-ink-300">
           Reach Filipino builders who ship. We run workshops, community days, and
@@ -37,7 +42,10 @@ import { site } from '../../lib/site';
       </div>
 
       <div class="flex flex-col gap-4" data-reveal>
-        <p class="kicker">For builders</p>
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          For builders
+        </p>
         <h2 class="text-[length:var(--text-h2)]">Volunteer with us</h2>
         <p class="max-w-md leading-relaxed text-ink-300">
           Everything here was built by volunteers. If you want to run events,

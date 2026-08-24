@@ -1,14 +1,21 @@
 ---
+type Tone = 'neutral' | 'flow' | 'ember' | 'beam' | 'muted';
+
 interface Props {
-  tone?: 'neutral' | 'flow' | 'muted';
+  tone?: Tone;
   class?: string;
 }
 
-const { tone = 'neutral', class: className = '' } = Astro.props;
+const { tone = 'neutral', class: className = '' } = Astro.props as Props;
 
-const tones = {
+const tones: Record<Tone, string> = {
   neutral: 'border-ink-100/15 text-ink-300',
+  /** Interaction and status. */
   flow: 'border-flow/40 text-flow bg-flow/10',
+  /** Classification — event types, build kinds. */
+  ember: 'border-ember/40 text-ember-300 bg-ember/10',
+  /** Live / now. Rationed; see docs/08-brand-and-color.md. */
+  beam: 'border-beam/40 text-beam bg-beam/10',
   muted: 'border-transparent bg-ink-100/[0.06] text-ink-400',
 };
 ---

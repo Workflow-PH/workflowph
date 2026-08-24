@@ -16,14 +16,21 @@ function hash(input: string): number {
   return Math.abs(h);
 }
 
-/** Hues sampled from the brand palette only, so nothing lands off-brand. */
+/**
+ * OKLCH hue pairs drawn only from the brand arc: blue-green (~175°) through
+ * yellow (~105°) to orange (~52°). Nothing outside that arc, so a wall of
+ * poster cards reads as one family rather than a random swatch book.
+ *
+ * The last pair spans the full arc — teal into orange — which is the
+ * signature brand gradient and the most distinctive of the six.
+ */
 const HUES = [
-  [163, 172], // flow green → teal
-  [186, 205], // cyan → azure
-  [232, 248], // indigo → violet
-  [268, 292], // violet → magenta
-  [18, 34], // ember
-  [142, 158], // moss → flow
+  [175, 188], // blue-green → deep teal
+  [150, 175], // green → blue-green
+  [95, 118], // yellow → citron
+  [66, 95], // amber → yellow
+  [45, 68], // orange → amber
+  [175, 55], // blue-green → orange (signature)
 ] as const;
 
 export type PosterGradient = {
