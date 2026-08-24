@@ -1,0 +1,109 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Container from '../components/primitives/Container.astro';
+import Section from '../components/primitives/Section.astro';
+import Button from '../components/primitives/Button.astro';
+import { site } from '../lib/site';
+
+const roles = [
+  {
+    icon: 'lucide:workflow',
+    title: 'Automation builders',
+    body: 'Build and publish templates in n8n, Make, Zapier, or code. If you automate things for fun, this is the room.',
+  },
+  {
+    icon: 'lucide:calendar-check',
+    title: 'Event organisers',
+    body: 'Run workshops and community days: logistics, speakers, comms, and post-event reporting.',
+  },
+  {
+    icon: 'lucide:camera',
+    title: 'Photographers & videographers',
+    body: 'Every photo on this site is credited. Come shoot an event and your name goes on it.',
+  },
+  {
+    icon: 'lucide:pen-tool',
+    title: 'Designers & writers',
+    body: 'Event creatives, recaps, social, and this site. Craft matters here.',
+  },
+  {
+    icon: 'lucide:code',
+    title: 'Developers',
+    body: 'This site is open. So is the tooling we use to run the community.',
+  },
+  {
+    icon: 'lucide:handshake',
+    title: 'Partnerships & community',
+    body: 'Talk to sponsors, universities, and other communities. Bring people in.',
+  },
+];
+---
+
+<Base
+  title="Join us"
+  description="WorkFlow PH is volunteer-run. Here's what volunteers actually do, and how to get involved."
+>
+  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
+    <Container>
+      <div class="flex flex-col gap-6">
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          Join us
+        </p>
+        <h1 class="max-w-[22ch] text-[length:var(--text-display)]">
+          Come build the thing with us.
+        </h1>
+        <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          WorkFlow PH runs entirely on volunteers. No prior community experience
+          needed — most of us learned it here. What matters is that you follow
+          through on the thing you said you'd do.
+        </p>
+        <div class="mt-2 flex flex-wrap gap-3">
+          <Button
+            href={`mailto:${site.email}?subject=I'd%20like%20to%20volunteer%20—%20WorkFlow%20PH`}
+            variant="primary"
+            icon="lucide:arrow-right"
+          >
+            Email us to get started
+          </Button>
+          <Button href={site.socials[0].url} variant="secondary" icon="lucide:arrow-up-right">
+            Message us on Facebook
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Section
+    kicker="Where you'd fit"
+    title="What volunteers actually do"
+    class="hairline border-t"
+  >
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        roles.map((r) => (
+          <div class="hairline flex flex-col gap-3 rounded-[--radius-card] border bg-ink-900/40 p-6" data-reveal>
+            <Icon name={r.icon} class="size-5 text-flow" aria-hidden="true" />
+            <h3 class="text-[1.0625rem] font-semibold text-ink-50">{r.title}</h3>
+            <p class="text-sm leading-relaxed text-ink-400">{r.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section kicker="The honest version" title="Time commitment" width="prose" class="hairline border-t">
+    <div class="flex flex-col gap-5 leading-relaxed text-ink-300">
+      <p>
+        <strong class="text-ink-100">DRAFT — replace with the real numbers (WF-C1).</strong>
+        Volunteers typically give a few hours a week, more in the run-up to an event.
+        Nobody is expected to choose this over school or work.
+      </p>
+      <p>
+        We work async by default: text updates over meetings, and a small number of
+        short calls. If you go quiet for a week, that's fine — tell someone.
+      </p>
+    </div>
+  </Section>
+</Base>

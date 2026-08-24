@@ -1,0 +1,347 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getEntries, render, type CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+import Base from '../../layouts/Base.astro';
+import Container from '../../components/primitives/Container.astro';
+import Prose from '../../components/primitives/Prose.astro';
+import Badge from '../../components/primitives/Badge.astro';
+import Button from '../../components/primitives/Button.astro';
+import Frame from '../../components/media/Frame.astro';
+import PersonCard from '../../components/blocks/PersonCard.astro';
+import PartnerWall from '../../components/blocks/PartnerWall.astro';
+import BuildCard from '../../components/blocks/BuildCard.astro';
+import Gallery from '../../components/media/Gallery.astro';
+import { getShowcase } from '../../lib/content';
+import { eventTypeLabels, linkKindIcons } from '../../lib/site';
+import { formatDateRange, isUpcoming } from '../../lib/format';
+
+export const getStaticPaths = (async () => {
+  const { full } = await getShowcase();
+  const last = full.length - 1;
+  return full.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      // Wraps at both ends, so prev/next are always defined for a non-empty list.
+      prev: full[i === 0 ? last : i - 1]!,
+      next: full[i === last ? 0 : i + 1]!,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry, prev, next } = Astro.props as {
+  entry: CollectionEntry<'showcase'>;
+  prev: CollectionEntry<'showcase'>;
+  next: CollectionEntry<'showcase'>;
+};
+const { data } = entry;
+const { Content } = await render(entry);
+
+const speakers = data.speakers.length ? await getEntries(data.speakers) : [];
+const partners = data.partners.length ? await getEntries(data.partners) : [];
+const builds = data.builds.length ? await getEntries(data.builds) : [];
+
+const upcoming = isUpcoming(data.date);
+const dateLabel = formatDateRange(data.date, data.endDate);
+const modeLabel = { onsite: 'On-site', online: 'Online', hybrid: 'Hybrid' }[data.mode];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: data.title,
+    startDate: data.date.toISOString(),
+    ...(data.endDate && { endDate: data.endDate.toISOString() }),
+    eventAttendanceMode:
+      data.mode === 'online'
+        ? 'https://schema.org/OnlineEventAttendanceMode'
+        : data.mode === 'hybrid'
+          ? 'https://schema.org/MixedEventAttendanceMode'
+          : 'https://schema.org/OfflineEventAttendanceMode',
+    location:
+      data.mode === 'online'
+        ? { '@type': 'VirtualLocation', url: Astro.url.toString() }
+        : { '@type': 'Place', name: data.venue, address: data.city ?? 'Philippines' },
+    description: data.hook,
+    organizer: { '@type': 'Organization', name: 'WorkFlow PH' },
+    ...(speakers.length && {
+      performer: speakers.map((s) => ({ '@type': 'Person', name: s.data.name })),
+    }),
+  },
+];
+
+const meta = [
+  { label: 'Date', value: dateLabel },
+  { label: 'Venue', value: data.venue },
+  ...(data.city ? [{ label: 'Location', value: data.city }] : []),
+  { label: 'Format', value: modeLabel },
+  { label: 'Type', value: eventTypeLabels[data.type] },
+];
+---
+
+<Base title={data.title} description={data.hook} schema={schema}>
+  <article>
+    <!-- Hero -->
+    <header class="relative isolate">
+      <div class="relative h-[52svh] min-h-[22rem] overflow-hidden lg:h-[68svh]">
+        <Frame
+          media={data.hero}
+          slug={entry.id}
+          title={data.title}
+          kicker={data.series}
+          ratio="16/9"
+          sizes="100vw"
+          eager
+          class="absolute inset-0 h-full w-full"
+        />
+        <!-- Scrim guarantees text contrast regardless of what the photo looks like. -->
+        <div class="scrim absolute inset-0" aria-hidden="true"></div>
+        <div
+          class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-950 to-transparent"
+          aria-hidden="true"
+        >
+        </div>
+      </div>
+
+      <Container class="relative -mt-24 lg:-mt-32">
+        <div class="flex flex-col gap-5">
+          <div class="flex flex-wrap items-center gap-3">
+            {data.series && <p class="kicker">{data.series}</p>}
+            {upcoming && <Badge tone="flow">Upcoming</Badge>}
+          </div>
+
+          <h1 class="max-w-[24ch] text-[length:var(--text-display)]">{data.title}</h1>
+
+          <p class="max-w-[52ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+            {data.hook}
+          </p>
+        </div>
+      </Container>
+    </header>
+
+    <!-- Metadata row -->
+    <Container class="mt-12 lg:mt-16">
+      <dl class="hairline grid grid-cols-2 gap-x-8 gap-y-6 border-y py-6 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          meta.map((m) => (
+            <div class="flex flex-col gap-1.5">
+              <dt class="kicker">{m.label}</dt>
+              <dd class="font-mono text-[0.8125rem] text-ink-100">{m.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </Container>
+
+    <!-- Stats -->
+    {
+      data.stats.length > 0 && (
+        <Container class="mt-14">
+          <dl class="grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {data.stats.map((s) => (
+              <div class="flex flex-col gap-2" data-reveal>
+                <dd
+                  data-stat
+                  class="font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-none font-semibold tracking-tight text-flow"
+                >
+                  {s.value}
+                </dd>
+                <dt class="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-400 uppercase">
+                  {s.label}
+                </dt>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      )
+    }
+
+    <!-- Recap + takeaways -->
+    <Container class="mt-16 lg:mt-24">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-20">
+        <div data-reveal>
+          <Prose>
+            <Content />
+          </Prose>
+        </div>
+
+        {
+          data.takeaways.length > 0 && (
+            <aside class="hairline lg:border-l lg:pl-10" aria-labelledby="takeaways">
+              <p id="takeaways" class="kicker mb-5">
+                Takeaways
+              </p>
+              <ul class="flex flex-col gap-4" role="list">
+                {data.takeaways.map((t) => (
+                  <li class="flex gap-3 text-[0.9375rem] leading-relaxed text-ink-200">
+                    <Icon
+                      name="lucide:corner-down-right"
+                      class="mt-1 size-3.5 shrink-0 text-flow"
+                      aria-hidden="true"
+                    />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )
+        }
+      </div>
+    </Container>
+
+    <!-- Speakers -->
+    {
+      speakers.length > 0 && (
+        <Container class="mt-20 lg:mt-28">
+          <h2 class="kicker mb-8">Speakers</h2>
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {speakers.map((person) => (
+              <PersonCard entry={person} />
+            ))}
+          </div>
+        </Container>
+      )
+    }
+
+    <!-- Gallery -->
+    {
+      data.gallery.length > 0 && (
+        <Container class="mt-20 lg:mt-28">
+          <h2 class="kicker mb-8">Photos</h2>
+          <Gallery images={data.gallery} slug={entry.id} title={data.title} />
+        </Container>
+      )
+    }
+
+    <!-- Artifacts -->
+    {
+      data.links.length > 0 && (
+        <Container class="mt-20 lg:mt-28">
+          <h2 class="kicker mb-8">Links and artifacts</h2>
+          <ul class="hairline divide-y border-y border-inherit" role="list">
+            {data.links.map((l) => (
+              <li class="border-inherit">
+                <a
+                  href={l.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="group flex items-center justify-between gap-4 py-4 transition-colors duration-[--dur-fast] hover:text-flow"
+                >
+                  <span class="flex items-center gap-3">
+                    <Icon
+                      name={linkKindIcons[l.kind] ?? 'lucide:link'}
+                      class="size-4 shrink-0 text-ink-500 transition-colors group-hover:text-flow"
+                      aria-hidden="true"
+                    />
+                    <span class="text-[0.9375rem] text-ink-100 transition-colors group-hover:text-flow">
+                      {l.label}
+                    </span>
+                  </span>
+                  <Icon
+                    name="lucide:arrow-up-right"
+                    class="size-4 shrink-0 text-ink-600 transition-all duration-[--dur-fast] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-flow"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      )
+    }
+
+    <!-- Related builds -->
+    {
+      builds.length > 0 && (
+        <Container class="mt-20 lg:mt-28">
+          <h2 class="kicker mb-8">What came out of it</h2>
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {builds.map((b) => (
+              <BuildCard entry={b} />
+            ))}
+          </div>
+        </Container>
+      )
+    }
+
+    <!-- Partners -->
+    {
+      partners.length > 0 && (
+        <Container class="mt-20 lg:mt-28">
+          <h2 class="kicker mb-8">In partnership with</h2>
+          <PartnerWall partners={partners} compact />
+        </Container>
+      )
+    }
+
+    <!-- Photo credits -->
+    {
+      (() => {
+        const credits = [
+          ...new Set(
+            [data.hero, ...data.gallery]
+              .map((m) => m?.credit)
+              .filter((c): c is string => Boolean(c))
+          ),
+        ];
+        return (
+          credits.length > 0 && (
+            <Container class="mt-16">
+              <p class="font-mono text-[0.6875rem] text-ink-600">
+                Photos by {credits.join(', ')}.
+              </p>
+            </Container>
+          )
+        );
+      })()
+    }
+
+    <!-- Prev / next -->
+    <nav aria-label="More events" class="hairline mt-24 border-t lg:mt-32">
+      <Container>
+        <div class="hairline grid divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+          <a
+            href={`/showcase/${prev.id}`}
+            class="group flex flex-col gap-2 py-10 pr-6 transition-colors sm:py-14"
+          >
+            <span class="kicker flex items-center gap-2">
+              <Icon
+                name="lucide:arrow-left"
+                class="size-3.5 transition-transform group-hover:-translate-x-1"
+                aria-hidden="true"
+              />
+              Previous
+            </span>
+            <span class="font-display text-[length:var(--text-h3)] font-semibold tracking-tight text-ink-100 transition-colors group-hover:text-flow">
+              {prev.data.title}
+            </span>
+          </a>
+          <a
+            href={`/showcase/${next.id}`}
+            class="group flex flex-col gap-2 py-10 transition-colors sm:items-end sm:py-14 sm:pl-6 sm:text-right"
+          >
+            <span class="kicker flex items-center gap-2">
+              Next
+              <Icon
+                name="lucide:arrow-right"
+                class="size-3.5 transition-transform group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </span>
+            <span class="font-display text-[length:var(--text-h3)] font-semibold tracking-tight text-ink-100 transition-colors group-hover:text-flow">
+              {next.data.title}
+            </span>
+          </a>
+        </div>
+      </Container>
+    </nav>
+
+    <Container class="py-16">
+      <Button href="/showcase" variant="secondary" icon="lucide:arrow-right">
+        All events
+      </Button>
+    </Container>
+  </article>
+</Base>

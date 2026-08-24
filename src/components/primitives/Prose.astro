@@ -1,0 +1,114 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['prose-wf', className]}>
+  <slot />
+</div>
+
+<style is:global>
+  .prose-wf {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-ink-300);
+  }
+
+  .prose-wf > * + * {
+    margin-top: 1.25em;
+  }
+
+  .prose-wf h2 {
+    margin-top: 2.5em;
+    font-size: var(--text-h2);
+  }
+
+  .prose-wf h3 {
+    margin-top: 2em;
+    font-size: var(--text-h3);
+  }
+
+  .prose-wf strong {
+    color: var(--color-ink-100);
+    font-weight: 600;
+  }
+
+  .prose-wf a {
+    color: var(--color-flow);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color var(--dur-fast) var(--ease-out-quart);
+  }
+
+  .prose-wf a:hover {
+    color: var(--color-flow-100);
+  }
+
+  .prose-wf ul,
+  .prose-wf ol {
+    padding-left: 1.25em;
+  }
+
+  .prose-wf ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .prose-wf ul > li {
+    position: relative;
+    padding-left: 1.5em;
+  }
+
+  .prose-wf ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--color-flow);
+  }
+
+  .prose-wf ol {
+    list-style: decimal;
+  }
+
+  .prose-wf li + li {
+    margin-top: 0.5em;
+  }
+
+  .prose-wf blockquote {
+    border-left: 2px solid var(--color-flow);
+    padding: 0.25em 0 0.25em 1.25em;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--color-ink-100);
+  }
+
+  .prose-wf blockquote p {
+    margin: 0;
+  }
+
+  .prose-wf blockquote p + p {
+    margin-top: 0.75em;
+  }
+
+  .prose-wf code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: color-mix(in oklab, var(--color-ink-100) 8%, transparent);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    color: var(--color-flow-100);
+  }
+
+  .prose-wf hr {
+    border: 0;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink-100) 10%, transparent);
+    margin: 3em 0;
+  }
+</style>

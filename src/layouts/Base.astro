@@ -1,0 +1,93 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { site } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Absolute or root-relative path to a 1200x630 image. */
+  ogImage?: string;
+  noindex?: boolean;
+  /** JSON-LD objects to emit in the head. */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = site.description,
+  ogImage = '/og/default.png',
+  noindex = false,
+  schema = [],
+} = Astro.props;
+
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://workflowph.org');
+const ogUrl = new URL(ogImage, Astro.site ?? 'https://workflowph.org');
+
+const organisation = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: Astro.site?.toString(),
+  description: site.description,
+  email: site.email,
+  sameAs: site.socials.map((s) => s.url),
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-pt-24">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#07080a" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organisation)} />
+    {
+      schema.map((s) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+      ))
+    }
+  </head>
+
+  <body class="min-h-dvh antialiased">
+    <a
+      href="#main"
+      class="sr-only rounded-[--radius-pill] focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-flow focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-ink-950"
+    >
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

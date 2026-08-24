@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+/**
+ * Logos when we have them, typographic wordmark when we don't.
+ *
+ * We never trace, screenshot, or generate someone else's logo. A clean wordmark
+ * in our own typeface is honest and looks deliberate; a bad trace looks careless
+ * and is a real trademark problem.
+ */
+interface Props {
+  partners: CollectionEntry<'partners'>[];
+  compact?: boolean;
+}
+const { partners, compact = false } = Astro.props;
+---
+
+<ul
+  class:list={[
+    'grid gap-px overflow-hidden rounded-[--radius-card]',
+    compact
+      ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
+      : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4',
+  ]}
+  role="list"
+>
+  {
+    partners.map((p) => {
+      const Tag = p.data.url ? 'a' : 'div';
+      return (
+        <li class="bg-ink-100/[0.07]">
+          <Tag
+            href={p.data.url}
+            rel={p.data.url ? 'noopener noreferrer' : undefined}
+            target={p.data.url ? '_blank' : undefined}
+            class:list={[
+              'group flex h-full min-h-28 items-center justify-center bg-ink-950 px-6 py-8 text-center transition-colors duration-[--dur-base]',
+              p.data.url && 'hover:bg-ink-900',
+            ]}
+          >
+            {p.data.logo ? (
+              <img
+                src={p.data.logo}
+                alt={p.data.name}
+                loading="lazy"
+                decoding="async"
+                class="max-h-9 w-auto opacity-60 grayscale transition-all duration-[--dur-base] group-hover:opacity-100 group-hover:grayscale-0"
+              />
+            ) : (
+              <span class="font-display text-[0.9375rem] leading-tight font-semibold tracking-tight text-ink-400 transition-colors duration-[--dur-base] group-hover:text-ink-100">
+                {p.data.name}
+              </span>
+            )}
+          </Tag>
+        </li>
+      );
+    })
+  }
+</ul>

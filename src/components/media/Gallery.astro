@@ -1,0 +1,182 @@
+---
+import { Icon } from 'astro-icon/components';
+
+/**
+ * Photo grid + lightbox.
+ *
+ * Accessibility is the spec here, not a follow-up: focus trap, Esc to close,
+ * arrow-key navigation, focus returned to the triggering thumbnail. A lightbox
+ * that traps keyboard users is worse than no lightbox.
+ */
+interface Media {
+  src: string;
+  alt: string;
+  credit?: string;
+  width?: number;
+  height?: number;
+  focal?: 'center' | 'top' | 'bottom' | 'left' | 'right';
+}
+
+interface Props {
+  images: Media[];
+  slug: string;
+  title: string;
+}
+
+const { images, slug, title } = Astro.props;
+const dialogId = `lightbox-${slug}`;
+---
+
+<div
+  class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4"
+  data-gallery={dialogId}
+>
+  {
+    images.map((img, i) => (
+      <button
+        type="button"
+        class="group relative overflow-hidden rounded-[--radius-card] bg-ink-900 focus-visible:outline-offset-2"
+        data-gallery-item={i}
+        aria-label={`Open photo ${i + 1} of ${images.length}: ${img.alt}`}
+      >
+        <img
+          src={img.src}
+          alt={img.alt}
+          width={img.width}
+          height={img.height}
+          loading="lazy"
+          decoding="async"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+          class="aspect-[4/3] h-full w-full object-cover transition-transform duration-[--dur-slow] ease-[--ease-out-expo] group-hover:scale-[1.06]"
+          style={`object-position:${img.focal ?? 'center'};`}
+        />
+        <span
+          class="absolute inset-0 bg-ink-950/0 transition-colors duration-[--dur-base] group-hover:bg-ink-950/20"
+          aria-hidden="true"
+        />
+        <Icon
+          name="lucide:maximize-2"
+          class="absolute right-2.5 bottom-2.5 size-4 text-ink-50 opacity-0 transition-opacity duration-[--dur-base] group-hover:opacity-100"
+          aria-hidden="true"
+        />
+      </button>
+    ))
+  }
+</div>
+
+<dialog
+  id={dialogId}
+  class="fixed inset-0 z-[80] m-0 h-full max-h-none w-full max-w-none bg-ink-950/96 p-0 backdrop:bg-transparent"
+  aria-label={`Photos from ${title}`}
+  data-lightbox
+>
+  <div class="relative flex h-full flex-col">
+    <div class="flex items-center justify-between gap-4 px-5 py-4 sm:px-8">
+      <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-400 uppercase">
+        <span data-lb-index>1</span> / {images.length}
+      </p>
+      <button
+        type="button"
+        class="inline-flex items-center gap-2 rounded-[--radius-pill] px-3 py-2 font-mono text-[0.6875rem] tracking-[0.12em] text-ink-300 uppercase transition-colors hover:text-flow"
+        data-lb-close
+      >
+        Close
+        <Icon name="lucide:x" class="size-4" aria-hidden="true" />
+      </button>
+    </div>
+
+    <div class="relative flex min-h-0 flex-1 items-center justify-center px-4 sm:px-16">
+      <button
+        type="button"
+        class="absolute left-2 z-10 inline-flex size-11 items-center justify-center rounded-[--radius-pill] bg-ink-900/70 text-ink-100 backdrop-blur-sm transition-colors hover:bg-flow hover:text-ink-950 sm:left-4"
+        data-lb-prev
+        aria-label="Previous photo"
+      >
+        <Icon name="lucide:chevron-left" class="size-5" aria-hidden="true" />
+      </button>
+
+      <img data-lb-image src="" alt="" class="max-h-full max-w-full object-contain" />
+
+      <button
+        type="button"
+        class="absolute right-2 z-10 inline-flex size-11 items-center justify-center rounded-[--radius-pill] bg-ink-900/70 text-ink-100 backdrop-blur-sm transition-colors hover:bg-flow hover:text-ink-950 sm:right-4"
+        data-lb-next
+        aria-label="Next photo"
+      >
+        <Icon name="lucide:chevron-right" class="size-5" aria-hidden="true" />
+      </button>
+    </div>
+
+    <div class="px-5 py-5 sm:px-8">
+      <p class="mx-auto max-w-3xl text-center text-[0.8125rem] leading-relaxed text-ink-300" data-lb-caption></p>
+      <p class="mx-auto mt-1.5 max-w-3xl text-center font-mono text-[0.625rem] text-ink-600" data-lb-credit></p>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ dialogId, images }}>
+  (() => {
+    const dialog = document.getElementById(dialogId);
+    const grid = document.querySelector(`[data-gallery="${dialogId}"]`);
+    if (!(dialog instanceof HTMLDialogElement) || !grid) return;
+
+    const imgEl = dialog.querySelector('[data-lb-image]');
+    const captionEl = dialog.querySelector('[data-lb-caption]');
+    const creditEl = dialog.querySelector('[data-lb-credit]');
+    const indexEl = dialog.querySelector('[data-lb-index]');
+
+    let current = 0;
+    let trigger = null;
+
+    const render = () => {
+      const img = images[current];
+      imgEl.src = img.src;
+      imgEl.alt = img.alt;
+      captionEl.textContent = img.alt;
+      creditEl.textContent = img.credit ? `Photo by ${img.credit}` : '';
+      indexEl.textContent = String(current + 1);
+    };
+
+    const step = (delta) => {
+      current = (current + delta + images.length) % images.length;
+      render();
+    };
+
+    grid.querySelectorAll('[data-gallery-item]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        current = Number(btn.dataset.galleryItem);
+        trigger = btn;
+        render();
+        // showModal() gives us the focus trap and backdrop for free.
+        dialog.showModal();
+        document.documentElement.style.overflow = 'hidden';
+      });
+    });
+
+    const close = () => dialog.close();
+
+    dialog.querySelector('[data-lb-close]').addEventListener('click', close);
+    dialog.querySelector('[data-lb-prev]').addEventListener('click', () => step(-1));
+    dialog.querySelector('[data-lb-next]').addEventListener('click', () => step(1));
+
+    // Click the backdrop area (the dialog element itself) to dismiss.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) close();
+    });
+
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        step(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        step(-1);
+      }
+    });
+
+    dialog.addEventListener('close', () => {
+      document.documentElement.style.overflow = '';
+      trigger?.focus();
+    });
+  })();
+</script>

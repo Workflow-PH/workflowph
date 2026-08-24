@@ -1,0 +1,63 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md';
+  icon?: string;
+  external?: boolean;
+  class?: string;
+  'aria-label'?: string;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  icon,
+  external,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'group inline-flex items-center justify-center gap-2 rounded-[--radius-pill] font-medium transition-all duration-[--dur-fast] ease-[--ease-out-quart] whitespace-nowrap';
+
+const variants = {
+  primary: 'bg-flow text-ink-950 hover:bg-flow-300 active:bg-flow-600',
+  secondary:
+    'border border-ink-100/15 bg-ink-100/[0.03] text-ink-100 hover:border-flow/50 hover:bg-flow/10 hover:text-flow-100',
+  ghost: 'text-ink-300 hover:text-flow',
+};
+
+const sizes = {
+  sm: 'px-4 py-2 text-[0.8125rem]',
+  md: 'px-6 py-3 text-sm',
+};
+
+const classes = [base, variants[variant], sizes[size], className];
+const isExternal = external ?? (href?.startsWith('http') || href?.startsWith('mailto:'));
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class:list={classes}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      target={isExternal && href.startsWith('http') ? '_blank' : undefined}
+      {...rest}
+    >
+      <slot />
+      {icon && <Icon name={icon} class="size-4 shrink-0 transition-transform duration-[--dur-fast] group-hover:translate-x-0.5" aria-hidden="true" />}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} {...rest}>
+      <slot />
+      {icon && <Icon name={icon} class="size-4 shrink-0" aria-hidden="true" />}
+    </button>
+  )
+}

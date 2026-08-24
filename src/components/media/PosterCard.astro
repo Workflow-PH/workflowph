@@ -1,0 +1,69 @@
+---
+import { posterStyle } from '../../lib/gradient';
+
+/**
+ * Fallback for showcase items with no photo yet.
+ *
+ * Third step of the fallback chain in docs/03-asset-playbook.md §8. Deliberately
+ * designed rather than a grey box: a typographic archive reads intentional, a
+ * placeholder archive reads unfinished.
+ */
+interface Props {
+  slug: string;
+  title: string;
+  kicker?: string;
+  ratio?: string;
+  class?: string;
+}
+
+const { slug, title, kicker, ratio = '4/3', class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={['poster relative isolate overflow-hidden bg-ink-900', className]}
+  style={`${posterStyle(slug)} aspect-ratio:${ratio};`}
+>
+  <div class="poster-wash absolute inset-0"></div>
+  <svg
+    class="poster-grid absolute inset-0 h-full w-full"
+    aria-hidden="true"
+    preserveAspectRatio="none"
+    viewBox="0 0 100 100"
+  >
+    <defs>
+      <pattern id={`pg-${slug}`} width="8" height="8" patternUnits="userSpaceOnUse">
+        <path d="M8 0 L0 0 0 8" fill="none" stroke="currentColor" stroke-width="0.25" />
+      </pattern>
+    </defs>
+    <rect width="100" height="100" fill={`url(#pg-${slug})`} />
+  </svg>
+
+  <div class="relative flex h-full flex-col justify-end gap-2 p-5 sm:p-7">
+    {kicker && <p class="kicker text-flow/70">{kicker}</p>}
+    <p class="font-display text-[clamp(1.125rem,2.2vw,1.75rem)] leading-[1.05] font-semibold tracking-tight text-ink-50">
+      {title}
+    </p>
+  </div>
+
+  <span
+    class="absolute top-5 right-5 size-1.5 rounded-full bg-flow/60 sm:top-7 sm:right-7"
+    aria-hidden="true"></span>
+</div>
+
+<style>
+  .poster {
+    background-image: linear-gradient(var(--poster-angle), var(--poster-from), var(--poster-to));
+  }
+
+  .poster-wash {
+    background: radial-gradient(
+      120% 90% at 15% 0%,
+      color-mix(in oklab, var(--color-flow) 12%, transparent),
+      transparent 60%
+    );
+  }
+
+  .poster-grid {
+    color: color-mix(in oklab, var(--color-ink-50) 7%, transparent);
+  }
+</style>

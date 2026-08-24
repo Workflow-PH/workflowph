@@ -1,0 +1,102 @@
+---
+import { Icon } from 'astro-icon/components';
+import Container from '../primitives/Container.astro';
+import Wordmark from './Wordmark.astro';
+import { site, nav } from '../../lib/site';
+
+const year = new Date().getFullYear();
+
+const secondary = [
+  { label: 'Join us', href: '/join' },
+  { label: 'Press kit', href: '/press-kit' },
+  { label: 'Partner with us', href: '/partners#partner-with-us' },
+];
+---
+
+<footer class="hairline relative mt-8 border-t">
+  <Container>
+    <div class="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:py-20">
+      <div class="flex flex-col gap-5">
+        <Wordmark class="h-7 w-auto" />
+        <p class="max-w-xs text-sm leading-relaxed text-ink-400">
+          {site.tagline}.
+        </p>
+        <ul class="flex items-center gap-2" role="list">
+          {
+            site.socials.map((s) => (
+              <li>
+                <a
+                  href={s.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="hairline inline-flex size-9 items-center justify-center rounded-[--radius-pill] border text-ink-400 transition-colors duration-[--dur-fast] hover:border-flow/50 hover:text-flow"
+                  aria-label={`WorkFlow PH on ${s.label}`}
+                >
+                  <Icon name={s.icon} class="size-4" aria-hidden="true" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <nav aria-label="Footer — sections" class="flex flex-col gap-4">
+        <p class="kicker">Sections</p>
+        <ul class="flex flex-col gap-2.5" role="list">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-ink-300 transition-colors duration-[--dur-fast] hover:text-flow"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Footer — get involved" class="flex flex-col gap-4">
+        <p class="kicker">Get involved</p>
+        <ul class="flex flex-col gap-2.5" role="list">
+          {
+            secondary.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-ink-300 transition-colors duration-[--dur-fast] hover:text-flow"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="flex flex-col gap-4">
+        <p class="kicker">Contact</p>
+        <a
+          href={`mailto:${site.email}`}
+          class="font-mono text-sm text-flow transition-colors duration-[--dur-fast] hover:text-flow-100"
+        >
+          {site.email}
+        </a>
+        <p class="text-sm leading-relaxed text-ink-500">
+          Sponsorship, speaking, and partnership enquiries welcome.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="hairline flex flex-col gap-3 border-t py-6 font-mono text-[0.6875rem] tracking-wide text-ink-500 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} WorkFlow PH. Volunteer-run.</p>
+      <p>
+        Built by WorkFlow PH volunteers. Photos credited to the community.
+      </p>
+    </div>
+  </Container>
+</footer>

@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { initials } from '../../lib/format';
+import { linkKindIcons } from '../../lib/site';
+
+/**
+ * Initials avatar when there's no headshot — never a blank silhouette. A grey
+ * person-icon placeholder makes a team look absent; initials look intentional.
+ */
+interface Props {
+  entry: CollectionEntry<'people'>;
+}
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<article
+  class="hairline flex flex-col gap-4 rounded-[--radius-card] border bg-ink-900/50 p-5 transition-colors duration-[--dur-base] hover:border-flow/30"
+  data-reveal
+>
+  <div class="flex items-center gap-4">
+    {
+      data.photo ? (
+        <img
+          src={data.photo.src}
+          alt={data.photo.alt}
+          width={data.photo.width}
+          height={data.photo.height}
+          loading="lazy"
+          decoding="async"
+          class="size-14 shrink-0 rounded-[--radius-pill] object-cover"
+        />
+      ) : (
+        <span
+          class="flex size-14 shrink-0 items-center justify-center rounded-[--radius-pill] bg-flow/10 font-mono text-sm font-medium tracking-wider text-flow"
+          aria-hidden="true"
+        >
+          {initials(data.name)}
+        </span>
+      )
+    }
+
+    <div class="flex min-w-0 flex-col gap-0.5">
+      <h3 class="truncate text-[0.9375rem] leading-tight font-semibold text-ink-50">
+        {data.name}
+      </h3>
+      <p class="font-mono text-[0.6875rem] tracking-[0.1em] text-flow/80 uppercase">
+        {data.role}
+      </p>
+      {data.org && <p class="truncate text-[0.8125rem] text-ink-500">{data.org}</p>}
+    </div>
+  </div>
+
+  {
+    data.credential && (
+      <p class="text-[0.8125rem] leading-relaxed text-ink-400">{data.credential}</p>
+    )
+  }
+
+  {
+    data.socials.length > 0 && (
+      <ul class="mt-auto flex items-center gap-1.5" role="list">
+        {data.socials.map((s) => (
+          <li>
+            <a
+              href={s.url}
+              rel="noopener noreferrer"
+              target="_blank"
+              class="hairline inline-flex size-8 items-center justify-center rounded-[--radius-pill] border text-ink-500 transition-colors hover:border-flow/40 hover:text-flow"
+              aria-label={`${data.name} on ${s.label}`}
+            >
+              <Icon
+                name={linkKindIcons[s.kind] ?? 'lucide:link'}
+                class="size-3.5"
+                aria-hidden="true"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>

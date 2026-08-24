@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import Badge from '../primitives/Badge.astro';
+import { buildKindLabels } from '../../lib/site';
+
+/**
+ * The "not just visual" proof. Card pattern follows the n8n template library:
+ * kind badge, outcome line, stack tags, attribution, link out.
+ */
+interface Props {
+  entry: CollectionEntry<'builds'>;
+}
+const { entry } = Astro.props;
+const { data } = entry;
+
+const Tag = data.url ? 'a' : 'div';
+const planned = data.status !== 'live';
+---
+
+<Tag
+  href={data.url}
+  rel={data.url ? 'noopener noreferrer' : undefined}
+  target={data.url ? '_blank' : undefined}
+  class:list={[
+    'hairline group relative flex h-full flex-col gap-4 rounded-[--radius-card] border bg-ink-900/50 p-6 transition-all duration-[--dur-base] ease-[--ease-out-quart]',
+    data.url && 'hover:-translate-y-0.5 hover:border-flow/40 hover:bg-ink-850',
+  ]}
+  data-reveal
+>
+  <div class="flex items-start justify-between gap-3">
+    <Badge tone={planned ? 'muted' : 'flow'}>{buildKindLabels[data.kind]}</Badge>
+    {
+      planned ? (
+        <span class="font-mono text-[0.625rem] tracking-[0.12em] text-ink-500 uppercase">
+          {data.status === 'in-progress' ? 'In progress' : 'Planned'}
+        </span>
+      ) : (
+        data.url && (
+          <Icon
+            name="lucide:arrow-up-right"
+            class="size-4 shrink-0 text-ink-600 transition-all duration-[--dur-fast] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-flow"
+            aria-hidden="true"
+          />
+        )
+      )
+    }
+  </div>
+
+  <h3 class="text-[1.0625rem] leading-snug font-semibold text-ink-50 transition-colors duration-[--dur-fast] group-hover:text-flow-100">
+    {data.title}
+  </h3>
+
+  <p class="flex-1 text-sm leading-relaxed text-ink-400">{data.outcome}</p>
+
+  {
+    data.stack.length > 0 && (
+      <ul class="flex flex-wrap gap-1.5" role="list">
+        {data.stack.map((tech) => (
+          <li class="rounded-sm bg-ink-100/[0.05] px-2 py-1 font-mono text-[0.625rem] tracking-wide text-ink-400">
+            {tech}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    data.metric && (
+      <p class="font-mono text-[0.6875rem] text-flow/80">{data.metric}</p>
+    )
+  }
+</Tag>

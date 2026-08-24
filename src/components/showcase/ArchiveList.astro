@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { eventTypeLabels } from '../../lib/site';
+import { formatDate } from '../../lib/format';
+
+/**
+ * Archive-tier events: one row each, no detail page.
+ *
+ * This is the escape hatch that lets the complete event history go public
+ * without needing a complete Asset Kit for every event. A long, honest archive
+ * is what makes an org look established.
+ */
+interface Props {
+  entries: CollectionEntry<'showcase'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="hairline divide-y border-t border-inherit" role="list">
+  {
+    entries.map((entry) => {
+      const primary = entry.data.links[0];
+      const Row = primary ? 'a' : 'div';
+      return (
+        <li class="hairline border-inherit">
+          <Row
+            href={primary?.url}
+            rel={primary ? 'noopener noreferrer' : undefined}
+            target={primary ? '_blank' : undefined}
+            class:list={[
+              'group grid grid-cols-[auto_1fr] items-baseline gap-x-5 gap-y-1 py-5 sm:grid-cols-[7.5rem_1fr_auto_auto] sm:gap-x-8',
+              primary && 'transition-colors duration-[--dur-fast] hover:bg-ink-100/[0.02]',
+            ]}
+          >
+            <time
+              datetime={entry.data.date.toISOString()}
+              class="font-mono text-[length:var(--text-meta)] text-ink-500"
+            >
+              {formatDate(entry.data.date)}
+            </time>
+
+            <p class="text-[0.9375rem] leading-snug text-ink-100 transition-colors duration-[--dur-fast] group-hover:text-flow-100">
+              {entry.data.series && (
+                <span class="text-ink-500">{entry.data.series} — </span>
+              )}
+              {entry.data.title}
+            </p>
+
+            <p class="col-start-2 font-mono text-[0.625rem] tracking-[0.12em] text-ink-500 uppercase sm:col-start-3">
+              {eventTypeLabels[entry.data.type]}
+            </p>
+
+            <span class="col-start-2 hidden sm:col-start-4 sm:block" aria-hidden="true">
+              {primary && (
+                <Icon
+                  name="lucide:arrow-up-right"
+                  class="size-4 text-ink-600 transition-all duration-[--dur-fast] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-flow"
+                />
+              )}
+            </span>
+          </Row>
+        </li>
+      );
+    })
+  }
+</ul>

@@ -1,0 +1,32 @@
+# build output
+dist/
+.vercel/
+.netlify/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+service-account*.json
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor / os
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# raw, unoptimised, or unapproved assets
+public/images/_raw/

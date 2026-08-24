@@ -1,0 +1,35 @@
+[
+  {
+    "id": "placeholder-workflow-library",
+    "title": "WorkFlow PH Template Library",
+    "kind": "workflow",
+    "outcome": "A public library of automation templates Filipino builders can fork and run the same day.",
+    "stack": ["n8n", "Make", "Google Workspace"],
+    "publishedAt": "2026-08-24",
+    "status": "planned",
+    "featured": true,
+    "contributors": []
+  },
+  {
+    "id": "placeholder-community-ops",
+    "title": "Volunteer Community Ops Playbook",
+    "kind": "playbook",
+    "outcome": "How WorkFlow PH runs events with a volunteer team: intake, comms, and post-event reporting.",
+    "stack": ["Notion", "Google Forms", "Discord"],
+    "publishedAt": "2026-08-24",
+    "status": "planned",
+    "featured": true,
+    "contributors": []
+  },
+  {
+    "id": "placeholder-bedrock-agent",
+    "title": "Autonomous Bedrock Agent walkthrough",
+    "kind": "talk",
+    "outcome": "Building an Amazon Bedrock agent from scratch: AI orchestration, ReAct loops, and Lambda Action Groups.",
+    "stack": ["Amazon Bedrock", "AWS Lambda", "Python"],
+    "publishedAt": "2026-08-24",
+    "status": "planned",
+    "featured": true,
+    "contributors": ["karen-pearl-pabilando"]
+  }
+]

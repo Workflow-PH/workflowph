@@ -1,0 +1,36 @@
+---
+/**
+ * Typographic wordmark, used until the real WorkFlow PH logo lands as SVG.
+ *
+ * The bracket glyph is a flow/pipeline nod that survives at 24px. Replace the
+ * whole component with the official mark when the brand folder is populated
+ * (WF-A4) — keep the same dimensions so nothing reflows.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-2', className]}>
+  <svg
+    viewBox="0 0 24 24"
+    class="h-full w-auto shrink-0 text-flow"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M3 6h4l3 12h4l3-12h4"
+      stroke="currentColor"
+      stroke-width="2.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="20.5" cy="6" r="2" fill="currentColor" />
+  </svg>
+  <span
+    class="font-display text-[0.9375em] leading-none font-semibold tracking-[-0.02em] text-ink-50"
+  >
+    WorkFlow<span class="text-flow"> PH</span>
+  </span>
+</span>

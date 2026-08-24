@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Container from '../components/primitives/Container.astro';
+import Section from '../components/primitives/Section.astro';
+import ImpactBar from '../components/blocks/ImpactBar.astro';
+import CTA from '../components/blocks/CTA.astro';
+import Prose from '../components/primitives/Prose.astro';
+import { getStats, getMilestones } from '../lib/content';
+
+const stats = await getStats();
+const milestones = await getMilestones();
+---
+
+<Base
+  title="About"
+  description="WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines."
+>
+  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
+    <Container>
+      <div class="flex flex-col gap-6">
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          About
+        </p>
+        <h1 class="max-w-[26ch] text-[length:var(--text-display)]">
+          A volunteer community, not a company.
+        </h1>
+      </div>
+    </Container>
+  </section>
+
+  <ImpactBar stats={stats} />
+
+  <Section width="prose">
+    <Prose>
+      <p>
+        <strong>DRAFT — Content Lead to replace (WF-C1).</strong> This is where the
+        200–300 word origin story goes. Three things it needs to answer: how WorkFlow
+        PH started, why automation specifically, and why volunteer-driven rather than
+        commercial.
+      </p>
+      <p>
+        Write it plainly. The most convincing community pages on the web are the ones
+        that read like a person wrote them, not a brand. Avoid words a sponsor cannot
+        verify.
+      </p>
+      <h2>What we do</h2>
+      <ul>
+        <li>Run workshops and community days for builders across the Philippines</li>
+        <li>Platform Filipino engineers as speakers and workshop leads</li>
+        <li>Publish open automation templates and playbooks anyone can use</li>
+        <li>Connect the community to partner organisations and opportunities</li>
+      </ul>
+      <h2>How we work</h2>
+      <p>
+        Everything on this site was produced by volunteers, in their own time, around
+        classes and day jobs. That constraint shapes what we build: reusable over
+        bespoke, published over private, automated over manual.
+      </p>
+    </Prose>
+  </Section>
+
+  <Section
+    kicker="Timeline"
+    title="How we got here"
+    class="hairline border-t"
+    width="prose"
+  >
+    <ol class="hairline relative border-l pl-8" role="list">
+      {
+        milestones.map((m) => (
+          <li class="relative pb-10 last:pb-0">
+            <span
+              class="absolute top-1.5 -left-[2.1rem] size-2.5 rounded-full border-2 border-ink-950 bg-flow"
+              aria-hidden="true"
+            />
+            <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-flow uppercase">
+              {m.data.date}
+            </p>
+            <h3 class="mt-2 text-[length:var(--text-h3)]">{m.data.title}</h3>
+            <p class="mt-2 leading-relaxed text-ink-400">{m.data.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <CTA />
+</Base>

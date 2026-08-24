@@ -1,0 +1,116 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Container from '../components/primitives/Container.astro';
+import Section from '../components/primitives/Section.astro';
+import Button from '../components/primitives/Button.astro';
+import PartnerWall from '../components/blocks/PartnerWall.astro';
+import { getPartners, getShowcase, groupBy } from '../lib/content';
+import { partnerTierLabels, site } from '../lib/site';
+
+const partners = await getPartners();
+const { all } = await getShowcase();
+const byTier = groupBy(partners, (p) => p.data.tier);
+const tierOrder = ['strategic', 'partner', 'community', 'venue', 'media'] as const;
+const tiers = tierOrder.filter((t) => byTier.has(t));
+
+const offers = [
+  {
+    icon: 'lucide:users',
+    title: 'Direct reach to builders',
+    body: `A community of 1,500+ Filipino builders who attend, ship, and share. Your brand appears on the event, in the recap, and on this site permanently.`,
+  },
+  {
+    icon: 'lucide:presentation',
+    title: 'A stage for your engineers',
+    body: 'Your team teaches something real to a room that wants to learn it. Workshops and talks, not sales pitches.',
+  },
+  {
+    icon: 'lucide:workflow',
+    title: 'Automations built on your stack',
+    body: 'Templates and playbooks published openly, credited to the collaboration, useful long after the event ends.',
+  },
+];
+---
+
+<Base
+  title="Partners"
+  description="Organisations that support WorkFlow PH, and what partnering with a volunteer-driven builder community looks like."
+>
+  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
+    <Container>
+      <div class="flex flex-col gap-6">
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          Partners
+        </p>
+        <h1 class="max-w-[24ch] text-[length:var(--text-display)]">
+          The organisations behind the work.
+        </h1>
+        <p class="max-w-[54ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          Every event on this site happened because someone backed it — with a venue,
+          a speaker, a prize pool, or a platform.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  {
+    tiers.map((tier) => (
+      <section aria-labelledby={`tier-${tier}`} class="pb-12">
+        <Container>
+          <h2
+            id={`tier-${tier}`}
+            class="hairline mb-6 border-t pt-5 font-mono text-[0.8125rem] font-medium tracking-[0.16em] text-flow uppercase"
+          >
+            {partnerTierLabels[tier]}
+          </h2>
+          <PartnerWall partners={byTier.get(tier)!} />
+        </Container>
+      </section>
+    ))
+  }
+
+  <Section
+    id="partner-with-us"
+    kicker="Partner with us"
+    title="What partnership actually gets you"
+    lead="We're a volunteer community, so we're direct about this: we trade reach and technical credibility for the resources that let us run better events."
+    class="hairline border-t bg-ink-900/30"
+  >
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        offers.map((o) => (
+          <div class="hairline flex flex-col gap-4 rounded-[--radius-card] border bg-ink-950 p-6" data-reveal>
+            <Icon name={o.icon} class="size-5 text-flow" aria-hidden="true" />
+            <h3 class="text-[1.0625rem] font-semibold text-ink-50">{o.title}</h3>
+            <p class="text-sm leading-relaxed text-ink-400">{o.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="hairline mt-12 flex flex-col gap-5 rounded-[--radius-card] border p-8 sm:p-10">
+      <p class="max-w-2xl text-[length:var(--text-lead)] leading-relaxed text-ink-200">
+        We've run {all.length} events with {partners.length} partner organisations.
+        Tell us what you're trying to reach and we'll tell you honestly whether we
+        can help.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <Button
+          href={`mailto:${site.email}?subject=Partnership%20enquiry%20—%20WorkFlow%20PH`}
+          variant="primary"
+          icon="lucide:arrow-right"
+        >
+          Email us
+        </Button>
+        <Button href="/press-kit" variant="secondary">
+          Download the press kit
+        </Button>
+      </div>
+      <p class="font-mono text-[0.6875rem] text-ink-600">
+        Typical reply within a few days. We're volunteers, so thank you for the patience.
+      </p>
+    </div>
+  </Section>
+</Base>

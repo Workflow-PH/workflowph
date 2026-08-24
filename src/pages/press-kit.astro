@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import Container from '../components/primitives/Container.astro';
+import Section from '../components/primitives/Section.astro';
+import Button from '../components/primitives/Button.astro';
+import { site } from '../lib/site';
+
+const boilerplate50 =
+  'WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. We run workshops and community days, platform Filipino engineers, and publish open automation templates so any builder can use them.';
+
+const boilerplate100 = `WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. Founded and run entirely by volunteers, we host workshops, community days, and partner collaborations that teach practical automation to Filipino builders. We platform local engineers as speakers, publish the workflows and playbooks our community produces as open templates, and connect members to partner organisations. Our work has been supported by organisations including Tutorials Dojo, AWS User Group Philippines, Jia Talent Vault, and Echelon Philippines.`;
+
+const swatches = [
+  { name: 'Ink 950', token: '--color-ink-950', hex: '#07080A', note: 'Primary canvas' },
+  { name: 'Ink 900', token: '--color-ink-900', hex: '#0B0D10', note: 'Elevated surface' },
+  { name: 'Flow', token: '--color-flow', hex: '#00D992', note: 'Accent — interactive states, stats' },
+  { name: 'Ink 50', token: '--color-ink-50', hex: '#F5F7F9', note: 'Primary text' },
+  { name: 'Ink 400', token: '--color-ink-400', hex: '#7C8593', note: 'Secondary text' },
+];
+
+const fonts = [
+  { role: 'Display', name: 'Bricolage Grotesque', use: 'Headlines, event titles, wordmark' },
+  { role: 'Body', name: 'Inter', use: 'Running text, UI' },
+  { role: 'Mono', name: 'JetBrains Mono', use: 'Metadata, kickers, stats labels' },
+];
+---
+
+<Base
+  title="Press kit"
+  description="WorkFlow PH brand assets, boilerplate copy, colours, and typography for press and partners."
+>
+  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
+    <Container>
+      <div class="flex flex-col gap-6">
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          Press kit
+        </p>
+        <h1 class="max-w-[22ch] text-[length:var(--text-display)]">
+          Everything you need to write about us.
+        </h1>
+        <p class="max-w-[54ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          Logos, colours, type, and copy you can paste straight into a deck or an
+          article. If you need something that isn't here, email us.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <Section kicker="Logo" title="Marks and usage" class="hairline border-t">
+    <div class="hairline rounded-[--radius-card] border border-dashed p-8 sm:p-12">
+      <p class="max-w-xl leading-relaxed text-ink-400">
+        <strong class="text-ink-100">Pending (WF-A4).</strong> The official WorkFlow PH
+        mark needs to land as SVG — light and dark variants — before this section can
+        ship. Drop the files into
+        <code class="font-mono text-flow">public/brand/</code> and replace this block
+        with download links.
+      </p>
+      <ul class="mt-6 flex flex-col gap-2 text-sm text-ink-400">
+        <li>Do keep clear space equal to the height of the mark on all sides.</li>
+        <li>Do use the light variant on dark backgrounds and vice versa.</li>
+        <li>Don't recolour, stretch, rotate, or add effects to the mark.</li>
+        <li>Don't place the mark on a busy photograph without a scrim.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <Section kicker="Colour" title="Palette" class="hairline border-t">
+    <ul class="hairline grid gap-px overflow-hidden rounded-[--radius-card] border sm:grid-cols-2 lg:grid-cols-5" role="list">
+      {
+        swatches.map((s) => (
+          <li class="flex flex-col bg-ink-950">
+            <span class="h-24 w-full" style={`background:${s.hex}`} aria-hidden="true" />
+            <div class="flex flex-col gap-1 p-4">
+              <p class="text-[0.8125rem] font-medium text-ink-100">{s.name}</p>
+              <p class="font-mono text-[0.6875rem] tracking-wide text-flow">{s.hex}</p>
+              <p class="text-[0.6875rem] text-ink-500">{s.note}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section kicker="Typography" title="Typefaces" class="hairline border-t">
+    <dl class="hairline divide-y border-y border-inherit">
+      {
+        fonts.map((f) => (
+          <div class="grid gap-2 border-inherit py-5 sm:grid-cols-[8rem_1fr_1fr] sm:gap-8">
+            <dt class="kicker">{f.role}</dt>
+            <dd class="font-display text-[1.25rem] font-semibold tracking-tight text-ink-50">
+              {f.name}
+            </dd>
+            <dd class="text-[0.8125rem] text-ink-500">{f.use}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Section>
+
+  <Section kicker="Copy" title="Boilerplate" class="hairline border-t" width="prose">
+    <div class="flex flex-col gap-10">
+      <div class="flex flex-col gap-3">
+        <p class="kicker">Short — 35 words</p>
+        <blockquote
+          class="hairline rounded-[--radius-card] border bg-ink-900/40 p-5 text-[0.9375rem] leading-relaxed text-ink-200"
+        >
+          {boilerplate50}
+        </blockquote>
+      </div>
+      <div class="flex flex-col gap-3">
+        <p class="kicker">Long — 100 words</p>
+        <blockquote
+          class="hairline rounded-[--radius-card] border bg-ink-900/40 p-5 text-[0.9375rem] leading-relaxed text-ink-200"
+        >
+          {boilerplate100}
+        </blockquote>
+      </div>
+      <div class="flex flex-col gap-3">
+        <p class="kicker">Media enquiries</p>
+        <Button href={`mailto:${site.email}?subject=Press%20enquiry%20—%20WorkFlow%20PH`} variant="secondary">
+          {site.email}
+        </Button>
+      </div>
+    </div>
+  </Section>
+</Base>

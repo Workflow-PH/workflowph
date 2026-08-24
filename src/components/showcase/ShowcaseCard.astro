@@ -1,0 +1,101 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Frame from '../media/Frame.astro';
+import { eventTypeLabels } from '../../lib/site';
+import { formatDate, year, isUpcoming } from '../../lib/format';
+
+/**
+ * The metadata triplet — SERIES / Title / Year ● Venue / Type — is lifted from
+ * the Creative Impact work grid. That pattern is really a content model, not a
+ * visual style, which is why it survives being restyled entirely.
+ */
+interface Props {
+  entry: CollectionEntry<'showcase'>;
+  size?: 'sm' | 'md' | 'lg';
+  eager?: boolean;
+}
+
+const { entry, size = 'md', eager = false } = Astro.props;
+const { data, id } = entry;
+
+const ratio = size === 'lg' ? '16/10' : size === 'sm' ? '4/3' : '3/2';
+const sizes =
+  size === 'lg'
+    ? '(min-width: 1024px) 66vw, 100vw'
+    : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw';
+
+const titleSize = {
+  sm: 'text-[clamp(1rem,1.4vw,1.1875rem)]',
+  md: 'text-[clamp(1.125rem,1.8vw,1.5rem)]',
+  lg: 'text-[clamp(1.5rem,3vw,2.5rem)]',
+}[size];
+
+const upcoming = isUpcoming(data.date);
+const media = data.card ?? data.hero;
+---
+
+<a
+  href={`/showcase/${id}`}
+  class="group relative block focus-visible:outline-offset-4"
+  data-reveal
+>
+  <article class="flex flex-col gap-4">
+    <div class="relative overflow-hidden rounded-[--radius-card] bg-ink-900">
+      <div
+        class="transition-transform duration-[--dur-slow] ease-[--ease-out-expo] group-hover:scale-[1.035]"
+      >
+        <Frame
+          media={media}
+          slug={id}
+          title={data.title}
+          kicker={data.series}
+          ratio={ratio}
+          sizes={sizes}
+          eager={eager}
+        />
+      </div>
+
+      {/* Scrim only when there's a photo — the poster card has its own. */}
+      {media && (
+        <div
+          class="scrim pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-[--dur-base] group-hover:opacity-90"
+        />
+      )}
+
+      {/* Accent rule draws in on hover. Cheap, and it makes the grid feel alive. */}
+      <span
+        class="pointer-events-none absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-flow transition-transform duration-[--dur-base] ease-[--ease-out-expo] group-hover:scale-x-100"
+        aria-hidden="true"></span>
+
+      {upcoming && (
+        <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-[--radius-pill] bg-ink-950/80 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.12em] text-flow uppercase backdrop-blur-sm">
+          <span class="size-1.5 animate-pulse rounded-full bg-flow"></span>
+          Upcoming
+        </span>
+      )}
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      {data.series && <p class="kicker">{data.series}</p>}
+
+      <h3
+        class:list={[
+          titleSize,
+          'leading-[1.1] font-semibold tracking-tight text-ink-50 transition-colors duration-[--dur-fast] group-hover:text-flow-100',
+        ]}
+      >
+        {data.title}
+      </h3>
+
+      <p class="font-mono text-[length:var(--text-meta)] text-ink-400">
+        <time datetime={data.date.toISOString()}>{upcoming ? formatDate(data.date) : year(data.date)}</time>
+        <span class="mx-1.5 text-ink-600" aria-hidden="true">●</span>
+        {data.venue}
+      </p>
+
+      <p class="mt-1 font-mono text-[0.6875rem] tracking-[0.12em] text-flow/70 uppercase">
+        {eventTypeLabels[data.type]}
+      </p>
+    </div>
+  </article>
+</a>

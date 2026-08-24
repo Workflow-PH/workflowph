@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import Container from '../components/primitives/Container.astro';
+import PersonCard from '../components/blocks/PersonCard.astro';
+import CTA from '../components/blocks/CTA.astro';
+import { getPeople, groupBy } from '../lib/content';
+import { peopleGroupLabels } from '../lib/site';
+
+const people = await getPeople();
+const byGroup = groupBy(people, (p) => p.data.group);
+const order = ['core', 'volunteer', 'speaker', 'alumni'] as const;
+const groups = order.filter((g) => byGroup.has(g));
+---
+
+<Base
+  title="People"
+  description="The volunteers who run WorkFlow PH and the speakers we've platformed."
+>
+  <section class="pt-32 pb-12 lg:pt-40 lg:pb-16">
+    <Container>
+      <div class="flex flex-col gap-6">
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          People
+        </p>
+        <h1 class="max-w-[24ch] text-[length:var(--text-display)]">
+          Everyone here is a volunteer.
+        </h1>
+        <p class="max-w-[54ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          The core team runs the community around classes and day jobs. The speakers
+          gave their time to teach. Both are worth naming.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  {
+    groups.map((group) => (
+      <section aria-labelledby={`group-${group}`} class="pb-14">
+        <Container>
+          <div class="hairline mb-6 flex items-baseline gap-4 border-t pt-5">
+            <h2
+              id={`group-${group}`}
+              class="font-mono text-[0.8125rem] font-medium tracking-[0.16em] text-flow uppercase"
+            >
+              {peopleGroupLabels[group]}
+            </h2>
+            <span class="font-mono text-[0.6875rem] text-ink-600">
+              {byGroup.get(group)!.length}
+            </span>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {byGroup.get(group)!.map((entry) => (
+              <PersonCard entry={entry} />
+            ))}
+          </div>
+        </Container>
+      </section>
+    ))
+  }
+
+  <CTA />
+</Base>

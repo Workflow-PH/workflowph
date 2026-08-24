@@ -1,0 +1,55 @@
+---
+import Container from '../primitives/Container.astro';
+import Button from '../primitives/Button.astro';
+import FlowMesh from '../media/FlowMesh.astro';
+import { site } from '../../lib/site';
+---
+
+<section class="relative isolate overflow-hidden py-20 sm:py-28">
+  <FlowMesh intensity={0.55} />
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_50%_120%,color-mix(in_oklab,var(--color-flow)_9%,transparent),transparent_65%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container class="relative">
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="hairline flex flex-col gap-4 lg:border-r lg:pr-16" data-reveal>
+        <p class="kicker">For organisations</p>
+        <h2 class="text-[length:var(--text-h2)]">Partner with us</h2>
+        <p class="max-w-md leading-relaxed text-ink-300">
+          Reach Filipino builders who ship. We run workshops, community days, and
+          collaborations with organisations that want to invest in local technical
+          talent.
+        </p>
+        <div class="mt-2 flex flex-wrap gap-3">
+          <Button href="/partners#partner-with-us" variant="primary" icon="lucide:arrow-right">
+            What partnership looks like
+          </Button>
+          <Button
+            href={`mailto:${site.email}?subject=Partnership%20enquiry%20—%20WorkFlow%20PH`}
+            variant="ghost"
+          >
+            {site.email}
+          </Button>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4" data-reveal>
+        <p class="kicker">For builders</p>
+        <h2 class="text-[length:var(--text-h2)]">Volunteer with us</h2>
+        <p class="max-w-md leading-relaxed text-ink-300">
+          Everything here was built by volunteers. If you want to run events,
+          write automations, design, or shoot photos for the community — there's
+          room.
+        </p>
+        <div class="mt-2">
+          <Button href="/join" variant="secondary" icon="lucide:arrow-right">
+            Join WorkFlow PH
+          </Button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

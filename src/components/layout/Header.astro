@@ -1,0 +1,202 @@
+---
+import { Icon } from 'astro-icon/components';
+import Container from '../primitives/Container.astro';
+import Wordmark from './Wordmark.astro';
+import { nav } from '../../lib/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+---
+
+<header class="sticky top-0 z-50" data-header>
+  <div
+    class="border-b border-transparent transition-all duration-[--dur-base] ease-[--ease-out-quart]"
+    data-header-bg
+  >
+    <Container>
+      <div class="flex items-center justify-between gap-6 py-4 transition-all duration-[--dur-base] lg:py-5">
+        <a
+          href="/"
+          class="shrink-0 rounded-sm transition-opacity duration-[--dur-fast] hover:opacity-80"
+          aria-label="WorkFlow PH — home"
+        >
+          <Wordmark class="h-6 w-auto lg:h-7" />
+        </a>
+
+        <nav aria-label="Main" class="hidden lg:block">
+          <ul class="flex items-center gap-1" role="list">
+            {
+              nav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    class:list={[
+                      'relative rounded-sm px-3 py-2 text-sm transition-colors duration-[--dur-fast]',
+                      isCurrent(item.href)
+                        ? 'text-flow'
+                        : 'text-ink-300 hover:text-ink-50',
+                    ]}
+                  >
+                    {item.label}
+                    {isCurrent(item.href) && (
+                      <span
+                        class="absolute inset-x-3 -bottom-0.5 h-px bg-flow"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="/join"
+            class="hidden rounded-[--radius-pill] bg-flow px-5 py-2.5 text-[0.8125rem] font-medium text-ink-950 transition-colors duration-[--dur-fast] hover:bg-flow-300 sm:inline-flex"
+          >
+            Join us
+          </a>
+
+          <button
+            type="button"
+            class="-mr-2 inline-flex items-center justify-center rounded-sm p-2 text-ink-200 transition-colors hover:text-flow lg:hidden"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            data-menu-toggle
+          >
+            <Icon name="lucide:menu" class="size-6" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </Container>
+  </div>
+</header>
+
+<!-- Mobile drawer. Rendered outside the sticky header so the backdrop covers the viewport. -->
+<div
+  id="mobile-nav"
+  class="fixed inset-0 z-[60] hidden lg:hidden"
+  data-menu-panel
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+>
+  <div class="absolute inset-0 bg-ink-950/85 backdrop-blur-md" data-menu-backdrop></div>
+
+  <div class="relative flex h-full flex-col">
+    <Container>
+      <div class="flex items-center justify-between py-4">
+        <Wordmark class="h-6 w-auto" />
+        <button
+          type="button"
+          class="-mr-2 inline-flex items-center justify-center rounded-sm p-2 text-ink-200 hover:text-flow"
+          aria-label="Close menu"
+          data-menu-close
+        >
+          <Icon name="lucide:x" class="size-6" aria-hidden="true" />
+        </button>
+      </div>
+    </Container>
+
+    <Container class="flex-1 overflow-y-auto">
+      <nav aria-label="Mobile" class="py-8">
+        <ul class="flex flex-col gap-1" role="list">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  class:list={[
+                    'block py-3 font-display text-[2rem] leading-none font-semibold tracking-tight transition-colors',
+                    isCurrent(item.href) ? 'text-flow' : 'text-ink-100 hover:text-flow',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <a
+          href="/join"
+          class="mt-10 inline-flex w-full items-center justify-center rounded-[--radius-pill] bg-flow px-6 py-3.5 font-medium text-ink-950"
+        >
+          Join us
+        </a>
+      </nav>
+    </Container>
+  </div>
+</div>
+
+<script>
+  // ~1 KB of behaviour: condense-on-scroll and the mobile drawer.
+  // Focus trap included — a modal that leaks focus is worse than no modal.
+  const header = document.querySelector<HTMLElement>('[data-header-bg]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
+  const closers = document.querySelectorAll('[data-menu-close],[data-menu-backdrop]');
+
+  if (header) {
+    const onScroll = () => {
+      const scrolled = window.scrollY > 16;
+      header.classList.toggle('bg-ink-950/80', scrolled);
+      header.classList.toggle('backdrop-blur-xl', scrolled);
+      header.classList.toggle('border-ink-100/10', scrolled);
+      header.classList.toggle('border-transparent', !scrolled);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (toggle && panel) {
+    const FOCUSABLE = 'a[href],button:not([disabled])';
+    let lastFocused: HTMLElement | null = null;
+
+    const open = () => {
+      lastFocused = document.activeElement as HTMLElement;
+      panel.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.documentElement.style.overflow = 'hidden';
+      panel.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+    };
+
+    const close = () => {
+      panel.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+      lastFocused?.focus();
+    };
+
+    toggle.addEventListener('click', open);
+    closers.forEach((el) => el.addEventListener('click', close));
+
+    document.addEventListener('keydown', (e) => {
+      if (panel.classList.contains('hidden')) return;
+
+      if (e.key === 'Escape') {
+        close();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
+        if (!items.length) return;
+        const first = items[0]!;
+        const last = items[items.length - 1]!;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+</script>

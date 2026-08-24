@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../primitives/Container.astro';
+import { formatDate } from '../../lib/format';
+
+/**
+ * Public numbers carry an `asOf` date and a known source. A sponsor can tell the
+ * difference between a counted figure and a rounded guess, so we show our work.
+ */
+interface Props {
+  stats: CollectionEntry<'stats'>[];
+}
+const { stats } = Astro.props;
+---
+
+<section aria-label="Impact at a glance" class="hairline border-y bg-ink-900/40">
+  <Container>
+    <dl class="grid grid-cols-2 lg:grid-cols-4">
+      {
+        stats.map((s, i) => (
+          <div
+            class:list={[
+              'hairline flex flex-col gap-2 px-1 py-8 sm:py-10',
+              i % 2 === 1 && 'border-l pl-6 sm:pl-8',
+              i >= 2 && 'border-t lg:border-t-0',
+              i === 2 && 'lg:border-l lg:pl-6 sm:lg:pl-8',
+              i === 3 && 'lg:border-l',
+            ]}
+          >
+            <dd
+              data-stat
+              class="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-none font-semibold tracking-tight text-ink-50"
+            >
+              {s.data.value}
+            </dd>
+            <dt class="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-400 uppercase">
+              {s.data.label}
+            </dt>
+            <p class="font-mono text-[0.625rem] text-ink-600">
+              as of <time datetime={s.data.asOf.toISOString()}>{formatDate(s.data.asOf)}</time>
+            </p>
+          </div>
+        ))
+      }
+    </dl>
+  </Container>
+</section>

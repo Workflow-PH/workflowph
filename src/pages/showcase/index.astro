@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Container from '../../components/primitives/Container.astro';
+import Section from '../../components/primitives/Section.astro';
+import ShowcaseGrid from '../../components/showcase/ShowcaseGrid.astro';
+import ArchiveList from '../../components/showcase/ArchiveList.astro';
+import CTA from '../../components/blocks/CTA.astro';
+import { getShowcase, groupBy } from '../../lib/content';
+import { year } from '../../lib/format';
+
+const { all, full, archive } = await getShowcase();
+const byYear = groupBy(full, (e) => year(e.data.date));
+const years = [...byYear.keys()];
+---
+
+<Base
+  title="Showcase"
+  description="Every event, workshop, and collaboration WorkFlow PH has run — with photos, partners, and real numbers."
+>
+  <!-- Page header. Deliberately typographic: the grid below carries the imagery. -->
+  <section class="relative isolate overflow-hidden pt-32 pb-12 lg:pt-40 lg:pb-16">
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flow/30 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+    <Container>
+      <div class="flex flex-col gap-6">
+        <p class="kicker flex items-center gap-3">
+          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
+          Showcase
+        </p>
+        <h1 class="max-w-[22ch] text-[length:var(--text-display)]">
+          Everything we've run, in one place.
+        </h1>
+        <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          {all.length} events on record{years.length > 0 && ` across ${years.at(-1)}–${years[0]}`}.
+          Workshops, community days, summits, and partner collaborations.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  {
+    years.map((y) => (
+      <section aria-labelledby={`year-${y}`} class="pb-16 lg:pb-24">
+        <Container>
+          <div class="hairline mb-8 flex items-baseline gap-4 border-t pt-5">
+            <h2
+              id={`year-${y}`}
+              class="font-mono text-[0.8125rem] font-medium tracking-[0.16em] text-flow tabular-nums"
+            >
+              {y}
+            </h2>
+            <span class="font-mono text-[0.6875rem] text-ink-600">
+              {byYear.get(y)!.length} {byYear.get(y)!.length === 1 ? 'event' : 'events'}
+            </span>
+          </div>
+          <ShowcaseGrid entries={byYear.get(y)!} />
+        </Container>
+      </section>
+    ))
+  }
+
+  {
+    archive.length > 0 && (
+      <Section
+        id="archive"
+        kicker="Archive"
+        title="Full event history"
+        lead="Everything else we've run. These don't have a full photo set yet, but they happened."
+        class="hairline border-t"
+      >
+        <ArchiveList entries={archive} />
+      </Section>
+    )
+  }
+
+  {
+    full.length === 0 && archive.length === 0 && (
+      <Container>
+        <div class="hairline my-16 rounded-[--radius-card] border border-dashed p-12 text-center">
+          <p class="text-ink-400">
+            No published events yet. Content lives in{' '}
+            <code class="font-mono text-flow">src/content/showcase/</code>. Set{' '}
+            <code class="font-mono text-flow">draft: false</code> once a recap and
+            hero image are in place.
+          </p>
+        </div>
+      </Container>
+    )
+  }
+
+  <CTA />
+</Base>

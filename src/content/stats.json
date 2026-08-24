@@ -1,0 +1,34 @@
+[
+  {
+    "id": "events",
+    "label": "Events run",
+    "value": "20+",
+    "asOf": "2026-08-24",
+    "source": "PLACEHOLDER — count from the Facebook archive during asset harvest (WF-A1)",
+    "order": 1
+  },
+  {
+    "id": "reach",
+    "label": "Builders reached",
+    "value": "1,500+",
+    "asOf": "2026-08-24",
+    "source": "Facebook page followers, facebook.com/workflowph — replace with registration totals once collated",
+    "order": 2
+  },
+  {
+    "id": "partners",
+    "label": "Partner orgs",
+    "value": "5",
+    "asOf": "2026-08-24",
+    "source": "Named on the Facebook page: Jia Talent Vault, Echelon PH, Tutorials Dojo, AWS UG PH, AWS Community Day PH",
+    "order": 3
+  },
+  {
+    "id": "volunteers",
+    "label": "Volunteers",
+    "value": "—",
+    "asOf": "2026-08-24",
+    "source": "PLACEHOLDER — core team to supply headcount (WF-C1)",
+    "order": 4
+  }
+]

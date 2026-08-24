@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ShowcaseCard from './ShowcaseCard.astro';
+
+/**
+ * Asymmetric grid. A uniform 3-column grid of equal cards reads like a
+ * spreadsheet; promoting every 7th item to full width gives the page rhythm
+ * without any extra authoring effort.
+ */
+interface Props {
+  entries: CollectionEntry<'showcase'>[];
+  /** Disable size promotion when the grid is already inside a narrow column. */
+  uniform?: boolean;
+}
+
+const { entries, uniform = false } = Astro.props;
+
+function sizeFor(index: number): 'sm' | 'md' | 'lg' {
+  if (uniform) return 'md';
+  return index % 7 === 0 ? 'lg' : 'md';
+}
+---
+
+<div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+  {
+    entries.map((entry, i) => {
+      const size = sizeFor(i);
+      return (
+        <div class:list={[size === 'lg' && 'sm:col-span-2']}>
+          <ShowcaseCard entry={entry} size={size} eager={i < 3} />
+        </div>
+      );
+    })
+  }
+</div>

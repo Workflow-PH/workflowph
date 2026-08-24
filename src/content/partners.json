@@ -1,0 +1,33 @@
+[
+  {
+    "id": "jia-talent-vault",
+    "name": "Jia Talent Vault",
+    "tier": "strategic",
+    "order": 1
+  },
+  {
+    "id": "echelon-philippines",
+    "name": "Echelon Philippines",
+    "tier": "strategic",
+    "order": 2
+  },
+  {
+    "id": "tutorials-dojo",
+    "name": "Tutorials Dojo",
+    "url": "https://tutorialsdojo.com",
+    "tier": "partner",
+    "order": 3
+  },
+  {
+    "id": "aws-ug-ph",
+    "name": "AWS User Group Philippines",
+    "tier": "community",
+    "order": 4
+  },
+  {
+    "id": "aws-community-day-ph",
+    "name": "AWS Community Day Philippines",
+    "tier": "community",
+    "order": 5
+  }
+]

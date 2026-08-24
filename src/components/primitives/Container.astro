@@ -1,0 +1,21 @@
+---
+type Width = 'page' | 'prose' | 'wide';
+
+interface Props {
+  as?: string;
+  width?: Width;
+  class?: string;
+}
+
+const { as: Tag = 'div', width = 'page', class: className = '' } = Astro.props as Props;
+
+const widths: Record<Width, string> = {
+  page: 'max-w-[84rem]',
+  wide: 'max-w-[110rem]',
+  prose: 'max-w-[46rem]',
+};
+---
+
+<Tag class:list={['mx-auto w-full px-5 sm:px-8 lg:px-12', widths[width], className]}>
+  <slot />
+</Tag>

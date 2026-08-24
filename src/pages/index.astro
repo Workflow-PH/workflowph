@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/primitives/Section.astro';
+import Button from '../components/primitives/Button.astro';
+import Hero from '../components/blocks/Hero.astro';
+import ImpactBar from '../components/blocks/ImpactBar.astro';
+import CTA from '../components/blocks/CTA.astro';
+import BuildCard from '../components/blocks/BuildCard.astro';
+import PartnerWall from '../components/blocks/PartnerWall.astro';
+import ShowcaseGrid from '../components/showcase/ShowcaseGrid.astro';
+import { getShowcase, getStats, getPartners, getBuilds } from '../lib/content';
+
+const { all, featured, upcoming } = await getShowcase();
+const stats = await getStats();
+const partners = await getPartners();
+const builds = await getBuilds();
+
+const featuredEvents = (featured.length ? featured : all).slice(0, 6);
+const featuredBuilds = builds.filter((b) => b.data.featured).slice(0, 3);
+const nextUp = upcoming.slice(0, 3);
+---
+
+<Base>
+  <Hero eventCount={all.length} />
+
+  <ImpactBar stats={stats} />
+
+  <Section
+    id="featured"
+    kicker="Selected work"
+    title="Events, workshops, and collaborations"
+    lead="Every item here is a room we filled, a partner we worked with, or something we shipped."
+  >
+    <Fragment slot="header-aside">
+      <div class="mt-2">
+        <Button href="/showcase" variant="ghost" icon="lucide:arrow-right">
+          View all {all.length} events
+        </Button>
+      </div>
+    </Fragment>
+
+    <ShowcaseGrid entries={featuredEvents} />
+  </Section>
+
+  <Section
+    id="builds"
+    kicker="What we've shipped"
+    title="Not just events"
+    lead="We publish the automations, templates, and playbooks we build so anyone in the community can fork them and run."
+    class="hairline border-y bg-ink-900/30"
+  >
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {featuredBuilds.map((entry) => <BuildCard entry={entry} />)}
+    </div>
+
+    <div class="mt-10">
+      <Button href="/builds" variant="secondary" icon="lucide:arrow-right">
+        Browse all builds
+      </Button>
+    </div>
+  </Section>
+
+  <Section id="upcoming" kicker="What's next" title="Upcoming">
+    {
+      nextUp.length > 0 ? (
+        <ShowcaseGrid entries={nextUp} uniform />
+      ) : (
+        /* This is the state the site will be in most of the time.
+           It gets designed like a real section, not treated as an error. */
+        <div class="hairline flex flex-col items-start gap-5 rounded-[--radius-card] border border-dashed p-8 sm:p-12">
+          <p class="max-w-lg text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+            Nothing on the calendar right now. We announce every event on Facebook
+            first — follow along and you'll hear about the next one before anyone
+            else.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <Button href="https://facebook.com/workflowph" variant="secondary" icon="lucide:arrow-up-right">
+              Follow on Facebook
+            </Button>
+            <Button href="/showcase" variant="ghost" icon="lucide:arrow-right">
+              See what past events looked like
+            </Button>
+          </div>
+        </div>
+      )
+    }
+  </Section>
+
+  <Section
+    id="partners"
+    kicker="Backed by"
+    title="Partners and collaborators"
+    lead="Organisations that have run something with us, hosted us, or supported the community."
+  >
+    <PartnerWall partners={partners} compact />
+    <div class="mt-10">
+      <Button href="/partners" variant="ghost" icon="lucide:arrow-right">
+        How partnership works
+      </Button>
+    </div>
+  </Section>
+
+  <CTA />
+</Base>

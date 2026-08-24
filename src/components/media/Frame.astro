@@ -1,0 +1,69 @@
+---
+import PosterCard from './PosterCard.astro';
+
+/**
+ * Single entry point for every content image.
+ *
+ * Resolves the fallback chain from docs/03-asset-playbook.md §8 so no component
+ * has to think about missing assets: real photo → designed PosterCard. Never a
+ * broken image, never a stretched image, never a grey box.
+ */
+interface Media {
+  src: string;
+  alt: string;
+  credit?: string;
+  width?: number;
+  height?: number;
+  focal?: 'center' | 'top' | 'bottom' | 'left' | 'right';
+}
+
+interface Props {
+  media?: Media;
+  /** Used to seed the poster gradient and as the poster's headline. */
+  slug: string;
+  title: string;
+  kicker?: string;
+  ratio?: string;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+}
+
+const {
+  media,
+  slug,
+  title,
+  kicker,
+  ratio = '4/3',
+  sizes = '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+  eager = false,
+  class: className = '',
+} = Astro.props;
+
+const objectPosition: Record<string, string> = {
+  center: 'center',
+  top: 'top',
+  bottom: 'bottom',
+  left: 'left',
+  right: 'right',
+};
+---
+
+{
+  media ? (
+    <img
+      src={media.src}
+      alt={media.alt}
+      width={media.width}
+      height={media.height}
+      sizes={sizes}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+      decoding={eager ? 'sync' : 'async'}
+      class:list={['h-full w-full object-cover', className]}
+      style={`aspect-ratio:${ratio};object-position:${objectPosition[media.focal ?? 'center']};`}
+    />
+  ) : (
+    <PosterCard slug={slug} title={title} kicker={kicker} ratio={ratio} class={className} />
+  )
+}

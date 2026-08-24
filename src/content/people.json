@@ -1,0 +1,19 @@
+[
+  {
+    "id": "karen-pearl-pabilando",
+    "name": "Karen Pearl V. Pabilando",
+    "role": "Speaker",
+    "credential": "Magna Cum Laude — building autonomous Amazon Bedrock agents, AI orchestration, ReAct loops, Lambda Action Groups",
+    "group": "speaker",
+    "order": 1,
+    "socials": []
+  },
+  {
+    "id": "clarisse-jem-salazar",
+    "name": "Clarisse Jem Salazar",
+    "role": "Core Team",
+    "group": "core",
+    "order": 1,
+    "socials": []
+  }
+]
