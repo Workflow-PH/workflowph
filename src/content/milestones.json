@@ -1,38 +1,38 @@
 [
   {
     "id": "m1",
-    "date": "TBC",
+    "date": "Early 2026",
     "title": "WorkFlow PH founded",
-    "body": "PLACEHOLDER — core team to supply the founding date and the reason the community started (WF-C1)."
+    "body": "Started as an initiative by Filipino tech volunteers to bridge the AI and automation literacy gap across both business and technical disciplines."
   },
   {
     "id": "m2",
-    "date": "TBC",
-    "title": "First community workshop",
-    "body": "PLACEHOLDER — first event, venue, and attendance."
+    "date": "Q1 2026",
+    "title": "First Community Build Nights & Clinics",
+    "body": "Launched hands-on problem-solving sessions connecting virtual assistants, developers, and solopreneurs with real cloud workflows."
   },
   {
     "id": "m3",
-    "date": "TBC",
-    "title": "First partner organisation",
-    "body": "PLACEHOLDER — which partner, and what the collaboration produced."
+    "date": "May 2026",
+    "title": "Ecosystem partnerships established",
+    "body": "Collaborations established with Tutorials Dojo, AWS User Group Philippines, and tech communities to expand hands-on training reach."
   },
   {
     "id": "m4",
-    "date": "2026",
-    "title": "Echelon Philippines 2026",
-    "body": "WorkFlow PH joins Echelon Philippines alongside founders, investors, and corporate innovators."
+    "date": "Aug 2026",
+    "title": "WorkFlow PH x Jia Talent Vault",
+    "body": "Strategic partnership with Jia Talent Vault opening real-world automation project opportunities for community builders."
   },
   {
     "id": "m5",
     "date": "Aug 2026",
-    "title": "WorkFlow PH x Jia Talent Vault",
-    "body": "Collaboration with Jia Talent Vault opening opportunities for builders in the community."
+    "title": "Echelon Philippines 2026",
+    "body": "WorkFlow PH represents grassroots automation and AI talent alongside founders, investors, and enterprise innovators."
   },
   {
     "id": "m6",
     "date": "Sep 2026",
-    "title": "This site ships",
-    "body": "The community's track record moves off a social feed and onto a permanent, linkable record."
+    "title": "Public showcase platform ships",
+    "body": "The community's record of workshops, open workflows, and volunteer contributors launches as a permanent public showcase."
   }
 ]

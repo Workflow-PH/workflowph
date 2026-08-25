@@ -1,65 +1,191 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
 import Container from '../components/primitives/Container.astro';
 import Section from '../components/primitives/Section.astro';
 import ImpactBar from '../components/blocks/ImpactBar.astro';
 import CTA from '../components/blocks/CTA.astro';
 import Prose from '../components/primitives/Prose.astro';
+import Badge from '../components/primitives/Badge.astro';
 import { getStats, getMilestones } from '../lib/content';
 
 const stats = await getStats();
 const milestones = await getMilestones();
+
+const programs = [
+  {
+    title: 'Build Nights',
+    tag: 'Collaborative',
+    tone: 'flow' as const,
+    desc: 'Hands-on evening build sessions where community members collaborate to design, test, and ship live automation workflows.',
+  },
+  {
+    title: 'Automation Clinics',
+    tag: 'Problem-Solving',
+    tone: 'ember' as const,
+    desc: 'Interactive troubleshooting sessions addressing real-world operational bottlenecks faced by community members and businesses.',
+  },
+  {
+    title: 'Case Study Walkthroughs',
+    tag: 'Analysis',
+    tone: 'flow' as const,
+    desc: 'Deep-dive architectural breakdowns of production workflows from initial idea to live cloud deployment.',
+  },
+  {
+    title: 'Mini Labs',
+    tag: 'Workshops',
+    tone: 'ember' as const,
+    desc: 'Focused, practical workshops exploring cloud services, orchestration engines (n8n, Make, Zapier, Python), and AI tooling.',
+  },
+  {
+    title: 'Open Volunteer Projects',
+    tag: 'Open Source',
+    tone: 'flow' as const,
+    desc: 'Community-driven builds creating open automation tools, templates, and solutions for public stakeholders and non-profits.',
+  },
+  {
+    title: 'Mentorship Program',
+    tag: 'Community',
+    tone: 'beam' as const,
+    desc: 'Connecting students, virtual assistants, and professionals with experienced practitioners to accelerate their automation skills.',
+  },
+  {
+    title: 'Hackathons',
+    tag: 'Innovation',
+    tone: 'ember' as const,
+    desc: 'Time-boxed team challenges solving pressing business and societal problems using automation and AI pipelines.',
+  },
+  {
+    title: 'Ecosystem Partnerships',
+    tag: 'Industry',
+    tone: 'flow' as const,
+    desc: 'Collaborations with BPOs, universities, and enterprise hubs to bridge the gap between education and industry demand.',
+  },
+];
+
+const values = [
+  {
+    name: 'Collaboration',
+    icon: 'lucide:users',
+    body: 'Teamwork over silos. We build openly, share templates freely, and lift the entire Philippine builder ecosystem together.',
+  },
+  {
+    name: 'Empowerment',
+    icon: 'lucide:sparkles',
+    body: 'Equipping members with practical skills, confidence, and tools to automate repetitive work and increase their economic value.',
+  },
+  {
+    name: 'Innovation',
+    icon: 'lucide:cpu',
+    body: 'Staying at the frontier of technology, connecting cloud infrastructure, orchestration platforms, and AI into practical solutions.',
+  },
+  {
+    name: 'Inclusivity',
+    icon: 'lucide:heart-handshake',
+    body: 'From virtual assistants and solopreneurs to seasoned DevOps and QA engineers, every builder has a seat at the table.',
+  },
+];
 ---
 
 <Base
   title="About"
-  description="WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines."
+  description="WorkFlow PH is a volunteer-driven ecosystem building an automation-capable and AI-literate workforce in the Philippines."
 >
   <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
     <Container>
       <div class="flex flex-col gap-6">
         <p class="kicker flex items-center gap-3">
-          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
-          About
+          <span class="inline-block h-px w-8 bg-gradient-to-r from-flow to-ember" aria-hidden="true"></span>
+          About WorkFlow PH
         </p>
-        <h1 class="max-w-[26ch] text-[length:var(--text-display)]">
-          A volunteer community, not a company.
+        <h1 class="max-w-[24ch] text-[length:var(--text-display)]">
+          A volunteer ecosystem building the future of work.
         </h1>
+        <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          We are an open community of builders, engineers, virtual assistants, and professionals
+          dedicated to pioneering automation literacy and AI capability across the Philippines.
+        </p>
       </div>
     </Container>
   </section>
 
   <ImpactBar stats={stats} />
 
+  <!-- Origin Story -->
   <Section width="prose">
     <Prose>
+      <h2>Why WorkFlow PH exists</h2>
       <p>
-        <strong>DRAFT — Content Lead to replace (WF-C1).</strong> This is where the
-        200–300 word origin story goes. Three things it needs to answer: how WorkFlow
-        PH started, why automation specifically, and why volunteer-driven rather than
-        commercial.
+        While artificial intelligence and workflow automation are reshaping global commerce, access to practical,
+        hands-on automation education in the Philippines has remained fragmented. High-ticket courses and theoretical webinars
+        often leave builders, freelancers, and local businesses stuck doing repetitive manual tasks without clear paths to implementation.
       </p>
       <p>
-        Write it plainly. The most convincing community pages on the web are the ones
-        that read like a person wrote them, not a brand. Avoid words a sponsor cannot
-        verify.
+        WorkFlow PH was founded to bridge that gap. We believe that <strong>automation is the single highest-leverage equalizer</strong> for Filipino talent.
+        Whether it is a Virtual Assistant automating client reporting, an MSME scaling operations without prohibitive overhead,
+        or a software engineer orchestrating cloud infrastructure, automation directly compounds efficiency and earning potential.
       </p>
-      <h2>What we do</h2>
-      <ul>
-        <li>Run workshops and community days for builders across the Philippines</li>
-        <li>Platform Filipino engineers as speakers and workshop leads</li>
-        <li>Publish open automation templates and playbooks anyone can use</li>
-        <li>Connect the community to partner organisations and opportunities</li>
-      </ul>
-      <h2>How we work</h2>
+      <h2>Why volunteer-driven?</h2>
       <p>
-        Everything on this site was produced by volunteers, in their own time, around
-        classes and day jobs. That constraint shapes what we build: reusable over
-        bespoke, published over private, automated over manual.
+        Commercial training programs lock knowledge behind paywalls. A volunteer-driven ecosystem turns education into a national movement.
+        Practitioners solve real-world problems in collaborative sessions, test workflows in production, and publish the templates openly so
+        anyone can adopt them.
+      </p>
+      <p>
+        Everything here is created by volunteers around their day jobs, classes, and client commitments. That constraint shapes our philosophy:
+        reusable over bespoke, published over private, and automated over manual.
       </p>
     </Prose>
   </Section>
 
+  <!-- Core Programs -->
+  <Section
+    kicker="Programs"
+    title="What we run"
+    lead="Hands-on learning and collaborative sessions designed to take members from beginners to production-ready automation builders."
+    class="hairline border-t"
+  >
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        programs.map((p) => (
+          <div
+            class="hairline flex flex-col gap-3 rounded-[--radius-card] border bg-ink-900/40 p-6 transition-all duration-[--dur-base] hover:border-flow/40 hover:bg-ink-850"
+            data-reveal
+          >
+            <div class="flex items-center justify-between gap-2">
+              <Badge tone={p.tone}>{p.tag}</Badge>
+            </div>
+            <h3 class="text-[1.0625rem] font-semibold text-ink-50">{p.title}</h3>
+            <p class="text-sm leading-relaxed text-ink-400">{p.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Values -->
+  <Section
+    kicker="Culture"
+    title="Our core values"
+    class="hairline border-t"
+  >
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        values.map((v) => (
+          <div
+            class="hairline flex flex-col gap-3 rounded-[--radius-card] border bg-ink-900/30 p-6"
+            data-reveal
+          >
+            <Icon name={v.icon} class="size-5 text-flow" aria-hidden="true" />
+            <h3 class="text-[1.0625rem] font-semibold text-ink-50">{v.name}</h3>
+            <p class="text-sm leading-relaxed text-ink-400">{v.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Milestones Timeline -->
   <Section
     kicker="Timeline"
     title="How we got here"
