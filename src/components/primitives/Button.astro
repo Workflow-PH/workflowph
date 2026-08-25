@@ -4,7 +4,7 @@ import { Icon } from 'astro-icon/components';
 interface Props {
   href?: string;
   type?: 'button' | 'submit';
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ember' | 'ghost';
   size?: 'sm' | 'md';
   icon?: string;
   external?: boolean;
@@ -28,6 +28,7 @@ const base =
 
 const variants = {
   primary: 'bg-flow text-ink-950 hover:bg-flow-300 active:bg-flow-600',
+  ember: 'bg-ember text-ink-950 hover:bg-ember-300 active:bg-ember-600',
   secondary:
     'border border-ink-100/15 bg-ink-100/[0.03] text-ink-100 hover:border-flow/50 hover:bg-flow/10 hover:text-flow-100',
   ghost: 'text-ink-300 hover:text-flow',

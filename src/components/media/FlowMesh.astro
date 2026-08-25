@@ -60,6 +60,12 @@ const edges = [
         edges.slice(0, 8).map(([a, b], i) => {
           const [x1, y1] = nodes[a]!;
           const [x2, y2] = nodes[b]!;
+          const strokeClass =
+            i % 3 === 1
+              ? 'text-ember'
+              : i % 3 === 2
+                ? 'text-beam'
+                : 'text-flow';
           return (
             <line
               x1={x1}
@@ -67,6 +73,7 @@ const edges = [
               x2={x2}
               y2={y2}
               stroke="currentColor"
+              class={strokeClass}
               stroke-width="0.22"
               stroke-linecap="round"
               stroke-dasharray="1.5 30"
@@ -77,7 +84,26 @@ const edges = [
       }
     </g>
     <g class="mesh-nodes">
-      {nodes.map(([cx, cy], i) => <circle cx={cx} cy={cy} r="0.5" fill="currentColor" style={`--i:${i}`} />)}
+      {
+        nodes.map(([cx, cy], i) => {
+          const fillClass =
+            i % 4 === 1
+              ? 'text-ember'
+              : i % 4 === 3
+                ? 'text-beam'
+                : 'text-flow';
+          return (
+            <circle
+              cx={cx}
+              cy={cy}
+              r="0.5"
+              fill="currentColor"
+              class={fillClass}
+              style={`--i:${i}`}
+            />
+          );
+        })
+      }
     </g>
   </svg>
 </div>
@@ -88,15 +114,15 @@ const edges = [
   }
 
   .mesh-edges {
-    opacity: calc(0.16 * var(--mesh-intensity));
+    opacity: calc(0.14 * var(--mesh-intensity));
   }
 
   .mesh-nodes {
-    opacity: calc(0.5 * var(--mesh-intensity));
+    opacity: calc(0.55 * var(--mesh-intensity));
   }
 
   .mesh-pulses {
-    opacity: calc(0.55 * var(--mesh-intensity));
+    opacity: calc(0.6 * var(--mesh-intensity));
   }
 
   @media (prefers-reduced-motion: no-preference) {

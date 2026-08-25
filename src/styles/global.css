@@ -9,21 +9,22 @@
    ========================================================================== */
 
 @theme {
-  /* --- Canvas -------------------------------------------------------------
-     Near-black rather than pure black: photos of mixed quality sit better on
-     a slightly lifted canvas, and pure black crushes shadow detail. */
-  --color-ink-950: #07080a;
-  --color-ink-900: #0b0d10;
-  --color-ink-850: #11141a;
-  --color-ink-800: #171b22;
-  --color-ink-700: #22272f;
-  --color-ink-600: #333a44;
-  --color-ink-500: #4c545f;
-  --color-ink-400: #7c8593;
-  --color-ink-300: #a7b0bd;
-  --color-ink-200: #cfd5de;
-  --color-ink-100: #e6eaef;
-  --color-ink-50: #f5f7f9;
+  /* --- Canvas (Warm Obsidian) ---------------------------------------------
+     Near-black rather than pure black: warm dark graphite undertone lifts
+     photography while letting warm brand ember (#e26a00) and solar beam (#ffe046)
+     shine alongside blue-green (#1ebda5). */
+  --color-ink-950: #08090b;
+  --color-ink-900: #0e1115;
+  --color-ink-850: #14181e;
+  --color-ink-800: #1a2027;
+  --color-ink-700: #262d37;
+  --color-ink-600: #3b4451;
+  --color-ink-500: #576273;
+  --color-ink-400: #8591a3;
+  --color-ink-300: #b0bac8;
+  --color-ink-200: #d4dbe4;
+  --color-ink-100: #edf0f5;
+  --color-ink-50: #f8fafc;
 
   /* ==========================================================================
      BRAND PALETTE
@@ -34,40 +35,40 @@
 
   /* --- flow · blue-green #1ebda5 — PRIMARY ACCENT -------------------------
      Every interactive thing. Links, focus rings, primary buttons, active nav,
-     rules, the flow-mesh motif. 8.5:1 on the canvas, so it is safe for text
-     at any size. This is the colour people should associate with the org. */
+     rules, community pipelines. 8.5:1 on canvas (passes AAA). */
   --color-flow-100: #a8efe2;
-  --color-flow-300: #4fd6c1; /* hover — brighter, because we sit on dark */
+  --color-flow-300: #4fd6c1; /* hover */
   --color-flow: #1ebda5; /* BRAND */
   --color-flow-600: #159683; /* pressed */
-  --color-flow-900: #0a312b; /* tinted surface */
+  --color-flow-900: #09332d; /* tinted surface */
 
   /* --- ember · orange #e26a00 — SECONDARY ACCENT --------------------------
-     Classification, not interaction. Event types, build kinds, category
-     metadata, the partner-facing half of the CTA. 6.0:1 on the canvas.
-     Never use for links — it would compete with flow and break the rule
-     that "teal means clickable". */
+     Classification, partner highlights, category badges, energetic accents.
+     6.0:1 on canvas (passes AA). Forms the signature dual-complement with flow. */
   --color-ember-100: #ffd5a6;
-  --color-ember-300: #ff9633;
+  --color-ember-300: #ff9431; /* hover & small metadata */
   --color-ember: #e26a00; /* BRAND */
-  --color-ember-600: #b15200;
-  --color-ember-900: #331a00;
+  --color-ember-600: #b15200; /* pressed */
+  --color-ember-900: #3a1a00; /* tinted surface */
 
   /* --- beam · yellow #ffe046 — HIGHLIGHT, RATIONED ------------------------
-     15.3:1 on the canvas — brighter than our body text. It wins any
-     attention contest it enters, so it gets exactly one job: numbers that
-     matter (impact stats) and the live/upcoming pulse. Keep it under ~1% of
-     the pixels on any screen. Unusable on white (1.2:1). */
+     15.3:1 on canvas. Maximum radiance — reserved strictly for sponsor-facing
+     impact numbers and the live/upcoming pulse dot. Keep under ~1% of pixels. */
   --color-beam-100: #fff4b3;
+  --color-beam-300: #ffea70;
   --color-beam: #ffe046; /* BRAND */
   --color-beam-600: #c9a800;
-  --color-beam-900: #332c00;
+  --color-beam-900: #383000;
 
   /* --- white #ffffff — DISPLAY TYPE ONLY ----------------------------------
-     Reserved for h1 and display headlines. Body copy uses ink-200: pure
-     white paragraphs on a near-black canvas halate on OLED screens, which
-     is most phones. */
+     Reserved for h1, hero typography, and display headlines. Body uses ink-200. */
   --color-brand-white: #ffffff;
+
+  /* --- ruby #f43f5e — SEMANTIC COMPLEMENT (DESTRUCTIVE / ERROR) -----------
+     Warm crimson rose. Sits cleanly alongside brand ember without colliding. */
+  --color-ruby-100: #fecdd3;
+  --color-ruby: #f43f5e;
+  --color-ruby-900: #4c0519;
 
   /* --- Type -------------------------------------------------------------- */
   --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
@@ -224,6 +225,32 @@
 /* Edge-to-edge fade used on logo walls and horizontal scrollers. */
 @utility mask-edges {
   mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+@utility gradient-brand {
+  background-image: linear-gradient(135deg, var(--color-flow) 0%, var(--color-ember) 100%);
+}
+
+@utility gradient-brand-subtle {
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-flow) 14%, transparent) 0%,
+    color-mix(in oklab, var(--color-ember) 14%, transparent) 100%
+  );
+}
+
+@utility glow-flow {
+  box-shadow: 0 0 28px -4px color-mix(in oklab, var(--color-flow) 30%, transparent);
+}
+
+@utility glow-ember {
+  box-shadow: 0 0 28px -4px color-mix(in oklab, var(--color-ember) 30%, transparent);
+}
+
+@utility glow-brand {
+  box-shadow:
+    0 0 24px -4px color-mix(in oklab, var(--color-flow) 25%, transparent),
+    0 0 24px -4px color-mix(in oklab, var(--color-ember) 25%, transparent);
 }
 
 /* ==========================================================================
