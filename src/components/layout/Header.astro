@@ -8,71 +8,75 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
 ---
 
-<header class="sticky top-0 z-50" data-header>
+<header class="sticky top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4" data-header>
   <div
-    class="border-b border-transparent transition-all duration-[--dur-base] ease-[--ease-out-quart]"
+    class="mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full border border-ink-100/10 bg-ink-950/80 px-4 py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-[--dur-base] ease-[--ease-out-quart] sm:px-6 sm:py-3"
     data-header-bg
   >
-    <Container>
-      <div class="flex items-center justify-between gap-6 py-4 transition-all duration-[--dur-base] lg:py-5">
-        <a
-          href="/"
-          class="shrink-0 rounded-sm transition-opacity duration-[--dur-fast] hover:opacity-80"
-          aria-label="WorkFlow PH — home"
-        >
-          <Wordmark class="h-6 w-auto lg:h-7" />
-        </a>
+    <a
+      href="/"
+      class="shrink-0 rounded-full transition-opacity duration-[--dur-fast] hover:opacity-85"
+      aria-label="WorkFlow PH — home"
+    >
+      <Wordmark class="h-6 w-auto sm:h-7" />
+    </a>
 
-        <nav aria-label="Main" class="hidden lg:block">
-          <ul class="flex items-center gap-1" role="list">
-            {
-              nav.map((item) => (
-                <li>
-                  <a
-                    href={item.href}
-                    aria-current={isCurrent(item.href) ? 'page' : undefined}
-                    class:list={[
-                      'relative rounded-sm px-3 py-2 text-sm transition-colors duration-[--dur-fast]',
-                      isCurrent(item.href)
-                        ? 'text-flow'
-                        : 'text-ink-300 hover:text-ink-50',
-                    ]}
-                  >
-                    {item.label}
-                    {isCurrent(item.href) && (
-                      <span
-                        class="absolute inset-x-3 -bottom-0.5 h-px bg-flow"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul
+        class="flex items-center gap-1 rounded-full border border-ink-100/5 bg-ink-900/50 p-1"
+        role="list"
+      >
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+                class:list={[
+                  'relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8125rem] font-medium transition-all duration-[--dur-fast]',
+                  isCurrent(item.href)
+                    ? 'border border-ink-100/10 bg-ink-100/10 text-ink-50 shadow-sm'
+                    : 'text-ink-300 hover:bg-ink-100/5 hover:text-ink-50',
+                ]}
+              >
+                {item.label}
+                {isCurrent(item.href) && (
+                  <span
+                    class="inline-block size-1.5 rounded-full bg-gradient-to-r from-flow to-ember"
+                    aria-hidden="true"
+                  />
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
 
-        <div class="flex items-center gap-2">
-          <a
-            href="/join"
-            class="hidden rounded-[--radius-pill] bg-flow px-5 py-2.5 text-[0.8125rem] font-medium text-ink-950 transition-colors duration-[--dur-fast] hover:bg-flow-300 sm:inline-flex"
-          >
-            Join us
-          </a>
+    <div class="flex items-center gap-2">
+      <a
+        href="/join"
+        class="group hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-flow via-flow-300 to-ember-300 px-4.5 py-2 text-[0.8125rem] font-semibold text-ink-950 shadow-md shadow-flow/20 transition-all duration-[--dur-fast] hover:scale-[1.02] hover:shadow-ember/25 active:scale-[0.98] sm:inline-flex"
+      >
+        <span>Join us</span>
+        <Icon
+          name="lucide:arrow-up-right"
+          class="size-3.5 text-ink-950 transition-transform duration-[--dur-fast] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          aria-hidden="true"
+        />
+      </a>
 
-          <button
-            type="button"
-            class="-mr-2 inline-flex items-center justify-center rounded-sm p-2 text-ink-200 transition-colors hover:text-flow lg:hidden"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="mobile-nav"
-            data-menu-toggle
-          >
-            <Icon name="lucide:menu" class="size-6" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-    </Container>
+      <button
+        type="button"
+        class="inline-flex items-center justify-center rounded-full border border-ink-100/10 bg-ink-900/60 p-2 text-ink-200 transition-colors hover:border-flow/40 hover:text-flow lg:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-menu-toggle
+      >
+        <Icon name="lucide:menu" class="size-5" aria-hidden="true" />
+      </button>
+    </div>
   </div>
 </header>
 
@@ -93,11 +97,11 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
         <Wordmark class="h-6 w-auto" />
         <button
           type="button"
-          class="-mr-2 inline-flex items-center justify-center rounded-sm p-2 text-ink-200 hover:text-flow"
+          class="inline-flex items-center justify-center rounded-full border border-ink-100/10 bg-ink-900/60 p-2 text-ink-200 hover:text-flow"
           aria-label="Close menu"
           data-menu-close
         >
-          <Icon name="lucide:x" class="size-6" aria-hidden="true" />
+          <Icon name="lucide:x" class="size-5" aria-hidden="true" />
         </button>
       </div>
     </Container>
@@ -112,11 +116,16 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
                   href={item.href}
                   aria-current={isCurrent(item.href) ? 'page' : undefined}
                   class:list={[
-                    'block py-3 font-display text-[2rem] leading-none font-semibold tracking-tight transition-colors',
-                    isCurrent(item.href) ? 'text-flow' : 'text-ink-100 hover:text-flow',
+                    'flex items-center justify-between rounded-xl px-4 py-3 font-display text-[1.75rem] font-semibold tracking-tight transition-colors',
+                    isCurrent(item.href)
+                      ? 'bg-ink-900/80 text-flow'
+                      : 'text-ink-100 hover:bg-ink-900/50 hover:text-flow',
                   ]}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isCurrent(item.href) && (
+                    <span class="size-2 rounded-full bg-gradient-to-r from-flow to-ember" />
+                  )}
                 </a>
               </li>
             ))
@@ -125,9 +134,10 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
 
         <a
           href="/join"
-          class="mt-10 inline-flex w-full items-center justify-center rounded-[--radius-pill] bg-flow px-6 py-3.5 font-medium text-ink-950"
+          class="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-flow via-flow-300 to-ember-300 px-6 py-3.5 font-semibold text-ink-950 shadow-lg shadow-flow/20 transition-all hover:brightness-105 active:scale-[0.98]"
         >
-          Join us
+          <span>Join WorkFlow PH</span>
+          <Icon name="lucide:arrow-right" class="size-4" />
         </a>
       </nav>
     </Container>
@@ -144,11 +154,10 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
 
   if (header) {
     const onScroll = () => {
-      const scrolled = window.scrollY > 16;
-      header.classList.toggle('bg-ink-950/80', scrolled);
-      header.classList.toggle('backdrop-blur-xl', scrolled);
-      header.classList.toggle('border-ink-100/10', scrolled);
-      header.classList.toggle('border-transparent', !scrolled);
+      const scrolled = window.scrollY > 20;
+      header.classList.toggle('shadow-[0_12px_40px_rgba(0,0,0,0.7)]', scrolled);
+      header.classList.toggle('border-ink-100/20', scrolled);
+      header.classList.toggle('bg-ink-950/95', scrolled);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });

@@ -12,25 +12,31 @@ interface Props {
 const { class: className = '' } = Astro.props;
 ---
 
-<span class:list={['inline-flex items-center gap-2', className]}>
+<span class:list={['inline-flex items-center gap-2.5', className]}>
   <svg
     viewBox="0 0 24 24"
-    class="h-full w-auto shrink-0 text-flow"
+    class="h-full w-auto shrink-0"
     fill="none"
     aria-hidden="true"
   >
+    <defs>
+      <linearGradient id="wordmark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1ebda5" />
+        <stop offset="100%" stop-color="#e26a00" />
+      </linearGradient>
+    </defs>
     <path
       d="M3 6h4l3 12h4l3-12h4"
-      stroke="currentColor"
+      stroke="url(#wordmark-grad)"
       stroke-width="2.25"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
-    <circle cx="20.5" cy="6" r="2" fill="currentColor" />
+    <circle cx="20.5" cy="6" r="2" fill="#ffe046" />
   </svg>
   <span
     class="font-display text-[0.9375em] leading-none font-semibold tracking-[-0.02em] text-ink-50"
   >
-    WorkFlow<span class="text-flow"> PH</span>
+    WorkFlow<span class="bg-gradient-to-r from-flow to-ember bg-clip-text text-transparent"> PH</span>
   </span>
 </span>

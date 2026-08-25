@@ -27,11 +27,13 @@ const base =
   'group inline-flex items-center justify-center gap-2 rounded-[--radius-pill] font-medium transition-all duration-[--dur-fast] ease-[--ease-out-quart] whitespace-nowrap';
 
 const variants = {
-  primary: 'bg-flow text-ink-950 hover:bg-flow-300 active:bg-flow-600',
-  ember: 'bg-ember text-ink-950 hover:bg-ember-300 active:bg-ember-600',
+  primary:
+    'bg-gradient-to-r from-flow via-flow-300 to-ember-300 text-ink-950 font-semibold shadow-md shadow-flow/20 hover:shadow-ember/25 hover:scale-[1.02] active:scale-[0.98]',
+  ember:
+    'bg-ember text-ink-950 font-semibold shadow-md shadow-ember/20 hover:bg-ember-300 hover:scale-[1.02] active:scale-[0.98]',
   secondary:
-    'border border-ink-100/15 bg-ink-100/[0.03] text-ink-100 hover:border-flow/50 hover:bg-flow/10 hover:text-flow-100',
-  ghost: 'text-ink-300 hover:text-flow',
+    'border border-ink-100/15 bg-ink-900/50 text-ink-100 backdrop-blur-sm hover:border-flow/40 hover:bg-flow/10 hover:text-ink-50 active:scale-[0.98]',
+  ghost: 'text-ink-300 hover:text-ink-50 hover:bg-ink-100/5',
 };
 
 const sizes = {
