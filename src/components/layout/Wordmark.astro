@@ -8,8 +8,10 @@
  */
 interface Props {
   class?: string;
+  id?: string;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', id = Math.random().toString(36).slice(2, 9) } = Astro.props;
+const gradId = `wordmark-grad-${id}`;
 ---
 
 <span class:list={['inline-flex items-center gap-2.5', className]}>
@@ -20,14 +22,14 @@ const { class: className = '' } = Astro.props;
     aria-hidden="true"
   >
     <defs>
-      <linearGradient id="wordmark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="#1ebda5" />
         <stop offset="100%" stop-color="#e26a00" />
       </linearGradient>
     </defs>
     <path
       d="M3 6h4l3 12h4l3-12h4"
-      stroke="url(#wordmark-grad)"
+      stroke={`url(#${gradId})`}
       stroke-width="2.25"
       stroke-linecap="round"
       stroke-linejoin="round"

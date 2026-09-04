@@ -1,0 +1,261 @@
+================================================================================
+ WorkFlow PH — UX Leak Audit Report
+ Audit date: 2026-09-04
+ Site: workflowph.org (static Astro 7.2.4 build)
+ Pages: Home → Showcase(Portfolio) → Builds → People → About → Partners → Join
+        → Press-kit → 404
+================================================================================
+
+AUDIT METHODOLOGY & SCOPE
+-------------------------
+This is a static Astro site with no real media assets shipped yet (all images
+resolve to designed PosterCard fallbacks and typographic wordmarks by design —
+that fallback system works correctly). The audit covered the source and the
+production build output. No real browser/Lighthouse was available in this
+environment, so console errors and live network timing were reasoned from the
+generated scripts (which are minimal). Findings are concrete and verifiable
+from the code/build.
+
+Checks performed:
+  ✓ Pages build/load (10 static routes generated in ~1.5s)
+  ✓ Internal links (all resolve — no 404s)
+  ✓ /events redirect → /showcase
+  ✓ Mobile menu (focus trap, Escape, aria-expanded)
+  ✓ Semantic HTML, headings (one h1 per page), alt-text schema
+  ✓ Color contrast (measured ratios)
+  ✓ Content accuracy/placeholder copy in production output
+  ✓ Brand consistency (tokens, theme-color, SVG ids)
+  ✓ No forms exist (contact flows are mailto: only)
+
+--------------------------------------------------------------------------------
+FINDINGS
+--------------------------------------------------------------------------------
+
+[Content] — Published showcase page shows literal DRAFT-COPY placeholder body
+- Severity: High
+- Location: /showcase/aws-community-day-ph-2026
+- Environment: All browsers/devices
+- Issue: The event is `draft: false` (published) yet the MDX body still renders
+  the visible warning blockquote "DRAFT COPY — verify before publishing. Date,
+  venue, and attendance are placeholders...", plus authoring instructions
+  ("Replace this paragraph with what the room actually took away"). Venue is
+  `TBC` and the attendee stat is `TBC`. A prospective partner/sponsor reads
+  unfinished copy on a "proof surface."
+- Reproduce: Open the AWS Community Day showcase detail page; read the intro prose.
+- Fix: Finish the recap copy, fill venue/stats, remove the DRAFT blockquote, or
+  keep `draft: true` until real.
+  File: src/content/showcase/aws-community-day-ph-2026.mdx (lines 11, 29, 32-34, 40)
+- Tags: content, accuracy
+
+[Content] — "Example archive event" placeholder published to live showcase
+- Severity: High
+- Location: /showcase#archive
+- Environment: All
+- Issue: `_example-archive-row.mdx` ships with `draft: false`, so the live
+  archive lists a row titled "Example archive event" (series "Community
+  Workshop", "This is what an archive-tier event looks like"). Placeholder/seed
+  content is on the public site.
+- Reproduce: Open the Showcase page, scroll to "Full event history."
+- Fix: Set the example to `draft: true` or delete it.
+  File: src/content/showcase/_example-archive-row.mdx (line 13)
+- Tags: content, placeholder
+
+[Content] — Homepage contradicts itself: "2 events on record" vs "20+ events run"
+- Severity: High
+- Location: Homepage hero + ImpactBar
+- Environment: All
+- Issue: Hero meta says `2 events on record` (computed from published
+  collection) while the impact bar immediately below shows `20+ Events run`
+  (hardcoded stat). Two conflicting numbers about the same thing on one screen
+  undermines trust with the national-org positioning.
+- Reproduce: Open homepage; compare hero footer line to the first impact stat.
+- Fix: Derive the stat from the collection (as the hero already does) or align
+  the copy.
+  Files: src/components/blocks/Hero.astro (line 63) vs src/content/stats.json (line 5)
+- Tags: content, consistency
+
+[Content] — Home "What we've shipped" section shows only *Planned* (unshipped) builds
+- Severity: Medium
+- Location: Homepage "Not just events" / /builds
+- Environment: All
+- Issue: Header copy "Not just events" / "What we've shipped" and all 3 featured
+  cards render the badge "Planned". All builds are `status: "planned"` with no
+  URL. A visitor sees "shipped work" that is entirely announced-but-not-released,
+  which reads as overstated.
+- Reproduce: Open homepage builds section.
+- Fix: Publish at least one real build or soften the section language; don't
+  feature planned items as shipped.
+  Files: src/pages/index.astro (line 49), src/content/builds.json
+- Tags: content, accuracy
+
+[Content] — "Volunteers" impact stat is a visible em-dash placeholder
+- Severity: Medium
+- Location: Homepage + About ImpactBar
+- Environment: All
+- Issue: The fourth stat renders `—` for "Volunteers" with an asOf date, and
+  stats.json source fields literally say `PLACEHOLDER`. Mid row of a 4-stat bar,
+  one cell is empty-looking.
+- Reproduce: Open homepage impact bar.
+- Fix: Fill the volunteer headcount (WF-C1) or replace the stat with a real
+  number; hide until sourced.
+  File: src/content/stats.json (lines 29-31)
+- Tags: content, completeness
+
+[Content] — "Press kit" page is placeholder + non-downloadable CTA
+- Severity: Medium
+- Location: /press-kit and /partners → "Download the press kit"
+- Environment: All
+- Issue: Press-kit body reads "Pending (WF-A4). The official WorkFlow PH mark
+  needs to land as SVG..." and contains no downloadable files (only the favicon
+  SVG is linked), yet the Partners page CTA says "Download the press kit." A
+  media/press user clicking Download gets no file.
+- Reproduce: Go to /partners#partner-with-us → click "Download the press kit".
+- Fix: Either ship real downloadable assets (logo SVG/png, zip) or change the
+  CTA to "View the press kit" and hide the Pending block.
+  Files: src/pages/press-kit.astro (lines 80-95), src/pages/partners.astro (line 107)
+- Tags: content, functionality, misleading-cta
+
+--------------------------------------------------------------------------------
+
+[Accessibility] — Low-contrast meta/label text fails WCAG AA
+- Severity: Medium
+- Location: Footer, ImpactBar "as of" dates, hero meta, all group counters,
+  archive dates, person card org, press-kit notes, partners reply line
+- Environment: All
+- Issue: Measured on `--color-ink-950` (#08090b):
+  - `text-ink-500` (#576273) = 3.22:1 — fails 4.5:1 AA for the small
+    (0.6875-0.8125rem) text it's applied to (footer "Volunteer-run" bar,
+    press-kit notes, hero "1,500+ builders", archive dates/counts, person org).
+  - `text-ink-600` (#3b4451) = 2.02:1 — fails badly; used for ImpactBar "as of"
+    dates, type arrow icons, partner reply line, showcase-card separator dot.
+- Reproduce: Inspect any of the listed small text with a contrast checker.
+- Fix: Bump body-adjacent labels to at least `ink-400` (6.24:1); reserve
+  `ink-500/600` for purely decorative/non-informative elements.
+- Tags: accessibility, contrast
+
+--------------------------------------------------------------------------------
+
+[Performance] — Missing Open Graph image breaks every link preview / social share
+- Severity: High
+- Location: All pages (head)
+- Environment: Facebook, LinkedIn, Twitter/X, Slack, WhatsApp
+- Issue: Every page emits
+  `<meta property="og:image" content="https://workflowph.org/og/default.png">`
+  (+1200x630), but `public/og/default.png` does not exist (only `favicon.svg`
+  ships in `public/`). Any social share or link preview hits a 404, so the site
+  renders with a broken/missing card image — a significant brand-impression leak
+  given the org's "national org" goal.
+- Reproduce: Share any URL (e.g., homepage), or inspect: `ls public/og/` → missing.
+- Fix: Generate and commit a 1200x630 default OG image at
+  `public/og/default.png` (image asset task), then verify the HTTP status.
+  Files: src/layouts/Base.astro (lines 24, 31)
+- Tags: performance, seo, social-proof
+
+[Performance] — Progressive image pipeline not exercised (0 real photos shipped)
+- Severity: Low (informational)
+- Location: Portfolio/showcase, people, partners, gallery
+- Environment: All
+- Issue: No event photos, headshots, logos, or hero/card images exist in the
+  repo, so all `media.src` references fall through to PosterCard/typographic
+  fallbacks. The built pages contain zero `<img>`/srcset — a high-profile
+  visual-proof site currently ships no imagery. The fallback system works (no
+  broken/grey boxes), but the intended photography-led design is not yet live.
+- Reproduce: `grep -c '<img' dist/**/*.html` → 0 on content pages.
+- Fix: Complete the Asset Kit (WF-A1) and migrate `media` paths; keep the
+  fallback chain.
+  Files: src/components/media/Frame.astro, docs/03-asset-playbook.md
+- Tags: performance, imagery, content
+
+[Performance] — Heavy self-hosted webfont payload (3 variable families, 17 woff2 files)
+- Severity: Low (optimization)
+- Location: All pages
+- Issue: Bricolage Grotesque, Inter, and JetBrains Mono variable fonts ship ~17
+  `_astro/*.woff2` files (incl. cyrillic/greek/vietnamese subsets that the en-PH
+  content never uses). Blocking display-headline fonts can delay FCP/LCP on slow
+  PH mobile connections.
+- Reproduce: Inspect `dist/_astro/*.woff2` payload.
+- Fix: Restrict `@fontsource` subsets to `latin` (and `latin-ext`) to cut
+  payload; add `font-display: swap` for body, keep display font critical.
+  File: src/layouts/Base.astro (lines 2-4)
+- Tags: performance, optimization
+
+--------------------------------------------------------------------------------
+
+[Functionality] — Contact/volunteer flows rely solely on `mailto:` (no form, no success feedback)
+- Severity: Low (by design, but a UX gap)
+- Location: Footer, `join`, `partners`, `press-kit`, CTA blocks
+- Environment: All
+- Issue: There are no forms at all — every "contact" path is a `mailto:` link.
+  On mobile this opens the mail app mid-task with a pre-filled subject; there's
+  no in-page form or confirmation, so users with no configured mail client get an
+  error with zero fallback. The audit guide's "Form submissions / success
+  feedback" check cannot pass.
+- Reproduce: Tap "Email us to get started" / footer email on a device with no
+  mail app configured.
+- Fix: Add a lightweight contact form (or at least a WhatsApp/Facebook messenger
+  fallback) with client-side validation and a success state; keep `mailto:` as
+  secondary.
+- Tags: functionality, contact, form
+
+[Functionality] — No console errors detected in shipped JS; logic verified sound
+- Severity: Info (PASS)
+- Issue: The only inline scripts are the Header mobile drawer (focus trap,
+  Escape, aria-expanded) and the Gallery lightbox (native `<dialog>`, arrow keys,
+  backdrop click, focus return). Reviewed in build output: no reference/null
+  errors, IDs match, no `undefined` access. Passed.
+- Tags: functionality
+
+--------------------------------------------------------------------------------
+
+[Mobile / Responsive] — PASS on structure (no layout-break defects found)
+- Verified: header condenses on scroll; mobile drawer (full-screen dialog) has
+  focus trap + Escape + aria-expanded; `lg:hidden` breakpoints are consistent;
+  hamburger shows <lg; CTA uses `flex-wrap`; grids collapse
+  1col->2col->3/4col; fluid `clamp()` type; `min-h-dvh` for hero;
+  `overflow-x: clip` prevents horizontal scroll.
+
+[Mobile] — Hamburger touch target ~40x40px under the 44px AA recommendation
+- Severity: Low
+- Location: Header (mobile)
+- Issue: The menu toggle is `p-2` with `size-5` icon ≈ 36-40px, below the ~44px
+  minimum comfortable touch target.
+- Fix: Increase padding to reach >=44px.
+  File: src/components/layout/Header.astro (line 71)
+- Tags: mobile, touch-target
+
+--------------------------------------------------------------------------------
+SUMMARY / PRIORITIZATION
+--------------------------------------------------------------------------------
+
+Critical (fix first, 24h): None that take the site fully down — but treat the
+missing OG image as high-priority since it breaks every social share preview.
+Recommended: grade it High + immediate.
+
+High (1 week):
+  1. Published showcase page leaking DRAFT-COPY body (aws-community-day-ph-2026) — Content
+  2. "Example archive event" placeholder published — Content
+  3. Missing Open Graph image -> broken social cards — Performance/SEO
+  4. Homepage "2 events on record" vs "20+ events run" contradiction — Content
+
+Medium (next sprint):
+  5. "What we've shipped" section != planned-only builds — Content
+  6. Volunteer stat "—" placeholder — Content
+  7. Press-kit Pending block + non-downloadable "Download the press kit" CTA — Content/Functionality
+  8. Low-contrast ink-500/ink-600 text (AA failures) — Accessibility
+  9. Contact/volunteer flow has no form/success feedback — Functionality
+
+Low (backlog):
+  10. font subset optimization
+  11. hamburger touch target
+  12. real imagery not yet shipped
+  13. "2026-2026" year-range copy
+
+NOTE: The site is structurally and semantically strong (skip-link, focus styles,
+aria-current, reduced-motion kill switch, dialog focus traps, alt-text schema
+enforcement all passed). The dominant leaks are content accuracy/placeholder
+copy shipping to production, missing brand/share assets, and small-text color
+contrast.
+
+================================================================================
+ END OF REPORT
+================================================================================

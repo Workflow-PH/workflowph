@@ -74,9 +74,12 @@ const milestones = await getMilestones();
               class="absolute top-1.5 -left-[2.1rem] size-2.5 rounded-full border-2 border-ink-950 bg-flow"
               aria-hidden="true"
             />
-            <p class="font-mono text-[0.6875rem] tracking-[0.14em] text-ember-300 uppercase">
+            <time
+              datetime={m.data.date === 'TBC' ? undefined : new Date(m.data.date).toISOString().split('T')[0]}
+              class="block font-mono text-[0.6875rem] tracking-[0.14em] text-ember-300 uppercase"
+            >
               {m.data.date}
-            </p>
+            </time>
             <h3 class="mt-2 text-[length:var(--text-h3)]">{m.data.title}</h3>
             <p class="mt-2 leading-relaxed text-ink-400">{m.data.body}</p>
           </li>
