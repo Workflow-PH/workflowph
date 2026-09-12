@@ -9,22 +9,28 @@
    ========================================================================== */
 
 @theme {
-  /* --- Canvas (Warm Obsidian) ---------------------------------------------
-     Near-black rather than pure black: warm dark graphite undertone lifts
-     photography while letting warm brand ember (#e26a00) and solar beam (#ffe046)
-     shine alongside blue-green (#1ebda5). */
-  --color-ink-950: #08090b;
-  --color-ink-900: #0e1115;
-  --color-ink-850: #14181e;
-  --color-ink-800: #1a2027;
-  --color-ink-700: #262d37;
-  --color-ink-600: #3b4451;
-  --color-ink-500: #576273;
-  --color-ink-400: #8591a3;
-  --color-ink-300: #b0bac8;
-  --color-ink-200: #d4dbe4;
-  --color-ink-100: #edf0f5;
-  --color-ink-50: #f8fafc;
+  /* --- Canvas (RetroOS Silver) ---------------------------------------------
+     retro-style experiment: the ink ramp keeps its semantics (950 = surface,
+     50 = strongest text) but flips from near-black to Win98 silver, so every
+     component reskins without touching its markup. The page sits on a teal
+     "desktop" (see body) and content lives in bevelled windows. */
+  --color-ink-950: #c0c0c0;
+  --color-ink-900: #cdcdcd;
+  --color-ink-850: #d7d7d7;
+  --color-ink-800: #e2e2e2;
+  --color-ink-700: #9a9a9a;
+  --color-ink-600: #6d6d6d;
+  --color-ink-500: #5c5c5c;
+  --color-ink-400: #454545;
+  --color-ink-300: #2c2c2c;
+  --color-ink-200: #191919;
+  --color-ink-100: #0d0d0d;
+  --color-ink-50: #000000;
+
+  /* Desktop + chrome */
+  --color-desktop: #0b7f74;
+  --color-navy: #000080;
+  --color-navy-300: #1084d0;
 
   /* ==========================================================================
      BRAND PALETTE
@@ -33,55 +39,47 @@
      separation is what stops the page turning into confetti.
      ========================================================================== */
 
-  /* --- flow · blue-green #1ebda5 — PRIMARY ACCENT -------------------------
-     Every interactive thing. Links, focus rings, primary buttons, active nav,
-     rules, community pipelines. 8.5:1 on canvas (passes AAA). */
-  --color-flow-100: #a8efe2;
-  --color-flow-300: #4fd6c1; /* hover */
-  --color-flow: #1ebda5; /* BRAND */
-  --color-flow-600: #159683; /* pressed */
-  --color-flow-900: #09332d; /* tinted surface */
+  /* --- flow — PRIMARY ACCENT, darkened for the light silver surface -------- */
+  --color-flow-100: #dff5f0; /* tinted surface */
+  --color-flow-300: #009a84; /* hover */
+  --color-flow: #00705f; /* interactive text on silver, 4.9:1 */
+  --color-flow-600: #005447; /* pressed */
+  --color-flow-900: #dff5f0; /* tinted surface (was dark tint) */
 
-  /* --- ember · orange #e26a00 — SECONDARY ACCENT --------------------------
-     Classification, partner highlights, category badges, energetic accents.
-     6.0:1 on canvas (passes AA). Forms the signature dual-complement with flow. */
-  --color-ember-100: #ffd5a6;
-  --color-ember-300: #ff9431; /* hover & small metadata */
-  --color-ember: #e26a00; /* BRAND */
-  --color-ember-600: #b15200; /* pressed */
-  --color-ember-900: #3a1a00; /* tinted surface */
+  /* --- ember — SECONDARY ACCENT, darkened for silver ----------------------- */
+  --color-ember-100: #ffe4c4;
+  --color-ember-300: #8a4200; /* small metadata on silver */
+  --color-ember: #a04d00;
+  --color-ember-600: #7a3a00; /* pressed */
+  --color-ember-900: #ffe9d1; /* tinted surface */
 
-  /* --- beam · yellow #ffe046 — HIGHLIGHT, RATIONED ------------------------
-     15.3:1 on canvas. Maximum radiance — reserved strictly for sponsor-facing
-     impact numbers and the live/upcoming pulse dot. Keep under ~1% of pixels. */
-  --color-beam-100: #fff4b3;
-  --color-beam-300: #ffea70;
-  --color-beam: #ffe046; /* BRAND */
-  --color-beam-600: #c9a800;
-  --color-beam-900: #383000;
+  /* --- beam — sponsor-facing impact numbers become title-bar navy ---------- */
+  --color-beam-100: #d6e4ff;
+  --color-beam-300: #1084d0;
+  --color-beam: #000080;
+  --color-beam-600: #00005a;
+  --color-beam-900: #dbe7ff;
 
-  /* --- white #ffffff — DISPLAY TYPE ONLY ----------------------------------
-     Reserved for h1, hero typography, and display headlines. Body uses ink-200. */
-  --color-brand-white: #ffffff;
+  /* Display type is solid black on the retro canvas. */
+  --color-brand-white: #000000;
 
-  /* --- ruby #f43f5e — SEMANTIC COMPLEMENT (DESTRUCTIVE / ERROR) -----------
-     Warm crimson rose. Sits cleanly alongside brand ember without colliding. */
-  --color-ruby-100: #fecdd3;
-  --color-ruby: #f43f5e;
-  --color-ruby-900: #4c0519;
+  /* --- ruby — SEMANTIC (DESTRUCTIVE / ERROR) ------------------------------- */
+  --color-ruby-100: #7a0f24;
+  --color-ruby: #c81e3c;
+  --color-ruby-900: #ffdee3;
 
-  /* --- Type -------------------------------------------------------------- */
-  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  /* --- Type — system stacks only, like it's 1998 --------------------------- */
+  --font-display: Tahoma, 'MS Sans Serif', Geneva, Verdana, sans-serif;
+  --font-sans: Tahoma, 'MS Sans Serif', Geneva, Verdana, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
 
-  /* Fluid scale. clamp() so we never ship a media-query staircase. */
-  --text-hero: clamp(2.5rem, 8.5vw, 7rem);
-  --text-display: clamp(2rem, 5.5vw, 4.25rem);
-  --text-h1: clamp(1.875rem, 4vw, 3rem);
-  --text-h2: clamp(1.5rem, 2.6vw, 2.125rem);
-  --text-h3: clamp(1.125rem, 1.6vw, 1.375rem);
-  --text-lead: clamp(1.0625rem, 1.5vw, 1.375rem);
+  /* Fluid scale, pulled down: pixel-era type is smaller and denser. */
+  --text-hero: clamp(2rem, 5.5vw, 4rem);
+  --text-display: clamp(1.5rem, 3.5vw, 2.5rem);
+  --text-h1: clamp(1.5rem, 3vw, 2.25rem);
+  --text-h2: clamp(1.25rem, 2.2vw, 1.75rem);
+  --text-h3: clamp(1.0625rem, 1.4vw, 1.25rem);
+  --text-lead: clamp(1rem, 1.3vw, 1.1875rem);
   --text-kicker: 0.6875rem;
   --text-meta: 0.75rem;
 
@@ -92,9 +90,9 @@
   --dur-base: 340ms;
   --dur-slow: 700ms;
 
-  /* --- Shape ------------------------------------------------------------- */
-  --radius-card: 0.375rem;
-  --radius-pill: 999px;
+  /* --- Shape — nothing is rounded in 1998 ---------------------------------- */
+  --radius-card: 0;
+  --radius-pill: 0;
 
   /* --- Layout ------------------------------------------------------------ */
   --spacing-gutter: 1.25rem;
@@ -108,10 +106,11 @@
 @layer base {
   :root {
     color-scheme: dark;
+    /* Scrims sit over photos, so they stay dark regardless of the canvas. */
     --scrim: linear-gradient(
       to top,
-      color-mix(in oklab, var(--color-ink-950) 92%, transparent) 0%,
-      color-mix(in oklab, var(--color-ink-950) 62%, transparent) 38%,
+      rgb(8 9 11 / 0.92) 0%,
+      rgb(8 9 11 / 0.62) 38%,
       transparent 78%
     );
   }
@@ -126,24 +125,23 @@
   }
 
   body {
-    background-color: var(--color-ink-950);
+    /* The teal "desktop". Windows (bevelled silver panels) sit on top. */
+    background-color: var(--color-desktop);
     color: var(--color-ink-200);
     font-family: var(--font-sans);
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: none;
     overflow-x: clip;
   }
 
-  /* Grain overlay. The single highest-leverage trick for making photos from
-     many different phones and cameras look like one cohesive set. */
+  /* Grain overlay, kept from the previous system: on the retro canvas it
+     reads as CRT noise and unifies photos the same way. */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     z-index: 9999;
     pointer-events: none;
-    opacity: 0.035;
+    opacity: 0.05;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
@@ -153,9 +151,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.15;
     color: var(--color-ink-50);
     text-wrap: balance;
   }
@@ -165,25 +163,24 @@
   }
 
   ::selection {
-    background: var(--color-flow);
-    color: var(--color-ink-950);
+    background: var(--color-navy);
+    color: #ffffff;
   }
 
+  /* The authentic Win98 focus ring: a one-pixel dotted rectangle. */
   :focus-visible {
-    outline: 2px solid var(--color-flow);
-    outline-offset: 3px;
-    border-radius: 2px;
+    outline: 1px dotted var(--color-ink-50);
+    outline-offset: 2px;
   }
 
-  /* Never rely on the default outline being visible on a dark canvas. */
   a,
   button {
     &:focus {
       outline: none;
     }
     &:focus-visible {
-      outline: 2px solid var(--color-flow);
-      outline-offset: 3px;
+      outline: 1px dotted var(--color-ink-50);
+      outline-offset: 2px;
     }
   }
 
@@ -219,7 +216,38 @@
 }
 
 @utility hairline {
-  border-color: color-mix(in oklab, var(--color-ink-100) 10%, transparent);
+  border-color: var(--color-ink-700);
+}
+
+/* --- Win98 chrome ---------------------------------------------------------
+   bevel-out: raised control/window. bevel-in: sunken well. bevel-btn adds the
+   pressed state. titlebar: the navy-to-blue gradient with white text. */
+
+@utility bevel-out {
+  border: 2px solid;
+  border-color: #ffffff var(--color-ink-600) var(--color-ink-600) #ffffff;
+}
+
+@utility bevel-in {
+  border: 2px solid;
+  border-color: var(--color-ink-600) #ffffff #ffffff var(--color-ink-600);
+}
+
+@utility bevel-btn {
+  border: 2px solid;
+  border-color: #ffffff var(--color-ink-600) var(--color-ink-600) #ffffff;
+  &:active {
+    border-color: var(--color-ink-600) #ffffff #ffffff var(--color-ink-600);
+  }
+}
+
+@utility win-shadow {
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 0.45);
+}
+
+@utility titlebar {
+  background-image: linear-gradient(90deg, var(--color-navy), var(--color-navy-300));
+  color: #ffffff;
 }
 
 /* Edge-to-edge fade used on logo walls and horizontal scrollers. */
@@ -239,18 +267,17 @@
   );
 }
 
+/* Soft glows read as 2015; hard offset shadows read as 1998. */
 @utility glow-flow {
-  box-shadow: 0 0 28px -4px color-mix(in oklab, var(--color-flow) 30%, transparent);
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 0.45);
 }
 
 @utility glow-ember {
-  box-shadow: 0 0 28px -4px color-mix(in oklab, var(--color-ember) 30%, transparent);
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 0.45);
 }
 
 @utility glow-brand {
-  box-shadow:
-    0 0 24px -4px color-mix(in oklab, var(--color-flow) 25%, transparent),
-    0 0 24px -4px color-mix(in oklab, var(--color-ember) 25%, transparent);
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 0.45);
 }
 
 /* ==========================================================================
