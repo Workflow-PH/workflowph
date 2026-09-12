@@ -13,9 +13,11 @@ const secondary = [
 ];
 ---
 
-<footer class="hairline relative mt-8 border-t">
+<!-- retro-style: the footer is one more window, with a status-bar strip. -->
+<footer class="relative py-4 sm:py-6">
   <Container>
-    <div class="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:py-20">
+    <div class="bevel-out win-shadow bg-ink-950 p-5 sm:p-8">
+    <div class="grid gap-12 py-4 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
       <div class="flex flex-col gap-5">
         <Wordmark class="h-7 w-auto" instance="footer" />
         <p class="max-w-xs text-sm leading-relaxed text-ink-400">
@@ -29,7 +31,7 @@ const secondary = [
                   href={s.url}
                   rel="noopener noreferrer"
                   target="_blank"
-                  class="hairline inline-flex size-9 items-center justify-center rounded-[--radius-pill] border text-ink-400 transition-colors duration-[--dur-fast] hover:border-flow/50 hover:text-flow"
+                  class="bevel-btn inline-flex size-9 items-center justify-center bg-ink-950 text-ink-400 hover:bg-ink-900 hover:text-flow"
                   aria-label={`WorkFlow PH on ${s.label}`}
                 >
                   <Icon name={s.icon} class="size-4" aria-hidden="true" />
@@ -90,13 +92,11 @@ const secondary = [
       </div>
     </div>
 
-    <div
-      class="hairline flex flex-col gap-3 border-t py-6 font-mono text-[0.6875rem] tracking-wide text-ink-500 sm:flex-row sm:items-center sm:justify-between"
-    >
-      <p>© {year} WorkFlow PH. Volunteer-run.</p>
-      <p>
-        Built by WorkFlow PH volunteers. Photos credited to the community.
-      </p>
+    <div class="flex flex-col gap-2 font-mono text-[0.6875rem] tracking-wide text-ink-500 sm:flex-row sm:items-stretch sm:gap-1">
+      <p class="bevel-in flex-1 px-2 py-1">© {year} WorkFlow PH. Volunteer-run.</p>
+      <p class="bevel-in px-2 py-1">Built by volunteers. Photos credited to the community.</p>
+      <p class="bevel-in px-2 py-1" aria-hidden="true">56K · Connected</p>
+    </div>
     </div>
   </Container>
 </footer>

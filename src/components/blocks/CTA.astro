@@ -1,22 +1,19 @@
 ---
 import Container from '../primitives/Container.astro';
 import Button from '../primitives/Button.astro';
-import FlowMesh from '../media/FlowMesh.astro';
+import Window from '../primitives/Window.astro';
 import { site } from '../../lib/site';
+
+/** retro-style: the closing CTA is a two-pane dialog window. */
 ---
 
-<section class="relative isolate overflow-hidden py-20 sm:py-28">
-  <FlowMesh intensity={0.55} />
-  {/* Signature brand wash: ember under the partner half, flow under the
-      builder half. Reinforces the split without adding any UI. */}
-  <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_120%_at_20%_120%,color-mix(in_oklab,var(--color-ember)_10%,transparent),transparent_60%),radial-gradient(70%_120%_at_80%_120%,color-mix(in_oklab,var(--color-flow)_10%,transparent),transparent_60%)]"
-    aria-hidden="true"
-  >
-  </div>
-
-  <Container class="relative">
-    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+<section class="py-4 sm:py-6">
+  <Container>
+    <Window
+      caption="Get involved"
+      controls={false}
+      bodyClass="grid gap-10 p-5 sm:p-8 lg:grid-cols-2 lg:gap-16 lg:p-10"
+    >
       <div class="hairline flex flex-col gap-4 lg:border-r lg:pr-16" data-reveal>
         <p class="kicker flex items-center gap-3">
           <span class="inline-block h-px w-8 bg-ember" aria-hidden="true"></span>
@@ -49,7 +46,7 @@ import { site } from '../../lib/site';
         <h2 class="text-[length:var(--text-h2)]">Volunteer with us</h2>
         <p class="max-w-md leading-relaxed text-ink-300">
           Everything here was built by volunteers. If you want to run events,
-          write automations, design, or shoot photos for the community — there's
+          write automations, design, or shoot photos for the community, there's
           room.
         </p>
         <div class="mt-2">
@@ -58,6 +55,6 @@ import { site } from '../../lib/site';
           </Button>
         </div>
       </div>
-    </div>
+    </Window>
   </Container>
 </section>

@@ -1,5 +1,6 @@
 ---
 import Container from './Container.astro';
+import Window from './Window.astro';
 
 interface Props {
   id?: string;
@@ -27,47 +28,47 @@ const {
 } = Astro.props;
 
 const headingId = id ? `${id}-title` : undefined;
+
+/* retro-style: every section is a window on the desktop. The kicker becomes
+   the title-bar caption; the fake window controls are decorative. */
+const caption = kicker ?? title ?? 'WorkFlow PH';
 ---
 
 <section
   id={id}
   aria-labelledby={labelledby ?? (title ? headingId : undefined)}
-  class:list={['py-16 sm:py-24 lg:py-32', className]}
+  class:list={['py-4 sm:py-6', className]}
 >
   <Container width={bleed ? 'wide' : width}>
-    {
-      (kicker || title || lead) && (
-        <header
-          class:list={[
-            'mb-10 flex flex-col gap-4 sm:mb-14',
-            align === 'center' && 'items-center text-center',
-          ]}
-          data-reveal
-        >
-          {kicker && <p class="kicker">{kicker}</p>}
-          {
-            title && (
-              <h2 id={headingId} class="text-[length:var(--text-display)]">
-                {title}
-              </h2>
-            )
-          }
-          {
-            lead && (
-              <p
-                class:list={[
-                  'text-[length:var(--text-lead)] leading-relaxed text-ink-300',
-                  align === 'center' ? 'max-w-2xl' : 'max-w-2xl',
-                ]}
-              >
-                {lead}
-              </p>
-            )
-          }
-          <slot name="header-aside" />
-        </header>
-      )
-    }
-    <slot />
+    <Window caption={caption} bodyClass="p-5 sm:p-8 lg:p-10">
+        {
+          (title || lead) && (
+            <header
+              class:list={[
+                'mb-8 flex flex-col gap-3 sm:mb-10',
+                align === 'center' && 'items-center text-center',
+              ]}
+              data-reveal
+            >
+              {
+                title && (
+                  <h2 id={headingId} class="text-[length:var(--text-display)]">
+                    {title}
+                  </h2>
+                )
+              }
+              {
+                lead && (
+                  <p class="max-w-2xl text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+                    {lead}
+                  </p>
+                )
+              }
+              <slot name="header-aside" />
+            </header>
+          )
+        }
+        <slot />
+    </Window>
   </Container>
 </section>

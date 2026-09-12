@@ -1,0 +1,37 @@
+---
+/**
+ * retro-style: a Win98 window. Bevelled silver panel with a navy title bar and
+ * decorative window controls. Every content surface on the site is one of
+ * these, sitting on the teal desktop.
+ */
+interface Props {
+  /** Title-bar caption. */
+  caption: string;
+  /** Render the decorative _ □ × controls. */
+  controls?: boolean;
+  class?: string;
+  /** Padding etc. for the window body. */
+  bodyClass?: string;
+}
+const { caption, controls = true, class: className = '', bodyClass = '' } = Astro.props;
+---
+
+<div class:list={['bevel-out win-shadow bg-ink-950', className]}>
+  <div class="titlebar flex items-center justify-between gap-3 px-2 py-1">
+    <span class="truncate font-display text-[0.8125rem] font-bold">{caption}</span>
+    {
+      controls && (
+        <span class="flex items-center gap-0.5" aria-hidden="true">
+          {['_', '\u25a1', '\u00d7'].map((glyph) => (
+            <span class="bevel-out flex size-4.5 items-center justify-center bg-ink-950 font-mono text-[0.625rem] leading-none font-bold text-ink-50">
+              {glyph}
+            </span>
+          ))}
+        </span>
+      )
+    }
+  </div>
+  <div class:list={[bodyClass]}>
+    <slot />
+  </div>
+</div>

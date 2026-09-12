@@ -1,9 +1,13 @@
 ---
 import Container from '../primitives/Container.astro';
 import Button from '../primitives/Button.astro';
-import FlowMesh from '../media/FlowMesh.astro';
+import Window from '../primitives/Window.astro';
 import { site } from '../../lib/site';
 
+/**
+ * retro-style: the full-viewport mesh hero becomes a welcome dialog sitting on
+ * the desktop, like a Win98 first-boot screen.
+ */
 interface Props {
   /** Sponsor-facing "events run" figure, sourced from the stats collection so
    *  the hero and the impact bar can never disagree. */
@@ -12,72 +16,42 @@ interface Props {
 const { eventsRun } = Astro.props;
 ---
 
-<section class="relative isolate flex min-h-[88svh] items-end overflow-hidden pt-24 pb-16 lg:min-h-[92svh] lg:pb-24">
-  <!-- Layer 1: node mesh with multi-color pulses. -->
-  <FlowMesh class="opacity-95" intensity={1} />
+<section class="pt-10 pb-4 sm:pt-16 sm:pb-6">
+  <Container>
+    <Window
+      caption="Welcome — WorkFlow PH"
+      class="mx-auto max-w-3xl"
+      bodyClass="flex flex-col gap-6 p-6 sm:p-10"
+    >
+        <p class="kicker">Volunteer-run · Philippines</p>
 
-  <!-- Layer 2: Ambient brand glow (Teal + Orange complementary harmony) -->
-  <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_15%_25%,color-mix(in_oklab,var(--color-flow)_14%,transparent),transparent_70%),radial-gradient(ellipse_55%_45%_at_85%_65%,color-mix(in_oklab,var(--color-ember)_11%,transparent),transparent_70%)]"
-    aria-hidden="true"
-  >
-  </div>
+        <h1 class="max-w-[22ch] text-[length:var(--text-hero)] text-brand-white">
+          Building the automation landscape of the Philippines.
+        </h1>
 
-  <!-- Layer 3: vignette so the headline always has crisp contrast. -->
-  <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,transparent,var(--color-ink-950)_75%)]"
-    aria-hidden="true"
-  >
-  </div>
-  <div
-    class="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 to-transparent"
-    aria-hidden="true"
-  >
-  </div>
+        <p class="max-w-[52ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+          WorkFlow PH is a volunteer-run community of builders. We run workshops
+          and community days, put Filipino engineers on stage, and publish the
+          automations we build.
+        </p>
 
-  <Container class="relative">
-    <div class="flex flex-col gap-8">
-      <p class="kicker flex items-center gap-3">
-        <span class="inline-block h-px w-8 bg-gradient-to-r from-flow to-ember" aria-hidden="true"></span>
-        Volunteer-run · Philippines
-      </p>
+        <div class="flex flex-wrap items-center gap-3">
+          <Button href="/showcase" variant="primary" icon="lucide:arrow-right">
+            See our work
+          </Button>
+          <Button href="/partners#partner-with-us" variant="secondary">
+            Partner with us
+          </Button>
+        </div>
 
-      <h1 class="max-w-[18ch] text-[length:var(--text-hero)] font-semibold text-brand-white">
-        Building the <span class="bg-gradient-to-r from-flow to-ember-300 bg-clip-text text-transparent">automation</span> landscape of the Philippines.
-      </h1>
-
-      <p class="max-w-[52ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-        WorkFlow PH is a volunteer-driven community of builders. We run workshops
-        and community days, platform Filipino engineers, and publish the automations
-        we build so anyone can use them.
-      </p>
-
-      <div class="flex flex-wrap items-center gap-3">
-        <Button href="/showcase" variant="primary" icon="lucide:arrow-right">
-          See our work
-        </Button>
-        <Button href="/partners#partner-with-us" variant="secondary">
-          Partner with us
-        </Button>
-      </div>
-
-      <p class="font-mono text-[length:var(--text-meta)] text-ink-400">
-        {eventsRun} events run · <a
-          href={site.socials[0].url}
-          rel="noopener noreferrer"
-          target="_blank"
-          class="underline decoration-ink-600 underline-offset-4 transition-colors hover:text-flow">1,500+ builders following along</a
-        >
-      </p>
-    </div>
+        <p class="bevel-in bg-ink-900 px-3 py-2 font-mono text-[length:var(--text-meta)] text-ink-400">
+          {eventsRun} events run · <a
+            href={site.socials[0].url}
+            rel="noopener noreferrer"
+            target="_blank"
+            class="text-flow underline underline-offset-2 hover:text-flow-600">1,500+ builders following along</a
+          >
+        </p>
+    </Window>
   </Container>
-
-  <!-- Scroll affordance. Hidden from AT, hidden under reduced motion. -->
-  <div
-    class="pointer-events-none absolute right-5 bottom-8 hidden flex-col items-center gap-2 motion-safe:lg:flex"
-    aria-hidden="true"
-  >
-    <span class="kicker [writing-mode:vertical-rl] text-ink-600">Scroll</span>
-    <span class="h-12 w-px bg-gradient-to-b from-ink-600 to-transparent"></span>
-  </div>
 </section>

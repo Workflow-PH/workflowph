@@ -1,0 +1,23 @@
+---
+/**
+ * retro-style: the typographic page header, framed as a window. The kicker
+ * becomes the title-bar caption; put the lead paragraph in the default slot.
+ */
+import Container from './Container.astro';
+import Window from './Window.astro';
+
+interface Props {
+  kicker: string;
+  title: string;
+}
+const { kicker, title } = Astro.props;
+---
+
+<section class="pt-8 pb-4 sm:pt-12 sm:pb-6">
+  <Container>
+    <Window caption={kicker} bodyClass="flex flex-col gap-5 p-6 sm:p-10">
+      <h1 class="max-w-[24ch] text-[length:var(--text-display)]">{title}</h1>
+      <slot />
+    </Window>
+  </Container>
+</section>

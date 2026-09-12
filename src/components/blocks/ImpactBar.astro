@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Container from '../primitives/Container.astro';
+import Window from '../primitives/Window.astro';
 import { formatDate } from '../../lib/format';
 
 /**
@@ -17,9 +18,10 @@ const { stats } = Astro.props;
 const shown = stats.filter((s) => s.data.value.trim() !== '—');
 ---
 
-<section aria-label="Impact at a glance" class="hairline border-y bg-ink-900/40">
+<section aria-label="Impact at a glance" class="py-4 sm:py-6">
   <Container>
-    <dl class:list={['grid grid-cols-2', shown.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4']}>
+    <Window caption="Impact — at a glance" controls={false}>
+      <dl class:list={['grid grid-cols-2 p-4 sm:p-6', shown.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4']}>
       {
         shown.map((s, i) => (
           <div
@@ -35,7 +37,7 @@ const shown = stats.filter((s) => s.data.value.trim() !== '—');
                 so it earns the most important job on the page. */}
             <dd
               data-stat
-              class="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-none font-semibold tracking-tight text-beam"
+              class="font-display text-[clamp(1.75rem,3.5vw,2.75rem)] leading-none font-bold text-beam"
             >
               {s.data.value}
             </dd>
@@ -48,6 +50,7 @@ const shown = stats.filter((s) => s.data.value.trim() !== '—');
           </div>
         ))
       }
-    </dl>
+      </dl>
+    </Window>
   </Container>
 </section>
