@@ -8,8 +8,15 @@
  */
 interface Props {
   class?: string;
+  /**
+   * Distinguishes the SVG gradient id when the wordmark renders more than once
+   * per page (header, footer, mobile drawer). Keep it deterministic so builds
+   * stay reproducible.
+   */
+  instance?: string;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', instance = 'default' } = Astro.props;
+const gradientId = `wordmark-grad-${instance}`;
 ---
 
 <span class:list={['inline-flex items-center gap-2.5', className]}>
@@ -20,14 +27,14 @@ const { class: className = '' } = Astro.props;
     aria-hidden="true"
   >
     <defs>
-      <linearGradient id="wordmark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="#1ebda5" />
         <stop offset="100%" stop-color="#e26a00" />
       </linearGradient>
     </defs>
     <path
       d="M3 6h4l3 12h4l3-12h4"
-      stroke="url(#wordmark-grad)"
+      stroke={`url(#${gradientId})`}
       stroke-width="2.25"
       stroke-linecap="round"
       stroke-linejoin="round"
