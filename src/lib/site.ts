@@ -3,7 +3,7 @@ export const site = {
   /** Keep under 12 words. This is the first thing a sponsor reads. */
   tagline: 'Building the Volunteer-Driven Automation Landscape of the Philippines',
   description:
-    'WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines — workshops, community days, and open automation templates for Filipino builders.',
+    'WorkFlow PH is a volunteer-run community building the automation landscape of the Philippines: workshops, community days, and open automation templates for Filipino builders.',
   email: 'hello@workflowph.org',
   socials: [
     { label: 'Facebook', url: 'https://facebook.com/workflowph', icon: 'lucide:facebook' },

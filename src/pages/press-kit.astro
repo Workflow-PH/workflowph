@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Container from '../components/primitives/Container.astro';
+import PageHeader from '../components/primitives/PageHeader.astro';
 import Section from '../components/primitives/Section.astro';
 import Button from '../components/primitives/Button.astro';
 import { site } from '../lib/site';
@@ -59,29 +60,18 @@ const fonts = [
   title="Press kit"
   description="WorkFlow PH brand assets, boilerplate copy, colours, and typography for press and partners."
 >
-  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
-    <Container>
-      <div class="flex flex-col gap-6">
-        <p class="kicker flex items-center gap-3">
-          <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
-          Press kit
-        </p>
-        <h1 class="max-w-[22ch] text-[length:var(--text-display)]">
-          Everything you need to write about us.
-        </h1>
-        <p class="max-w-[54ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-          Logos, colours, type, and copy you can paste straight into a deck or an
-          article. If you need something that isn't here, email us.
-        </p>
-      </div>
-    </Container>
-  </section>
+  <PageHeader kicker="Press kit" title="Everything you need to write about us.">
+    <p class="max-w-[54ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+      Logos, colours, type, and copy you can paste straight into a deck or an
+      article. If you need something that isn't here, email us.
+    </p>
+  </PageHeader>
 
-  <Section kicker="Logo" title="Marks and usage" class="hairline border-t">
+  <Section kicker="Logo" title="Marks and usage">
     <div class="hairline rounded-[--radius-card] border border-dashed p-8 sm:p-12">
       <p class="max-w-xl leading-relaxed text-ink-400">
         <strong class="text-ink-100">Pending (WF-A4).</strong> The official WorkFlow PH
-        mark needs to land as SVG — light and dark variants — before this section can
+        mark needs to land as SVG (light and dark variants) before this section can
         ship. Drop the files into
         <code class="font-mono text-flow">public/brand/</code> and replace this block
         with download links.
@@ -98,8 +88,7 @@ const fonts = [
   <Section
     kicker="Colour"
     title="Palette"
-    lead="Four brand colours on a near-black canvas. Each has one job — the separation is deliberate."
-    class="hairline border-t"
+    lead="Four brand colours. Each has one job; the separation is deliberate."
   >
     <ul
       class="hairline grid gap-px overflow-hidden rounded-[--radius-card] border sm:grid-cols-2 lg:grid-cols-5"
@@ -132,7 +121,7 @@ const fonts = [
     </p>
   </Section>
 
-  <Section kicker="Typography" title="Typefaces" class="hairline border-t">
+  <Section kicker="Typography" title="Typefaces">
     <dl class="hairline divide-y border-y border-inherit">
       {
         fonts.map((f) => (
@@ -148,20 +137,20 @@ const fonts = [
     </dl>
   </Section>
 
-  <Section kicker="Copy" title="Boilerplate" class="hairline border-t" width="prose">
+  <Section kicker="Copy" title="Boilerplate" width="prose">
     <div class="flex flex-col gap-10">
       <div class="flex flex-col gap-3">
-        <p class="kicker">Short — 35 words</p>
+        <p class="kicker">Short (35 words)</p>
         <blockquote
-          class="hairline rounded-[--radius-card] border bg-ink-900/40 p-5 text-[0.9375rem] leading-relaxed text-ink-200"
+          class="bevel-in bg-ink-900 p-5 text-[0.9375rem] leading-relaxed text-ink-200"
         >
           {boilerplate50}
         </blockquote>
       </div>
       <div class="flex flex-col gap-3">
-        <p class="kicker">Long — 100 words</p>
+        <p class="kicker">Long (100 words)</p>
         <blockquote
-          class="hairline rounded-[--radius-card] border bg-ink-900/40 p-5 text-[0.9375rem] leading-relaxed text-ink-200"
+          class="bevel-in bg-ink-900 p-5 text-[0.9375rem] leading-relaxed text-ink-200"
         >
           {boilerplate100}
         </blockquote>

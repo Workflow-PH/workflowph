@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
 import Container from '../components/primitives/Container.astro';
+import PageHeader from '../components/primitives/PageHeader.astro';
 import Section from '../components/primitives/Section.astro';
 import ImpactBar from '../components/blocks/ImpactBar.astro';
 import CTA from '../components/blocks/CTA.astro';
@@ -91,23 +92,12 @@ const values = [
   title="About"
   description="WorkFlow PH is a volunteer-driven ecosystem building an automation-capable and AI-literate workforce in the Philippines."
 >
-  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
-    <Container>
-      <div class="flex flex-col gap-6">
-        <p class="kicker flex items-center gap-3">
-          <span class="inline-block h-px w-8 bg-gradient-to-r from-flow to-ember" aria-hidden="true"></span>
-          About WorkFlow PH
-        </p>
-        <h1 class="max-w-[24ch] text-[length:var(--text-display)]">
-          A volunteer ecosystem building the future of work.
-        </h1>
-        <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-          We are an open community of builders, engineers, virtual assistants, and professionals
-          dedicated to pioneering automation literacy and AI capability across the Philippines.
-        </p>
-      </div>
-    </Container>
-  </section>
+  <PageHeader kicker="About WorkFlow PH" title="A volunteer ecosystem building the future of work.">
+    <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+      We are an open community of builders, engineers, virtual assistants, and professionals
+      dedicated to pioneering automation literacy and AI capability across the Philippines.
+    </p>
+  </PageHeader>
 
   <ImpactBar stats={stats} />
 
@@ -143,7 +133,6 @@ const values = [
     kicker="Programs"
     title="What we run"
     lead="Hands-on learning and collaborative sessions designed to take members from beginners to production-ready automation builders."
-    class="hairline border-t"
   >
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
@@ -167,7 +156,6 @@ const values = [
   <Section
     kicker="Culture"
     title="Our core values"
-    class="hairline border-t"
   >
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
@@ -189,7 +177,6 @@ const values = [
   <Section
     kicker="Timeline"
     title="How we got here"
-    class="hairline border-t"
     width="prose"
   >
     <ol class="hairline relative border-l pl-8" role="list">

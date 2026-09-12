@@ -2,33 +2,39 @@
 import Base from '../layouts/Base.astro';
 import Container from '../components/primitives/Container.astro';
 import Button from '../components/primitives/Button.astro';
-import FlowMesh from '../components/media/FlowMesh.astro';
+import Window from '../components/primitives/Window.astro';
 ---
 
 <Base title="Page not found" noindex>
-  <section class="relative isolate flex min-h-[80svh] items-center overflow-hidden py-24">
-    <FlowMesh intensity={0.6} />
-    <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_80%_at_50%_50%,transparent,var(--color-ink-950)_70%)]"
-      aria-hidden="true"
-    >
-    </div>
-
-    <Container class="relative">
-      <div class="flex max-w-xl flex-col gap-6">
-        <p class="kicker">Error 404</p>
-        <h1 class="text-[length:var(--text-display)]">This route didn't resolve.</h1>
-        <p class="text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-          Every good automation has an error branch. This is ours. The page you asked
-          for isn't here — try one of these instead.
-        </p>
-        <div class="flex flex-wrap gap-3">
+  <section class="flex min-h-[70svh] items-center py-16">
+    <Container>
+      <Window
+        caption="Error 404 — workflowph.exe"
+        class="mx-auto max-w-xl"
+        bodyClass="flex flex-col gap-6 p-6 sm:p-8"
+      >
+        <div class="flex items-start gap-4">
+          <span
+            class="bevel-in flex size-10 shrink-0 items-center justify-center bg-ink-900 font-display text-xl font-bold text-ruby"
+            aria-hidden="true"
+          >
+            !
+          </span>
+          <div class="flex flex-col gap-3">
+            <h1 class="text-[length:var(--text-h2)]">This route didn't resolve.</h1>
+            <p class="leading-relaxed text-ink-300">
+              Every good automation has an error branch. This is ours. The page you
+              asked for isn't here. Try one of these instead.
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-wrap justify-end gap-3">
           <Button href="/showcase" variant="primary" icon="lucide:arrow-right">
             Browse the showcase
           </Button>
           <Button href="/" variant="secondary">Back to home</Button>
         </div>
-      </div>
+      </Window>
     </Container>
   </section>
 </Base>

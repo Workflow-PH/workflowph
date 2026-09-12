@@ -49,9 +49,8 @@ const eventsRun = stats.find((s) => s.id === 'events')?.data.value ?? String(all
   <Section
     id="builds"
     kicker="What we're building"
-    title="Not just events"
-    lead="We publish the automations, templates, and playbooks we build so anyone in the community can fork them and run. Here's what's on the bench right now."
-    class="hairline border-y bg-ink-900/30"
+    title="Open builds"
+    lead="We publish the automations, templates, and playbooks we build. Fork them and run."
   >
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {featuredBuilds.map((entry) => <BuildCard entry={entry} />)}
@@ -71,11 +70,11 @@ const eventsRun = stats.find((s) => s.id === 'events')?.data.value ?? String(all
       ) : (
         /* This is the state the site will be in most of the time.
            It gets designed like a real section, not treated as an error. */
-        <div class="hairline flex flex-col items-start gap-5 rounded-[--radius-card] border border-dashed p-8 sm:p-12">
+        <div class="bevel-in flex flex-col items-start gap-5 bg-ink-900 p-8 sm:p-12">
           <p class="max-w-lg text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-            Nothing on the calendar right now. We announce every event on Facebook
-            first — follow along and you'll hear about the next one before anyone
-            else.
+            Nothing on the calendar right now. We announce every event on the
+            Facebook page first, so follow along there to hear about the next one
+            early.
           </p>
           <div class="flex flex-wrap gap-3">
             <Button href="https://facebook.com/workflowph" variant="secondary" icon="lucide:arrow-up-right">

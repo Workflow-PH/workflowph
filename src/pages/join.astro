@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
-import Container from '../components/primitives/Container.astro';
+import PageHeader from '../components/primitives/PageHeader.astro';
 import Section from '../components/primitives/Section.astro';
 import Button from '../components/primitives/Button.astro';
 import { site } from '../lib/site';
@@ -44,46 +44,31 @@ const roles = [
   title="Join us"
   description="WorkFlow PH is volunteer-run. Here's what volunteers actually do, and how to get involved."
 >
-  <section class="pt-32 pb-16 lg:pt-40 lg:pb-20">
-    <Container>
-      <div class="flex flex-col gap-6">
-        <p class="kicker flex items-center gap-3">
-          <span class="inline-block h-px w-8 bg-gradient-to-r from-flow to-ember" aria-hidden="true"></span>
-          Join us
-        </p>
-        <h1 class="max-w-[22ch] text-[length:var(--text-display)]">
-          Come build the thing with us.
-        </h1>
-        <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-          WorkFlow PH runs entirely on volunteers. No prior community experience
-          needed — most of us learned it here. What matters is that you follow
-          through on the thing you said you'd do.
-        </p>
-        <div class="mt-2 flex flex-wrap gap-3">
-          <Button
-            href={`mailto:${site.email}?subject=I'd%20like%20to%20volunteer%20—%20WorkFlow%20PH`}
-            variant="primary"
-            icon="lucide:arrow-right"
-          >
-            Email us to get started
-          </Button>
-          <Button href={site.socials[0].url} variant="secondary" icon="lucide:arrow-up-right">
-            Message us on Facebook
-          </Button>
-        </div>
-      </div>
-    </Container>
-  </section>
+  <PageHeader kicker="Join us" title="Come build the thing with us.">
+    <p class="max-w-[56ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
+      WorkFlow PH runs entirely on volunteers. No prior community experience
+      needed; most of us learned it here. What matters is that you follow
+      through on the thing you said you'd do.
+    </p>
+    <div class="mt-2 flex flex-wrap gap-3">
+      <Button
+        href={`mailto:${site.email}?subject=I'd%20like%20to%20volunteer%20—%20WorkFlow%20PH`}
+        variant="primary"
+        icon="lucide:arrow-right"
+      >
+        Email us to get started
+      </Button>
+      <Button href={site.socials[0].url} variant="secondary" icon="lucide:arrow-up-right">
+        Message us on Facebook
+      </Button>
+    </div>
+  </PageHeader>
 
-  <Section
-    kicker="Where you'd fit"
-    title="What volunteers actually do"
-    class="hairline border-t"
-  >
+  <Section kicker="Where you'd fit" title="What volunteers actually do">
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         roles.map((r) => (
-          <div class="hairline flex flex-col gap-3 rounded-[--radius-card] border bg-ink-900/40 p-6" data-reveal>
+          <div class="bevel-in flex flex-col gap-3 bg-ink-900 p-6" data-reveal>
             <Icon name={r.icon} class="size-5 text-flow" aria-hidden="true" />
             <h3 class="text-[1.0625rem] font-semibold text-ink-50">{r.title}</h3>
             <p class="text-sm leading-relaxed text-ink-400">{r.body}</p>
@@ -93,7 +78,7 @@ const roles = [
     </div>
   </Section>
 
-  <Section kicker="The honest version" title="Time commitment" width="prose" class="hairline border-t">
+  <Section kicker="The honest version" title="Time commitment" width="prose">
     <div class="flex flex-col gap-5 leading-relaxed text-ink-300">
       <p>
         Volunteers typically contribute <strong class="text-ink-50">2 to 4 flexible hours per week</strong>.
