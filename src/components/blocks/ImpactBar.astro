@@ -11,20 +11,23 @@ interface Props {
   stats: CollectionEntry<'stats'>[];
 }
 const { stats } = Astro.props;
+
+// A stat without a real value yet is not shown. An em-dash cell in the middle
+// of the sponsor-facing numbers reads as a bug, not as honesty.
+const shown = stats.filter((s) => s.data.value.trim() !== '—');
 ---
 
 <section aria-label="Impact at a glance" class="hairline border-y bg-ink-900/40">
   <Container>
-    <dl class="grid grid-cols-2 lg:grid-cols-4">
+    <dl class:list={['grid grid-cols-2', shown.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4']}>
       {
-        stats.map((s, i) => (
+        shown.map((s, i) => (
           <div
             class:list={[
               'hairline flex flex-col gap-2 px-1 py-8 sm:py-10',
               i % 2 === 1 && 'border-l pl-6 sm:pl-8',
               i >= 2 && 'border-t lg:border-t-0',
-              i === 2 && 'lg:border-l lg:pl-6 sm:lg:pl-8',
-              i === 3 && 'lg:border-l',
+              i > 0 && 'lg:border-l lg:pl-6 sm:lg:pl-8',
             ]}
           >
             {/* beam (brand yellow) is rationed to exactly this: the numbers a
@@ -39,7 +42,7 @@ const { stats } = Astro.props;
             <dt class="font-mono text-[0.6875rem] tracking-[0.14em] text-ink-400 uppercase">
               {s.data.label}
             </dt>
-            <p class="font-mono text-[0.625rem] text-ink-600">
+            <p class="font-mono text-[0.625rem] text-ink-400">
               as of <time datetime={s.data.asOf.toISOString()}>{formatDate(s.data.asOf)}</time>
             </p>
           </div>

@@ -18,10 +18,14 @@ const builds = await getBuilds();
 const featuredEvents = (featured.length ? featured : all).slice(0, 6);
 const featuredBuilds = builds.filter((b) => b.data.featured).slice(0, 3);
 const nextUp = upcoming.slice(0, 3);
+
+// The hero quotes the same sourced figure the impact bar shows, so the two
+// can never contradict each other on one screen.
+const eventsRun = stats.find((s) => s.id === 'events')?.data.value ?? String(all.length);
 ---
 
 <Base>
-  <Hero eventCount={all.length} />
+  <Hero eventsRun={eventsRun} />
 
   <ImpactBar stats={stats} />
 
@@ -34,7 +38,7 @@ const nextUp = upcoming.slice(0, 3);
     <Fragment slot="header-aside">
       <div class="mt-2">
         <Button href="/showcase" variant="ghost" icon="lucide:arrow-right">
-          View all {all.length} events
+          Browse the showcase
         </Button>
       </div>
     </Fragment>
@@ -44,9 +48,9 @@ const nextUp = upcoming.slice(0, 3);
 
   <Section
     id="builds"
-    kicker="What we've shipped"
+    kicker="What we're building"
     title="Not just events"
-    lead="We publish the automations, templates, and playbooks we build so anyone in the community can fork them and run."
+    lead="We publish the automations, templates, and playbooks we build so anyone in the community can fork them and run. Here's what's on the bench right now."
     class="hairline border-y bg-ink-900/30"
   >
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,7 +96,7 @@ const nextUp = upcoming.slice(0, 3);
     title="Partners and collaborators"
     lead="Organisations that have run something with us, hosted us, or supported the community."
   >
-    <PartnerWall partners={partners} compact />
+    <PartnerWall partners={partners} marquee />
     <div class="mt-10">
       <Button href="/partners" variant="ghost" icon="lucide:arrow-right">
         How partnership works

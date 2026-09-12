@@ -5,9 +5,11 @@ import FlowMesh from '../media/FlowMesh.astro';
 import { site } from '../../lib/site';
 
 interface Props {
-  eventCount: number;
+  /** Sponsor-facing "events run" figure, sourced from the stats collection so
+   *  the hero and the impact bar can never disagree. */
+  eventsRun: string;
 }
-const { eventCount } = Astro.props;
+const { eventsRun } = Astro.props;
 ---
 
 <section class="relative isolate flex min-h-[88svh] items-end overflow-hidden pt-24 pb-16 lg:min-h-[92svh] lg:pb-24">
@@ -59,8 +61,8 @@ const { eventCount } = Astro.props;
         </Button>
       </div>
 
-      <p class="font-mono text-[length:var(--text-meta)] text-ink-500">
-        {eventCount} events on record · <a
+      <p class="font-mono text-[length:var(--text-meta)] text-ink-400">
+        {eventsRun} events run · <a
           href={site.socials[0].url}
           rel="noopener noreferrer"
           target="_blank"
