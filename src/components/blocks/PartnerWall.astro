@@ -11,10 +11,61 @@ import type { CollectionEntry } from 'astro:content';
 interface Props {
   partners: CollectionEntry<'partners'>[];
   compact?: boolean;
+  /**
+   * Continuous scrolling strip for the homepage. Falls back to a static row
+   * under `prefers-reduced-motion` (the list is simply not animated).
+   */
+  marquee?: boolean;
 }
-const { partners, compact = false } = Astro.props;
+const { partners, compact = false, marquee = false } = Astro.props;
 ---
 
+{
+  marquee && (
+    <div class="mask-edges overflow-hidden">
+      <ul
+        class="flex w-max items-center gap-4 motion-safe:animate-[marquee_36s_linear_infinite] motion-safe:hover:[animation-play-state:paused]"
+        role="list"
+      >
+        {[false, true].map((clone) =>
+          partners.map((p) => {
+            const Tag = p.data.url ? 'a' : 'span';
+            return (
+              <li aria-hidden={clone || undefined} class="shrink-0">
+                <Tag
+                  href={p.data.url}
+                  rel={p.data.url ? 'noopener noreferrer' : undefined}
+                  target={p.data.url ? '_blank' : undefined}
+                  tabindex={clone ? -1 : undefined}
+                  class:list={[
+                    'hairline flex items-center justify-center rounded-[--radius-card] border bg-ink-900/40 px-8 py-6 transition-colors duration-[--dur-base]',
+                    p.data.url && 'hover:border-flow/40 hover:bg-ink-900',
+                  ]}
+                >
+                  {p.data.logo ? (
+                    <img
+                      src={p.data.logo}
+                      alt={clone ? '' : p.data.name}
+                      loading="lazy"
+                      decoding="async"
+                      class="max-h-9 w-auto opacity-60 grayscale transition-all duration-[--dur-base] hover:opacity-100 hover:grayscale-0"
+                    />
+                  ) : (
+                    <span class="font-display text-[0.9375rem] leading-tight font-semibold tracking-tight whitespace-nowrap text-ink-400 transition-colors duration-[--dur-base] hover:text-ink-100">
+                      {p.data.name}
+                    </span>
+                  )}
+                </Tag>
+              </li>
+            );
+          })
+        )}
+      </ul>
+    </div>
+  )
+}
+
+{!marquee && (
 <ul
   class:list={[
     'grid gap-px overflow-hidden rounded-[--radius-card]',
@@ -57,3 +108,4 @@ const { partners, compact = false } = Astro.props;
     })
   }
 </ul>
+)}

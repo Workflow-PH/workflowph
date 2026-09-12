@@ -18,7 +18,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
       class="shrink-0 rounded-full transition-opacity duration-[--dur-fast] hover:opacity-85"
       aria-label="WorkFlow PH — home"
     >
-      <Wordmark class="h-6 w-auto sm:h-7" />
+      <Wordmark class="h-6 w-auto sm:h-7" instance="header" />
     </a>
 
     <nav aria-label="Main" class="hidden lg:block">
@@ -68,7 +68,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
 
       <button
         type="button"
-        class="inline-flex items-center justify-center rounded-full border border-ink-100/10 bg-ink-900/60 p-2 text-ink-200 transition-colors hover:border-flow/40 hover:text-flow lg:hidden"
+        class="inline-flex items-center justify-center rounded-full border border-ink-100/10 bg-ink-900/60 p-3 text-ink-200 transition-colors hover:border-flow/40 hover:text-flow lg:hidden"
         aria-label="Open menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
@@ -94,10 +94,10 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   <div class="relative flex h-full flex-col">
     <Container>
       <div class="flex items-center justify-between py-4">
-        <Wordmark class="h-6 w-auto" />
+        <Wordmark class="h-6 w-auto" instance="drawer" />
         <button
           type="button"
-          class="inline-flex items-center justify-center rounded-full border border-ink-100/10 bg-ink-900/60 p-2 text-ink-200 hover:text-flow"
+          class="inline-flex items-center justify-center rounded-full border border-ink-100/10 bg-ink-900/60 p-3 text-ink-200 hover:text-flow"
           aria-label="Close menu"
           data-menu-close
         >
