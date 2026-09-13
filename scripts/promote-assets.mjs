@@ -24,9 +24,10 @@
  */
 import { mkdir, copyFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
-const ROOT = path.resolve(new URL('.', import.meta.url).pathname, '..');
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const go = process.argv.includes('--go');
 
 // [staging source, public dest, { kind }]

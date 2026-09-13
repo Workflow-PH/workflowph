@@ -5,74 +5,89 @@ import { initials } from '../../lib/format';
 import { linkKindIcons } from '../../lib/site';
 
 /**
- * Initials avatar when there's no headshot — never a blank silhouette. A grey
- * person-icon placeholder makes a team look absent; initials look intentional.
+ * Directory row, not a card.
+ *
+ * Deliberately anti-slop: no glass pill, no teal initials badge, no icon-circle
+ * row. Index number + hard-offset avatar (watermelon sticker), display name,
+ * plain-language role. Motion is CSS-only stagger via --i, killed globally
+ * under prefers-reduced-motion.
  */
 interface Props {
   entry: CollectionEntry<'people'>;
+  index?: number;
 }
-const { entry } = Astro.props;
+const { entry, index = 0 } = Astro.props;
 const { data } = entry;
 ---
 
 <article
-  class="hairline flex flex-col gap-4 rounded-[--radius-card] border bg-ink-900/50 p-5 transition-colors duration-[--dur-base] hover:border-flow/30"
+  class="person-row group relative grid grid-cols-[auto_1fr] gap-4 py-6 sm:grid-cols-[3rem_3.5rem_1fr_auto] sm:items-baseline sm:gap-6"
+  style={`--i:${index}`}
   data-reveal
 >
-  <div class="flex items-center gap-4">
-    {
-      data.photo ? (
-        <img
-          src={data.photo.src}
-          alt={data.photo.alt}
-          width={data.photo.width}
-          height={data.photo.height}
-          loading="lazy"
-          decoding="async"
-          class="size-14 shrink-0 rounded-[--radius-pill] object-cover"
-        />
-      ) : (
-        <span
-          class="flex size-14 shrink-0 items-center justify-center rounded-[--radius-pill] bg-flow/10 font-mono text-sm font-medium tracking-wider text-flow"
-          aria-hidden="true"
-        >
-          {initials(data.name)}
-        </span>
-      )
-    }
-
-    <div class="flex min-w-0 flex-col gap-0.5">
-      <h3 class="truncate text-[0.9375rem] leading-tight font-semibold text-ink-50">
-        {data.name}
-      </h3>
-      <p class="font-mono text-[0.6875rem] tracking-[0.1em] text-flow uppercase">
-        {data.role}
-      </p>
-      {data.org && <p class="truncate text-[0.8125rem] text-ink-500">{data.org}</p>}
-    </div>
-  </div>
+  <span
+    class="font-mono text-[0.6875rem] text-ink-600 tabular-nums sm:pt-1.5"
+    aria-hidden="true"
+  >
+    {String(index + 1).padStart(2, '0')}
+  </span>
 
   {
-    data.credential && (
-      <p class="text-[0.8125rem] leading-relaxed text-ink-400">{data.credential}</p>
+    data.photo ? (
+      <img
+        src={data.photo.src}
+        alt={data.photo.alt}
+        width={data.photo.width}
+        height={data.photo.height}
+        loading="lazy"
+        decoding="async"
+        class="row-span-2 size-14 rounded-md border border-ink-100/15 object-cover shadow-[3px_3px_0_0_var(--color-ink-800)] transition-transform duration-[--dur-base] ease-[--ease-out-expo] group-hover:-rotate-2 group-hover:scale-[1.03] sm:row-span-1 sm:size-14"
+      />
+    ) : (
+      <span
+        class="row-span-2 flex size-14 items-center justify-center rounded-md border border-ink-100/15 bg-ink-850 font-display text-[1rem] font-semibold tracking-tight text-ink-100 shadow-[3px_3px_0_0_var(--color-ink-800)] transition-transform duration-[--dur-base] ease-[--ease-out-expo] group-hover:-rotate-2 sm:row-span-1"
+        aria-hidden="true"
+      >
+        {initials(data.name)}
+      </span>
     )
   }
 
+  <div class="flex min-w-0 flex-col gap-1">
+    <h3 class="font-display text-[clamp(1.25rem,2vw,1.625rem)] leading-none font-semibold tracking-tight text-ink-50">
+      <span class="decoration-flow decoration-2 underline-offset-4 group-hover:underline">
+        {data.name}
+      </span>
+    </h3>
+    <p class="text-[0.875rem] text-ink-300">
+      {data.role}
+      {data.org && <span class="text-ink-500"> · {data.org}</span>}
+    </p>
+    {
+      data.credential && (
+        <p class="mt-1.5 max-w-[52ch] text-[0.8125rem] leading-relaxed text-ink-500">
+          {data.credential}
+        </p>
+      )
+    }
+  </div>
+
   {
     data.socials.length > 0 && (
-      <ul class="mt-auto flex items-center gap-1.5" role="list">
+      <ul class="col-span-2 flex flex-wrap gap-x-4 gap-y-1 sm:col-span-1 sm:flex-col sm:items-end sm:gap-1" role="list">
         {data.socials.map((s) => (
           <li>
             <a
               href={s.url}
               rel="noopener noreferrer"
               target="_blank"
-              class="hairline inline-flex size-8 items-center justify-center rounded-[--radius-pill] border text-ink-500 transition-colors hover:border-flow/40 hover:text-flow"
-              aria-label={`${data.name} on ${s.label}`}
+              class="group/link inline-flex items-center gap-1 font-mono text-[0.6875rem] tracking-[0.1em] text-ink-400 uppercase transition-colors hover:text-flow"
             >
+              <Icon name={linkKindIcons[s.kind] ?? 'lucide:link'} class="size-3" aria-hidden="true" />
+              {s.label}
               <Icon
-                name={linkKindIcons[s.kind] ?? 'lucide:link'}
-                class="size-3.5"
+                name="lucide:arrow-up-right"
+                class="size-3 transition-transform duration-[--dur-fast] group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
                 aria-hidden="true"
               />
             </a>
@@ -82,3 +97,14 @@ const { data } = entry;
     )
   }
 </article>
+
+<style>
+  /* Stagger without JS. motion.dev-style ease, view-timeline reveal already
+     handles the entrance; this only offsets siblings. Reduced-motion global
+     in global.css zeroes it. */
+  @media (prefers-reduced-motion: no-preference) {
+    .person-row {
+      transition-delay: calc(var(--i, 0) * 30ms);
+    }
+  }
+</style>

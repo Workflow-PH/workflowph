@@ -12,8 +12,9 @@ export function formatDate(date: Date, opts: Intl.DateTimeFormatOptions = {}): s
 
 export function formatDateRange(start: Date, end?: Date): string {
   if (!end) return formatDate(start);
-  const sameMonth =
-    start.getUTCFullYear() === end.getUTCFullYear() && start.getUTCMonth() === end.getUTCMonth();
+  const parts = (d: Date) =>
+    new Intl.DateTimeFormat('en-PH', { timeZone: MANILA, year: 'numeric', month: 'numeric' }).format(d);
+  const sameMonth = parts(start) === parts(end);
   if (sameMonth) {
     const from = new Intl.DateTimeFormat('en-PH', { timeZone: MANILA, day: 'numeric' }).format(start);
     return `${from}–${formatDate(end)}`;
@@ -37,8 +38,8 @@ export function isUpcoming(date: Date): boolean {
 export function initials(name: string): string {
   return name
     .split(/\s+/)
-    .filter((part) => /^[A-Za-z]/.test(part))
+    .filter((part) => /^\p{L}/u.test(part))
     .slice(0, 2)
-    .map((part) => part[0]!.toUpperCase())
+    .map((part) => [...part][0]!.toUpperCase())
     .join('');
 }
