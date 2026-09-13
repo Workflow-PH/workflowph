@@ -3,9 +3,7 @@ import { Icon } from 'astro-icon/components';
 import Container from '../primitives/Container.astro';
 import Wordmark from './Wordmark.astro';
 import { site, nav } from '../../lib/site';
-
 const year = new Date().getFullYear();
-
 const secondary = [
   { label: 'Join us', href: '/join' },
   { label: 'Press kit', href: '/press-kit' },
@@ -13,90 +11,73 @@ const secondary = [
 ];
 ---
 
-<footer class="hairline relative mt-8 border-t">
+<footer class="hairline relative mt-8 overflow-hidden border-t">
   <Container>
     <div class="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:py-20">
       <div class="flex flex-col gap-5">
         <Wordmark class="h-7 w-auto" instance="footer" />
-        <p class="max-w-xs text-sm leading-relaxed text-ink-400">
-          {site.tagline}.
-        </p>
+        <p class="max-w-xs text-sm leading-relaxed text-ink-400">{site.tagline}.</p>
         <ul class="flex items-center gap-2" role="list">
-          {
-            site.socials.map((s) => (
-              <li>
-                <a
-                  href={s.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  class="hairline inline-flex size-9 items-center justify-center rounded-[--radius-pill] border text-ink-400 transition-colors duration-[--dur-fast] hover:border-flow/50 hover:text-flow"
-                  aria-label={`WorkFlow PH on ${s.label}`}
-                >
-                  <Icon name={s.icon} class="size-4" aria-hidden="true" />
-                </a>
-              </li>
-            ))
-          }
+          {site.socials.map((s) => (
+            <li>
+              <a href={s.url} rel="noopener noreferrer" target="_blank" class="hairline inline-flex size-9 items-center justify-center rounded-full border text-ink-400 transition-all duration-[--dur-fast] hover:-translate-y-0.5 hover:border-flow/50 hover:text-flow" aria-label={`WorkFlow PH on ${s.label}`}>
+                <Icon name={s.icon} class="size-4" aria-hidden="true" />
+              </a>
+            </li>
+          ))}
         </ul>
+        <p class="font-mono text-[0.6875rem] text-ink-500">Manila <span data-manila-time class="text-ink-300 tabular-nums">--:--</span> PHT</p>
       </div>
-
       <nav aria-label="Footer — sections" class="flex flex-col gap-4">
         <p class="kicker">Sections</p>
         <ul class="flex flex-col gap-2.5" role="list">
-          {
-            nav.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  class="text-sm text-ink-300 transition-colors duration-[--dur-fast] hover:text-flow"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
+          {nav.map((item) => (
+            <li><a href={item.href} class="link-swipe text-sm text-ink-300">{item.label}</a></li>
+          ))}
         </ul>
       </nav>
-
       <nav aria-label="Footer — get involved" class="flex flex-col gap-4">
         <p class="kicker">Get involved</p>
         <ul class="flex flex-col gap-2.5" role="list">
-          {
-            secondary.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  class="text-sm text-ink-300 transition-colors duration-[--dur-fast] hover:text-flow"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
+          {secondary.map((item) => (
+            <li><a href={item.href} class="link-swipe text-sm text-ink-300">{item.label}</a></li>
+          ))}
         </ul>
       </nav>
-
       <div class="flex flex-col gap-4">
         <p class="kicker">Contact</p>
-        <a
-          href={`mailto:${site.email}`}
-          class="font-mono text-sm text-flow transition-colors duration-[--dur-fast] hover:text-flow-100"
-        >
-          {site.email}
-        </a>
-        <p class="text-sm leading-relaxed text-ink-500">
-          Sponsorship, speaking, and partnership enquiries welcome.
-        </p>
+        <a href={`mailto:${site.email}`} class="link-swipe w-fit font-mono text-sm text-flow">{site.email}</a>
+        <p class="text-sm leading-relaxed text-ink-500">Sponsorship, speaking, and partnership enquiries welcome.</p>
+        <a href="#main" class="mt-2 inline-flex w-fit items-center gap-2 font-mono text-[0.6875rem] tracking-[0.12em] text-ink-500 uppercase transition-colors hover:text-flow">Back to top <span aria-hidden="true">↑</span></a>
       </div>
     </div>
-
-    <div
-      class="hairline flex flex-col gap-3 border-t py-6 font-mono text-[0.6875rem] tracking-wide text-ink-500 sm:flex-row sm:items-center sm:justify-between"
-    >
+  </Container>
+  <div aria-hidden="true" class="pointer-events-none relative select-none px-2">
+    <p class="footer-giant text-center font-display leading-[0.85] font-semibold tracking-[-0.04em] whitespace-nowrap text-transparent">WORKFLOW&nbsp;PH</p>
+  </div>
+  <Container>
+    <div class="hairline flex flex-col gap-3 border-t py-6 font-mono text-[0.6875rem] tracking-wide text-ink-500 sm:flex-row sm:items-center sm:justify-between">
       <p>© {year} WorkFlow PH. Volunteer-run.</p>
-      <p>
-        Built by WorkFlow PH volunteers. Photos credited to the community.
-      </p>
+      <p>Built by volunteers. Photos credited to the community.</p>
     </div>
   </Container>
 </footer>
+
+<style>
+  .footer-giant {
+    font-size: clamp(4rem, 14.5vw, 15rem);
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-ink-100) 22%, transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .footer-giant { transition: letter-spacing 0.8s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)); }
+    footer:hover .footer-giant { letter-spacing: 0.01em; }
+  }
+</style>
+
+<script>
+  const el = document.querySelector('[data-manila-time]');
+  const fmt = new Intl.DateTimeFormat('en-PH', { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', hour12: false });
+  const update = (): void => { if (el) el.textContent = fmt.format(new Date()); };
+  update();
+  setInterval(update, 30000);
+</script>
