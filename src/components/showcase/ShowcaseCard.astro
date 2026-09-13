@@ -4,100 +4,58 @@ import Frame from '../media/Frame.astro';
 import { eventTypeLabels } from '../../lib/site';
 import { formatDate, year, isUpcoming } from '../../lib/format';
 
-/**
- * The metadata triplet — SERIES / Title / Year ● Venue / Type — is lifted from
- * the Creative Impact work grid. That pattern is really a content model, not a
- * visual style, which is why it survives being restyled entirely.
- */
 interface Props {
   entry: CollectionEntry<'showcase'>;
   size?: 'sm' | 'md' | 'lg';
   eager?: boolean;
 }
-
 const { entry, size = 'md', eager = false } = Astro.props;
 const { data, id } = entry;
 
 const ratio = size === 'lg' ? '16/10' : size === 'sm' ? '4/3' : '3/2';
-const sizes =
-  size === 'lg'
-    ? '(min-width: 1024px) 66vw, 100vw'
-    : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw';
-
-const titleSize = {
-  sm: 'text-[clamp(1rem,1.4vw,1.1875rem)]',
-  md: 'text-[clamp(1.125rem,1.8vw,1.5rem)]',
-  lg: 'text-[clamp(1.5rem,3vw,2.5rem)]',
-}[size];
-
+const sizes = size === 'lg' ? '(min-width: 1024px) 66vw, 100vw' : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw';
+const titleSize = { sm: 'text-[clamp(1rem,1.4vw,1.1875rem)]', md: 'text-[clamp(1.125rem,1.8vw,1.5rem)]', lg: 'text-[clamp(1.5rem,3vw,2.5rem)]' }[size];
 const upcoming = isUpcoming(data.date);
 const media = data.card ?? data.hero;
+const isArchive = data.tier === 'archive';
+const external = isArchive ? data.links[0]?.url : undefined;
+const Tag = isArchive && external ? 'a' : isArchive ? 'div' : 'a';
+const href = isArchive ? external : `/showcase/${id}`;
 ---
 
-<a
-  href={`/showcase/${id}`}
+<Tag
+  href={href}
+  rel={isArchive && external ? 'noopener noreferrer' : undefined}
+  target={isArchive && external ? '_blank' : undefined}
   class="group relative block focus-visible:outline-offset-4"
   data-reveal
 >
   <article class="flex flex-col gap-4">
-    <div class="relative overflow-hidden rounded-[--radius-card] bg-ink-900">
-      <div
-        class="transition-transform duration-[--dur-slow] ease-[--ease-out-expo] group-hover:scale-[1.035]"
-      >
-        <Frame
-          media={media}
-          slug={id}
-          title={data.title}
-          kicker={data.series}
-          ratio={ratio}
-          sizes={sizes}
-          eager={eager}
-        />
+    <div class="relative overflow-hidden rounded-[--radius-card] border border-ink-100/10 bg-ink-900 shadow-[4px_4px_0_0_var(--color-ink-800)] transition-all duration-[--dur-base] ease-[--ease-out-expo] group-hover:-translate-y-1 group-hover:shadow-[6px_8px_0_0_var(--color-ink-800)] group-hover:border-ink-100/20">
+      <div class="transition-transform duration-[--dur-slow] ease-[--ease-out-expo] group-hover:scale-[1.035] group-hover:rotate-[0.4deg]">
+        <Frame media={media} slug={id} title={data.title} kicker={data.series} ratio={ratio} sizes={sizes} eager={eager} />
       </div>
-
-      {/* Scrim only when there's a photo — the poster card has its own. */}
-      {media && (
-        <div
-          class="scrim pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-[--dur-base] group-hover:opacity-90"
-        />
-      )}
-
-      {/* Accent rule draws in on hover. Cheap, and it makes the grid feel alive. */}
-      <span
-        class="pointer-events-none absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-flow transition-transform duration-[--dur-base] ease-[--ease-out-expo] group-hover:scale-x-100"
-        aria-hidden="true"></span>
-
+      {media && <div class="scrim pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-[--dur-base] group-hover:opacity-90" />}
+      <span class="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-flow transition-transform duration-[--dur-base] ease-[--ease-out-expo] group-hover:scale-x-100" aria-hidden="true"></span>
       {upcoming && (
-        <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-[--radius-pill] bg-ink-950/80 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.12em] text-beam uppercase backdrop-blur-sm">
+        <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-beam/40 bg-ink-950/85 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.12em] text-beam uppercase backdrop-blur-sm">
           <span class="size-1.5 animate-pulse rounded-full bg-beam"></span>
           Upcoming
         </span>
       )}
+      {isArchive && (
+        <span class="absolute top-3 right-3 rounded-full border border-ink-100/15 bg-ink-950/85 px-2.5 py-1 font-mono text-[0.625rem] tracking-[0.12em] text-ink-300 uppercase backdrop-blur-sm">Archive</span>
+      )}
     </div>
-
     <div class="flex flex-col gap-1.5">
       {data.series && <p class="kicker">{data.series}</p>}
-
-      <h3
-        class:list={[
-          titleSize,
-          'leading-[1.1] font-semibold tracking-tight text-ink-50 transition-colors duration-[--dur-fast] group-hover:text-flow-100',
-        ]}
-      >
-        {data.title}
-      </h3>
-
+      <h3 class:list={[titleSize, 'leading-[1.1] font-semibold tracking-tight text-ink-50 transition-colors duration-[--dur-fast] group-hover:text-flow-100']}>{data.title}</h3>
       <p class="font-mono text-[length:var(--text-meta)] text-ink-400">
         <time datetime={data.date.toISOString()}>{upcoming ? formatDate(data.date) : year(data.date)}</time>
         <span class="mx-1.5 text-ink-600" aria-hidden="true">●</span>
         {data.venue}
       </p>
-
-      {/* ember (brand orange) marks classification, flow marks interaction.
-          Keeping them separate is what lets "teal means clickable" hold. */}
-      <p class="mt-1 font-mono text-[0.6875rem] tracking-[0.12em] text-ember-300 uppercase">
-        {eventTypeLabels[data.type]}
-      </p>
+      <p class="mt-1 font-mono text-[0.6875rem] tracking-[0.12em] text-ember-300 uppercase">{eventTypeLabels[data.type]}</p>
     </div>
   </article>
-</a>
+</Tag>

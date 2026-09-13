@@ -331,3 +331,25 @@
     transform: none !important;
   }
 }
+
+/* Awwwards pass: swipe links, scrollbar, view transitions, tape */
+.link-swipe {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left 100%;
+  transition: background-size 0.45s cubic-bezier(0.16,1,0.3,1), color 0.18s;
+  padding-bottom: 2px;
+}
+.link-swipe:hover { background-size: 100% 1px; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-ink-950); }
+::-webkit-scrollbar-thumb { background: var(--color-ink-700); border-radius: 8px; border: 2px solid var(--color-ink-950); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-flow); }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.35s; animation-timing-function: cubic-bezier(0.16,1,0.3,1); }
+.tape::before {
+  content: ''; position: absolute; top: -10px; left: 50%; translate: -50% 0; width: 84px; height: 22px;
+  background: color-mix(in oklab, var(--color-beam) 85%, transparent);
+  opacity: 0.9; rotate: -3deg;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+}
