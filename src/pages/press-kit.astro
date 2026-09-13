@@ -78,13 +78,16 @@ const fonts = [
   </section>
 
   <Section kicker="Logo" title="Marks and usage" class="hairline border-t">
-    <div class="hairline rounded-[--radius-card] border border-dashed p-8 sm:p-12">
+    <div class="hairline grid gap-8 rounded-[--radius-card] border p-8 sm:p-12 lg:grid-cols-[16rem_1fr] lg:items-center">
+      <img src="/brand/official-logo.png" alt="WorkFlow PH official logo" width="2000" height="2000" class="w-full max-w-64 rounded-md border border-ink-100/10 bg-ink-950 object-contain" loading="lazy" decoding="async" />
+      <div>
       <p class="max-w-xl leading-relaxed text-ink-400">
-        <strong class="text-ink-100">Pending (WF-A4).</strong> The official WorkFlow PH
-        mark needs to land as SVG — light and dark variants — before this section can
-        ship. Drop the files into
-        <code class="font-mono text-flow">public/brand/</code> and replace this block
-        with download links.
+        <strong class="text-ink-100">Official mark (PNG).</strong> SVG light/dark
+        variants still owed (WF-A4) — this PNG unblocks launch. Downloaded from
+        <code class="font-mono text-flow">public/brand/official-logo.png</code>.
+      </p>
+      <p class="mt-4">
+        <a href="/brand/official-logo.png" download class="font-mono text-[0.75rem] tracking-wide text-flow underline underline-offset-4">Download PNG (2000×2000)</a>
       </p>
       <ul class="mt-6 flex flex-col gap-2 text-sm text-ink-400">
         <li>Do keep clear space equal to the height of the mark on all sides.</li>
@@ -92,6 +95,7 @@ const fonts = [
         <li>Don't recolour, stretch, rotate, or add effects to the mark.</li>
         <li>Don't place the mark on a busy photograph without a scrim.</li>
       </ul>
+      </div>
     </div>
   </Section>
 

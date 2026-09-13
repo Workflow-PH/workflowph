@@ -10,6 +10,7 @@ const people = await getPeople();
 const byGroup = groupBy(people, (p) => p.data.group);
 const order = ['core', 'volunteer', 'speaker', 'alumni'] as const;
 const groups = order.filter((g) => byGroup.has(g));
+const total = people.length;
 ---
 
 <Base
@@ -21,42 +22,54 @@ const groups = order.filter((g) => byGroup.has(g));
       <div class="flex flex-col gap-6">
         <p class="kicker flex items-center gap-3">
           <span class="inline-block h-px w-8 bg-flow" aria-hidden="true"></span>
-          People
+          People · {total} named
         </p>
-        <h1 class="max-w-[24ch] text-[length:var(--text-display)]">
+        <h1 class="max-w-[20ch] text-[length:var(--text-display)]">
           Everyone here is a volunteer.
         </h1>
         <p class="max-w-[54ch] text-[length:var(--text-lead)] leading-relaxed text-ink-300">
-          The core team runs the community around classes and day jobs. The speakers
-          gave their time to teach. Both are worth naming.
+          The core team runs the community around classes and day jobs. The
+          speakers gave their time to teach. Both are worth naming — role first,
+          faces when we have consent-cleared headshots.
+        </p>
+        {/* LOREM BANNER — delete with the lorem entries once real headshots/roles land. */}
+        <p class="hairline max-w-[54ch] rounded-[--radius-card] border border-dashed px-4 py-3 font-mono text-[0.6875rem] leading-relaxed text-ink-500">
+          Layout preview: roles and names below are lorem ipsum placeholders to
+          judge rhythm and density. Swap for verified titles, orgs, and photos
+          before merging to dev.
         </p>
       </div>
     </Container>
   </section>
 
   {
-    groups.map((group) => (
-      <section aria-labelledby={`group-${group}`} class="pb-14">
-        <Container>
-          <div class="hairline mb-6 flex items-baseline gap-4 border-t pt-5">
-            <h2
-              id={`group-${group}`}
-              class="font-mono text-[0.8125rem] font-medium tracking-[0.16em] text-flow uppercase"
-            >
-              {peopleGroupLabels[group]}
-            </h2>
-            <span class="font-mono text-[0.6875rem] text-ink-600">
-              {byGroup.get(group)!.length}
-            </span>
-          </div>
-          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {byGroup.get(group)!.map((entry) => (
-              <PersonCard entry={entry} />
-            ))}
-          </div>
-        </Container>
-      </section>
-    ))
+    groups.map((group) => {
+      const entries = byGroup.get(group)!;
+      return (
+        <section aria-labelledby={`group-${group}`} class="pb-16 lg:pb-20">
+          <Container>
+            <div class="hairline mb-2 flex items-baseline justify-between gap-4 border-t pt-5">
+              <h2
+                id={`group-${group}`}
+                class="font-display text-[clamp(1.5rem,2.6vw,2.125rem)] font-semibold tracking-tight text-ink-50"
+              >
+                {peopleGroupLabels[group]}
+              </h2>
+              <span class="font-mono text-[0.6875rem] text-ink-500 tabular-nums">
+                {entries.length} {entries.length === 1 ? 'person' : 'people'}
+              </span>
+            </div>
+            <ol class="hairline divide-y divide-ink-100/10" role="list">
+              {entries.map((entry, i) => (
+                <li>
+                  <PersonCard entry={entry} index={i} />
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </section>
+      );
+    })
   }
 
   <CTA />
