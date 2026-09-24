@@ -1,0 +1,56 @@
+
+Community Overview & Purpose
+
+Organization Background
+	WorkFlow PH is a volunteer-driven ecosystem that aims to build an automation-capable and artificial intelligence (AI) literate workforce in the Philippines. The organization connects people with both income-driven and technical automation skills, using automation tools and platforms such as cloud platforms, orchestration tools, and business engines. Its main goal is to bridge the gap in AI education and automation by providing an interdisciplinary approach to automation, offering real-world solutions, and adapting to progressive technology in collaboration with sectors such as business, technology, and education.
+
+Purpose
+	The core purpose of WorkFlow PH is to create an ecosystem and workforce that empowers professionals, entrepreneurs, freelancers, and students through automation-driven development that focuses on both technical and business aspects, using workflows to solve real-world societal problems. The goal is to upskill and empower the community through hands-on automation experience, connecting people with the tools and data needed to improve efficiency, increase income, and build an ecosystem that evolves into a national automation literacy movement.
+
+Vision
+To build real, cloud-powered workflows that solve real problems. 
+To create a national model and pioneer automation literacy in the Philippines.
+
+Mission
+	WorkFlow PH aims to upskill communities in both income-driven automation (Virtual Assistance (VA), Business Process Outsourcing (BPO), marketing, e-commerce) and technical automation (security, cloud computing, data engineering, Geographic Information System (GIS), Internet of Things (IoT), dev, Quality Assurance (QA)).
+
+
+
+
+Target Community
+	WorkFlow PH targets professionals, enthusiasts, and aspiring individuals in the fields of VA, BPO, marketing, e-commerce, freelancing, entrepreneurship, solopreneurship, and technical fields such as Cloud and DevOps, cybersecurity, data engineering and analytics, IoT, Software Development, and QA.
+	
+Core Programs
+
+Program
+Purpose
+Build Nights 
+Collaborative night sessions where community members work together to create and implement automation workflows.
+Automation Clinics
+A recurring meeting session where members address specific real-world problems faced by the community in different fields.
+Case Study Walkthroughs
+Participants will engage in a detailed walkthrough and analysis of automation projects from idea to deployment.
+Mini Labs
+Hands-on workshops that focus on integrating cloud and automation tools.
+Open Volunteer Projects
+A community-driven collaboration session to build automation solutions for stakeholders.
+Mentorship for Students, VAs, and Professionals
+A mentorship program that connects enthusiasts, students, and professionals to improve their skills in automation.
+Hackathons
+Time-limited events where participants collaborate to solve a specific automation challenge, promoting innovation and enhancing critical, analytical, and problem-solving skills.
+Partnerships with BPOs, e-commerce groups, and universities
+A partnership drive with business, BPOs, e-commerce groups, and universities to enhance reach and program impact.
+
+
+Values
+Collaboration: Encourage teamwork within the community to achieve impactful results.
+Empowerment: Provide the community with knowledge, tools, experience, and confidence to solve different real-world problems.
+Innovation: Continuously seek solutions through automation and technology.
+Community Inclusivity: Build a network of volunteers, professionals, and learners from diverse fields that share a common goal.
+	
+Long-Term Impact Goals
+Establish regional automation labs to provide hands-on learning experiences that enable communities to develop solutions for local innovation.
+Develop open-source workflow libraries that SMSEs and other industries can use as customizable templates for automation.
+Organize industry-backed automation challenges to promote innovations using real-world business problems.
+Create a talent pipeline for automation-powered roles to help members enhance their skill sets and meet the growing, competitive demand in the automation industry.
+

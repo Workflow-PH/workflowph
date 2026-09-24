@@ -3,7 +3,7 @@ import { Finale } from '@/components/wf/finale'
 import { Diamond, Marquee } from '@/components/wf/marquee'
 import { PageTitle } from '@/components/wf/page-title'
 import { Reveal } from '@/components/wf/reveal'
-import { activities, beliefs, history } from '@/lib/data/site'
+import { activities, beliefs, history, longTerm, tracks, vision } from '@/lib/data/site'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata = pageMetadata({
@@ -45,10 +45,37 @@ export default function AboutPage() {
         </Marquee>
       </div>
 
-      <BigRows
-        label="So far"
-        rows={history.map((h) => ({ key: h.title, left: h.when, title: h.title }))}
-      />
+      <div className="flex flex-col gap-24 md:gap-32">
+        <BigRows
+          label="Vision"
+          rows={vision.map((v) => ({
+            key: v.name,
+            title: v.name,
+            note: v.body,
+          }))}
+        />
+        <BigRows
+          label="Two tracks, one community"
+          rows={tracks.map((t) => ({
+            key: t.name,
+            left: t.tool,
+            title: t.name,
+            note: t.body,
+          }))}
+        />
+        <BigRows
+          label="So far"
+          rows={history.map((h) => ({ key: h.title, left: h.when, title: h.title }))}
+        />
+        <BigRows
+          label="Where this goes"
+          rows={longTerm.map((l) => ({
+            key: l.name,
+            title: l.name,
+            note: l.body,
+          }))}
+        />
+      </div>
       <div className="h-32 md:h-48" />
       <Finale />
     </>

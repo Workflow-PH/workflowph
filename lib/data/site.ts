@@ -6,12 +6,13 @@ export const org = {
   tagline: 'Building the Volunteer-Driven Automation Landscape of the Philippines.',
   summary:
     'A volunteer-run community teaching automation and AI literacy through workshops, community days, and open templates.',
-  email: 'hello@workflowph.org',
+  email: 'hello.workflowph@gmail.com',
   socials: [
-    { label: 'Facebook', href: 'https://www.facebook.com/workflowph' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/workflowph' },
-    { label: 'Instagram', href: 'https://www.instagram.com/workflowph' },
+    { label: 'Facebook', href: 'https://www.facebook.com/WorkFlowPH/' },
+    { label: 'Instagram', href: 'https://www.instagram.com/workflowph/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/workflowph/home/' },
   ],
+
 } as const
 
 export type Stat = {
@@ -93,6 +94,49 @@ export const beliefs = [
   {
     name: 'Inclusivity',
     body: 'Students, career shifters, and senior engineers sit at the same table. Online first so distance is not a barrier.',
+  },
+] as const
+
+export const vision = [
+  {
+    name: 'Real workflows, real problems',
+    body: 'Build real, cloud-powered workflows that solve real problems.',
+  },
+  {
+    name: 'A national model',
+    body: 'Create a national model and pioneer automation literacy in the Philippines.',
+  },
+] as const
+
+export const tracks = [
+  {
+    name: 'Income-driven automation',
+    tool: 'VA · BPO · marketing · e-commerce · freelancing',
+    body: 'For VAs, BPO teams, marketers, sellers, freelancers, and founders. Automate the work you already sell so you deliver faster and earn more.',
+  },
+  {
+    name: 'Technical automation',
+    tool: 'cloud · security · data · GIS · IoT · dev · QA',
+    body: 'For cloud, DevOps, security, data engineering and analytics, GIS, IoT, software dev, and QA. Ship production-grade workflows on modern stacks.',
+  },
+] as const
+
+export const longTerm = [
+  {
+    name: 'Regional automation labs',
+    body: 'Hands-on learning spaces where communities build solutions for local problems.',
+  },
+  {
+    name: 'Open workflow libraries',
+    body: 'Open-source templates SMEs and other industries can fork and customize.',
+  },
+  {
+    name: 'Industry-backed challenges',
+    body: 'Automation challenges built on real business problems, with partners in the room.',
+  },
+  {
+    name: 'Talent pipeline',
+    body: 'A path from first workflow to automation-powered roles, as demand keeps growing.',
   },
 ] as const
 
@@ -208,7 +252,7 @@ export const press = {
   short:
     'WorkFlow PH is a volunteer-run community building automation and AI literacy across the Philippines. Through workshops, community days, and open templates, it has run 20+ events and reached 1,500+ Filipino builders with five partner organizations.',
   long:
-    'WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. Founded in early 2026 to fix fragmented automation education, it runs Build Nights, Automation Clinics, mini labs on n8n, Make, Zapier, Python and AI, hackathons, and mentorship, all led by async-first volunteers. WorkFlow PH has run 20+ events, reached 1,500+ Filipino builders, and works with five partner organizations including Jia Talent Vault, Echelon Philippines, Tutorials Dojo, AWS User Group Philippines, and AWS Community Day Philippines. Its template library and playbooks are being built in the open so any builder can fork, run, and credit them. Media: hello@workflowph.org.',
+    'WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. Founded in early 2026 to fix fragmented automation education, it runs Build Nights, Automation Clinics, mini labs on n8n, Make, Zapier, Python and AI, hackathons, and mentorship, all led by async-first volunteers. WorkFlow PH has run 20+ events, reached 1,500+ Filipino builders, and works with five partner organizations including Jia Talent Vault, Echelon Philippines, Tutorials Dojo, AWS User Group Philippines, and AWS Community Day Philippines. Its template library and playbooks are being built in the open so any builder can fork, run, and credit them. Media: hello.workflowph@gmail.com.',
   colors: [
     { name: 'Flow Teal', hex: '#1CBFA7', role: 'Start of the brand gradient' },
     { name: 'Ember Orange', hex: '#E2681F', role: 'Middle of the brand gradient' },

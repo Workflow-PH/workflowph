@@ -6,12 +6,14 @@ import { pageMetadata } from '@/lib/seo'
 
 export const metadata = pageMetadata({
   title: 'People',
-  description: 'The volunteers, speakers, and core team behind WorkFlow PH.',
+  description: 'The volunteers and core team behind WorkFlow PH.',
   path: '/people',
   kicker: 'Who runs it',
 })
 
-const order: PersonGroup[] = ['core', 'speaker', 'volunteer', 'alumni']
+// Only WorkFlow members are listed here.
+// Speakers from partner orgs stay credited on their event pages, not here.
+const order: PersonGroup[] = ['core', 'volunteer']
 
 export default function PeoplePage() {
   return (
@@ -24,12 +26,13 @@ export default function PeoplePage() {
           return (
             <BigRows
               key={g}
-              label={groupMeta[g].title}
+              label={`${groupMeta[g].title} — ${groupMeta[g].body}`}
               rows={list.map((p) => ({
                 key: p.slug,
                 left: p.does,
                 title: p.name,
-                right: p.pending ? 'Unconfirmed' : p.org,
+                note: p.credential,
+                right: p.org,
               }))}
             />
           )
