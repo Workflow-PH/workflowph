@@ -198,7 +198,8 @@ function Cutout({
   className: string
 }) {
   const range = [enter[0], enter[1], exit[0], exit[1]]
-  const y = useTransform(p, range, ['110vh', '0vh', '0vh', '115vh'])
+  // Symmetric in/out (was 115vh on exit) so reversing direction has no 5vh pop.
+  const y = useTransform(p, range, ['110vh', '0vh', '0vh', '110vh'])
   const rotate = useTransform(p, range, [rot * 4, rot, rot, rot * -3])
   return (
     <motion.div style={{ y, rotate }} className={`absolute z-[5] ${className}`}>

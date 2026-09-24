@@ -64,13 +64,20 @@ export default function AboutPage() {
           }))}
         />
         <BigRows
-          label="So far"
-          rows={history.map((h) => ({ key: h.title, left: h.when, title: h.title }))}
+          label="So far — the record"
+          rows={history.map((h) => ({
+            key: h.title,
+            left: h.when,
+            title: h.title,
+            note: h.body,
+            right: h.branch,
+          }))}
         />
         <BigRows
-          label="Where this goes"
-          rows={longTerm.map((l) => ({
+          label="Where this goes — the roadmap"
+          rows={longTerm.map((l, i) => ({
             key: l.name,
+            left: `0${i + 1} / Next`,
             title: l.name,
             note: l.body,
           }))}
