@@ -257,7 +257,7 @@ export const press = {
     { name: 'Flow Teal', hex: '#1CBFA7', role: 'Start of the brand gradient' },
     { name: 'Ember Orange', hex: '#E2681F', role: 'Middle of the brand gradient' },
     { name: 'Sun Yellow', hex: '#FCE043', role: 'End of the brand gradient, highlights' },
-    { name: 'Ink', hex: '#13201E', role: 'Text and dark surfaces' },
+    { name: 'Ink', hex: '#0E1614', role: 'Text and dark surfaces' },
     { name: 'Paper', hex: '#F3F4F1', role: 'Page background' },
   ],
   typefaces: [

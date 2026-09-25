@@ -21,7 +21,8 @@ export const outputs: Output[] = [
     stack: ['n8n', 'Make', 'Google Workspace'],
     status: 'in-progress',
     origin: 'Distilled from Build Nights and Mini Labs.',
-    people: ['paolo-villanueva', 'jerome-bautista'],
+    // Credits pending verification — add person slugs from lib/data/people.ts once confirmed.
+    people: [],
   },
   {
     slug: 'community-ops-playbook',
@@ -31,7 +32,8 @@ export const outputs: Output[] = [
     stack: ['Notion', 'Google Forms', 'Discord'],
     status: 'in-progress',
     origin: 'Written from running 20+ events with a volunteer crew.',
-    people: ['bea-mendoza', 'kristoffer-aquino'],
+    // Credits pending verification — add person slugs from lib/data/people.ts once confirmed.
+    people: [],
   },
   {
     slug: 'bedrock-agent-walkthrough',

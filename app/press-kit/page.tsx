@@ -19,7 +19,7 @@ const logos = [
 ]
 
 const swatchText: Record<string, string> = {
-  '#13201E': 'text-paper',
+  '#0E1614': 'text-paper',
 }
 
 export default function PressKitPage() {

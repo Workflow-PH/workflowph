@@ -76,13 +76,7 @@ export const people: Person[] = [
     does: 'Assistant Relations Manager',
     credential: 'Reports to Relations Manager. Supports partner outreach and follow-through.',
   },
-  {
-    slug: 'john-doe-finance',
-    name: 'John Doe',
-    group: 'core',
-    does: 'Finance Manager',
-    credential: 'Reports to VP for External. Owns budgeting and expense tracking.',
-  },
+  // Finance Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
     slug: 'sheun-georrell-pre',
     name: 'Sheun Georrell Pre',
@@ -136,13 +130,7 @@ export const people: Person[] = [
     credential: 'Reports to Technology Director. Helps with systems and event-day tech support.',
   },
   // ── Creatives + Marketing ───────────────────────────────────
-  {
-    slug: 'john-doe-creatives',
-    name: 'John Doe',
-    group: 'core',
-    does: 'Creatives Manager',
-    credential: 'Reports to Community Co-Lead. Owns visual direction and design output.',
-  },
+  // Creatives Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
     slug: 'rijay-cereno',
     name: 'Rijay Cereno',

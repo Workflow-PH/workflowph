@@ -21,7 +21,7 @@ export async function GET(req: Request) {
 
   return new ImageResponse(
     (
-      <div style={{ width: '100%', height: '100%', display: 'flex', background: '#f3f4f1', color: '#13201e', position: 'relative' }}>
+      <div style={{ width: '100%', height: '100%', display: 'flex', background: '#f3f4f1', color: '#0e1614', position: 'relative' }}>
         <div style={{ position: 'absolute', left: 80, top: 0, bottom: 0, width: 4, background: 'linear-gradient(180deg, #1cbfa7, #e2681f 55%, #fce043)' }} />
         <div style={{ position: 'absolute', left: 72, top: 92, width: 20, height: 20, background: '#13201e', transform: 'rotate(45deg)' }} />
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '80px 80px 70px 140px', width: '100%' }}>
