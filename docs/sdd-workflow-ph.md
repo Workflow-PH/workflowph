@@ -56,7 +56,7 @@ static pages + /og image route + /sitemap.xml + /robots.txt
 | Event helpers | Date sorting, slug lookup, per-person lookup, evidence score | PRD-F1 | `lib/data/events.ts:250` |
 | Shared presentation | Events index, big rows, page titles, marquees, reveal, nav, footer | PRD-F1–PRD-F7 | `components/wf/events-index.tsx:1`, `components/wf/big-rows.tsx:1`, `components/wf/nav.tsx:1`, `components/wf/footer.tsx:1` |
 | Redirects + headers | Legacy `/events` → `/showcase` mapping; security headers | PRD-F8 | `next.config.mjs:6` |
-| Poster strip | Scrolling poster cards on home, current theme | PRD-F1 | `components/wf/poster-strip.tsx:1` |
+| Poster strip | Manual drag/scroll/snap poster cards on home, current theme | PRD-F1 | `components/wf/poster-strip.tsx:1` |
 | Showcase partnerships | Chips of every collaborating org with event counts | PRD-F1 | `app/showcase/page.tsx:1` |
 | Ambassadors display | Logo strip plus roster rows for ambassador tier | PRD-F5 | `app/partners/page.tsx:1` |
 | LinkedIn icons | Profile links on roster rows, rendered only when a URL exists | PRD-F3 | `components/wf/big-rows.tsx:1` |
