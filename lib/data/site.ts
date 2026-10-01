@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://workflowph.org'
+export const SITE_URL = 'https://workflowph.vercel.app'
 
 export const org = {
   name: 'WorkFlow PH',
@@ -24,9 +24,9 @@ export type Stat = {
 
 /** value: null means we do not know yet and must say so. */
 export const stats: Stat[] = [
-  { key: 'events_run', label: 'Events run', value: '20+' },
-  { key: 'builders_reached', label: 'Filipino builders reached', value: '1,500+' },
-  { key: 'partner_orgs', label: 'Partner organizations', value: '5' },
+  { key: 'events_run', label: 'Events run', value: '6' },
+  { key: 'builders_reached', label: 'Filipino builders reached', value: '500+' },
+  { key: 'partner_orgs', label: 'Partner organizations', value: '10' },
   {
     key: 'volunteers',
     label: 'Active volunteers',
@@ -191,34 +191,34 @@ export const history: HistoryEntry[] = [
 
 export const contributions = [
   {
-    name: 'Build automations',
-    body: 'Turn a workshop idea into a template others can fork. n8n, Make, Google Workspace, Python.',
-    skills: ['n8n', 'Make', 'Apps Script', 'Python'],
+    name: 'Build Automations',
+    body: 'Show up with a repetitive task, leave with it automated. Builders pair up and ship before the night ends.',
+    skills: ['n8n', 'UiPath', 'Apps Script', 'Python'],
   },
   {
-    name: 'Organize events',
+    name: 'Organize Events',
     body: 'Run logistics for Build Nights, clinics, and community days. Mostly async, some on-site days.',
-    skills: ['Ops', 'Coordination'],
+    skills: ['Operations'],
   },
   {
-    name: 'Photograph and film',
-    body: 'Document what happened so it can be proven later. Every photo carries your credit.',
-    skills: ['Photo', 'Video'],
+    name: 'Write & Coordinate',
+    body: 'Shape sessions, keep docs and threads moving, and turn good nights into repeatable playbooks. Details to follow.',
+    skills: ['Programs'],
   },
   {
-    name: 'Design and write',
-    body: 'Posters, recaps, walkthroughs, and the copy that explains automation to first-timers.',
-    skills: ['Design', 'Writing'],
+    name: 'Design',
+    body: 'Posters, recaps, walkthroughs, and the visuals that explain automation to first-timers. Details to follow.',
+    skills: ['Creatives'],
   },
   {
-    name: 'Code on open tooling',
-    body: 'Improve the tools the community runs on, including this site and the template library.',
-    skills: ['TypeScript', 'Python'],
+    name: 'Create Content',
+    body: 'Posts, captions, and campaign copy that reach builders where they already are. Details to follow.',
+    skills: ['Marketing'],
   },
   {
-    name: 'Grow partnerships',
-    body: 'Open doors with schools and companies, and help shape what partners teach.',
-    skills: ['Outreach', 'Relationships'],
+    name: 'Grow Connections',
+    body: 'Open doors with schools and companies, and help shape what partners teach. Details to follow.',
+    skills: ['Relations', 'Finance'],
   },
 ] as const
 
@@ -236,7 +236,7 @@ export const volunteerTerms = {
 export const partnerReasons = [
   {
     title: 'Reach builders who ship',
-    body: '1,500+ Filipino builders reached so far: students, career shifters, and working engineers who automate real work, not spectators.',
+    body: '500+ Filipino builders reached so far: students, career shifters, and working engineers who automate real work, not spectators.',
   },
   {
     title: 'Your engineers teach, not pitch',
@@ -250,9 +250,9 @@ export const partnerReasons = [
 
 export const press = {
   short:
-    'WorkFlow PH is a volunteer-run community building automation and AI literacy across the Philippines. Through workshops, community days, and open templates, it has run 20+ events and reached 1,500+ Filipino builders with five partner organizations.',
+    'WorkFlow PH is a volunteer-run community building automation and AI literacy across the Philippines. Through workshops, community days, and open templates, it has run 6 events and reached 500+ Filipino builders with ten partner organizations.',
   long:
-    'WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. Founded in early 2026 to fix fragmented automation education, it runs Build Nights, Automation Clinics, mini labs on n8n, Make, Zapier, Python and AI, hackathons, and mentorship, all led by async-first volunteers. WorkFlow PH has run 20+ events, reached 1,500+ Filipino builders, and works with five partner organizations including Jia Talent Vault, Echelon Philippines, Tutorials Dojo, AWS User Group Philippines, and AWS Community Day Philippines. Its template library and playbooks are being built in the open so any builder can fork, run, and credit them. Media: hello.workflowph@gmail.com.',
+    'WorkFlow PH is a volunteer-driven community building the automation landscape of the Philippines. Founded in early 2026 to fix fragmented automation education, it runs Build Nights, Automation Clinics, mini labs on n8n, Make, Zapier, Python and AI, hackathons, and mentorship, all led by async-first volunteers. WorkFlow PH has run 6 events, reached 500+ Filipino builders, and works with ten partner organizations including Jia Talent Vault, Echelon Philippines, Tutorials Dojo, AWS User Group Philippines, and AWS Community Day Philippines. Its template library and playbooks are being built in the open so any builder can fork, run, and credit them. Media: hello.workflowph@gmail.com.',
   colors: [
     { name: 'Flow Teal', hex: '#1CBFA7', role: 'Start of the brand gradient' },
     { name: 'Ember Orange', hex: '#E2681F', role: 'Middle of the brand gradient' },

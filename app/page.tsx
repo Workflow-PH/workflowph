@@ -3,6 +3,7 @@ import { Stage } from '@/components/home/stage'
 import { EventsIndex } from '@/components/wf/events-index'
 import { Finale } from '@/components/wf/finale'
 import { Diamond, Marquee } from '@/components/wf/marquee'
+import { PosterStrip } from '@/components/wf/poster-strip'
 import { eventsByDate } from '@/lib/data/events'
 import { partners } from '@/lib/data/partners'
 import { stats } from '@/lib/data/site'
@@ -36,6 +37,11 @@ export default function HomePage() {
           </Link>
         </div>
         <EventsIndex items={toIndexItems(eventsByDate.slice(0, 6))} />
+        <PosterStrip
+          items={eventsByDate.flatMap((e) =>
+            e.poster ? [{ slug: e.slug, title: e.title, ...e.poster }] : [],
+          )}
+        />
       </section>
 
       <section aria-label="Partners" className="flex flex-col gap-2 overflow-hidden bg-ink py-28 md:py-40">
@@ -52,6 +58,9 @@ export default function HomePage() {
             </span>
           ))}
         </Marquee>
+        <p className="px-7 pt-6 font-mono text-[11px] tracking-widest uppercase opacity-70 md:px-10">
+          Supported by AWS Student User Group Philippines
+        </p>
       </section>
 
       <Finale />

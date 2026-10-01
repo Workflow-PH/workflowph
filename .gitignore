@@ -17,3 +17,6 @@ node_modules
 # Next.js / TS generated
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# SPINE generated artifact
+cockpit.html

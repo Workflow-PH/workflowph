@@ -8,6 +8,8 @@ export type Person = {
   credential: string
   org?: string
   verified?: boolean
+  /** LinkedIn profile URL. Only set when the owner supplies the link. */
+  linkedin?: string
   /** Only set when the person has consented to a published photo. */
   photo?: { src: string; alt: string }
   /**
@@ -130,7 +132,13 @@ export const people: Person[] = [
     credential: 'Reports to Technology Director. Helps with systems and event-day tech support.',
   },
   // ── Creatives + Marketing ───────────────────────────────────
-  // Creatives Manager — vacant. Add here once confirmed, do not use a placeholder name.
+  {
+    slug: 'joemar-lagat',
+    name: 'Joemar Lagat',
+    group: 'core',
+    does: 'Creatives Manager',
+    credential: 'Leads the design and creative department.',
+  },
   {
     slug: 'rijay-cereno',
     name: 'Rijay Cereno',
@@ -138,13 +146,7 @@ export const people: Person[] = [
     does: 'Assistant Creatives Manager',
     credential: 'Reports to Creatives Manager. Supports graphics and media production.',
   },
-  {
-    slug: 'maury-mae-villar',
-    name: 'Maury Mae Villar',
-    group: 'core',
-    does: 'Marketing Manager',
-    credential: 'Reports to Community Co-Lead. Owns content calendar and promotion.',
-  },
+  // Marketing Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
     slug: 'cj-eustaquio',
     name: 'CJ Eustaquio',

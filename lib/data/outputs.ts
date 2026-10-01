@@ -31,7 +31,7 @@ export const outputs: Output[] = [
     forWho: 'Organizers starting their own chapter or tech community.',
     stack: ['Notion', 'Google Forms', 'Discord'],
     status: 'in-progress',
-    origin: 'Written from running 20+ events with a volunteer crew.',
+    origin: 'Written from running 6 events with a volunteer crew.',
     // Credits pending verification — add person slugs from lib/data/people.ts once confirmed.
     people: [],
   },

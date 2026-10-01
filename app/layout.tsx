@@ -23,7 +23,7 @@ const jetbrains = JetBrains_Mono({
 })
 
 const description =
-  'WorkFlow PH is a volunteer-run community teaching automation and AI literacy across the Philippines. 20+ events, 1,500+ builders reached, 5 partner orgs.'
+  'WorkFlow PH is a volunteer-run community teaching automation and AI literacy across the Philippines. 6 events, 500+ builders reached, 10 partner orgs.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

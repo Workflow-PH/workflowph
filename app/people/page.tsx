@@ -33,6 +33,7 @@ export default function PeoplePage() {
                 title: p.name,
                 note: p.credential,
                 right: p.org,
+                linkedin: p.linkedin,
               }))}
             />
           )

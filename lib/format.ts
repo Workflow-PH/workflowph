@@ -20,6 +20,8 @@ function parts(iso: string) {
 }
 
 export function formatDateRange(start: string, end?: string, monthOnly?: boolean) {
+  // Records without a confirmed date carry a non-date `start` and render honestly.
+  if (!/^\d{4}-\d{2}/.test(start)) return 'Date TBC'
   const s = parts(start)
   if (monthOnly) return `${MONTHS[s.m]} ${s.y} · day TBC`
   if (!end) return `${MONTHS[s.m]} ${s.d}, ${s.y}`
