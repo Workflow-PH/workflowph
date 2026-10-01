@@ -36,6 +36,7 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
 
   const markY = useTransform(p, [0.8, 0.88], ['0vh', '-17vh'])
   const markScale = useTransform(p, [0.8, 0.88], [1, 0.62])
+  const markOpacity = useTransform(p, [0.8, 0.92], [1, 0.28])
 
   const o1 = useTransform(p, [0, 1], [0, 28])
   const o2 = useTransform(p, [0, 1], [0, -20])
@@ -68,7 +69,7 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
         </motion.div>
 
         <div aria-hidden="true" className="absolute inset-0">
-          <ChapterWord p={p} word="Automate" exit={[0.12, 0.2]} color={PAPER} />
+          <ChapterWord p={p} word="Automate" color={PAPER} persistent />
           <ChapterWord p={p} word="Together" enter={[0.22, 0.31]} exit={[0.44, 0.51]} color={INK} />
           <ChapterWord p={p} word="Pilipinas" enter={[0.52, 0.61]} exit={[0.71, 0.78]} color={INK} />
         </div>
@@ -82,7 +83,7 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
           <Cutout p={p} src="/collage/chair.webp" w={579} h={811} enter={[0.55, 0.64]} exit={[0.7, 0.77]} rot={-10} className="right-[4%] bottom-[30%] h-[16vh] md:right-[28%] md:bottom-[3%] md:h-[32vh]" />
         </div>
 
-        <motion.div style={{ y: markY, scale: markScale }} className="relative z-10 w-[min(66vw,560px)]">
+        <motion.div style={{ y: markY, scale: markScale, opacity: markOpacity }} className="relative z-[6] w-[min(66vw,560px)]">
           <Mark
             className="h-auto w-full"
             left={{ x: lx, y: ly, rotate: lr }}
@@ -119,13 +120,15 @@ function ChapterWord({
   enter,
   exit,
   color,
+  persistent = false,
 }: {
   p: MotionValue<number>
   word: string
   /** Omit when the word is on screen from the first frame. */
   enter?: Range
-  exit: Range
+  exit?: Range
   color: string
+  persistent?: boolean
 }) {
   const letters = word.toUpperCase().split('')
   return (
@@ -134,7 +137,7 @@ function ChapterWord({
       style={{ color }}
     >
       {letters.map((l, i) => (
-        <Letter key={`${l}${i}`} p={p} i={i} n={letters.length} enter={enter} exit={exit}>
+        <Letter key={`${l}${i}`} p={p} i={i} n={letters.length} enter={enter} exit={exit} persistent={persistent}>
           {l}
         </Letter>
       ))}
@@ -148,25 +151,31 @@ function Letter({
   n,
   enter,
   exit,
+  persistent = false,
   children,
 }: {
   p: MotionValue<number>
   i: number
   n: number
   enter?: Range
-  exit: Range
+  exit?: Range
+  persistent?: boolean
   children: string
 }) {
-  const outSpan = exit[1] - exit[0]
-  const c = exit[0] + outSpan * 0.6 * (i / n)
-  const d = c + outSpan * 0.4
-  let input = [c, d]
-  let output = ['0%', '-110%']
-  if (enter) {
-    const inSpan = enter[1] - enter[0]
-    const a = enter[0] + inSpan * 0.6 * (i / n)
-    input = [a, a + inSpan * 0.4, c, d]
-    output = ['110%', '0%', '0%', '-110%']
+  let input = [0, 1]
+  let output = ['0%', '0%']
+  if (!persistent && exit) {
+    const outSpan = exit[1] - exit[0]
+    const c = exit[0] + outSpan * 0.6 * (i / n)
+    const d = c + outSpan * 0.4
+    input = [c, d]
+    output = ['0%', '-110%']
+    if (enter) {
+      const inSpan = enter[1] - enter[0]
+      const a = enter[0] + inSpan * 0.6 * (i / n)
+      input = [a, a + inSpan * 0.4, c, d]
+      output = ['110%', '0%', '0%', '-110%']
+    }
   }
   const y = useTransform(p, input, output)
   return (
