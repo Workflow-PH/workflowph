@@ -20,3 +20,6 @@ tsconfig.tsbuildinfo
 
 # SPINE generated artifact
 cockpit.html
+
+# Workflow agent working notes
+.agents/

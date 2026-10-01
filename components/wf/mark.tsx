@@ -15,6 +15,12 @@ export type PieceMotion = {
 const W = 1126
 const H = 591
 
+/**
+ * Width of the hero mark. Shared by the intro overlay and the landing stage so
+ * the logo does not change size when the intro curtain lifts.
+ */
+export const MARK_WIDTH = 'w-[min(66vw,560px)]'
+
 /** Clip regions that separate the logo artwork into its three pieces. */
 const CLIPS = {
   left: 'M-80 -80H563V-8L397 158L563 324V671H-80Z',

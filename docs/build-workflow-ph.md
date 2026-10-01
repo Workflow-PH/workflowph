@@ -7,7 +7,7 @@ doc_version: 0.1
 status: Draft
 owner: slvdrvncntjvr
 created: 2026-10-01
-updated: 2026-10-01
+updated: 2026-10-02
 reconciled: 2026-10-01
 ---
 
@@ -60,6 +60,7 @@ Read from `package.json` on 2026-10-01. Caret ranges below are the manifest as w
 | Images | sharp | ^0.35.4 | 2026-10-01 | https://sharp.pixelplumbing.com/ |
 | Primitives | @base-ui/react | ^1.5.0 | 2026-10-01 | https://base-ui.com/ |
 | Icons | lucide-react | ^1.16.0 | 2026-10-01 | https://lucide.dev/ |
+| Test runner | vitest (devDependency) | 5.0.3 | 2026-10-02 | https://vitest.dev/ |
 | Analytics | @vercel/analytics | 1.6.1 | 2026-10-01 | https://vercel.com/docs/analytics |
 | Package manager | pnpm | 10.33.0 | 2026-10-01 | https://pnpm.io/ |
 | Node runtime | Node.js (Vercel-managed) | unverified | unverified | https://vercel.com/docs/functions/runtimes — no .nvmrc or engines pin in repo; Vercel deploy confirmed 2026-10-01 |
@@ -84,9 +85,9 @@ Copied from `package.json` scripts.
 | Dev | `pnpm dev` |
 | Build | `pnpm build` |
 | Start | `pnpm start` |
-| Test | None in repo (confirmed 2026-10-01: no config, no script) — TBD(owner) whether to add |
+| Test | `pnpm test` (`vitest run`; Vitest 5.0.3 pinned exact, Node environment, `vitest.config.ts`; added 2026-10-02) |
 | Lint | None in repo (confirmed 2026-10-01: no config, no script) — TBD(owner) whether to add |
-| Typecheck | No script; `tsconfig.json` is strict with noEmit — TBD(owner) whether to add a script |
+| Typecheck | `pnpm typecheck` (`tsc --noEmit`; added 2026-10-02) |
 
 Long-running commands (dev servers, watchers) must be run by the owner in their
 own terminal, not by an agent in a blocking shell call.
@@ -102,7 +103,7 @@ own terminal, not by an agent in a blocking shell call.
 | Directory layout | `app/` routes (about, builds, join, partners, people, press-kit, showcase, og, showcase/[slug]); `components/home`, `components/ui`, `components/wf`; `lib/data` (events, outputs, partners, people, site) plus `lib/format.ts`, `lib/items.ts`, `lib/nav.ts`, `lib/seo.ts`, `lib/utils.ts`; `public/brand`, `public/collage`, `public/images/events`, `public/images/partners`, `public/og` |
 | Naming | Data slugs are lowercase hyphenated (`lib/data/*.ts`); routes match `lib/nav.ts`; components under `components/wf` use the `wf-` prefix conceptually |
 | Error handling | Unknown numbers render as `TBC`, never estimates (`lib/data/events.ts:22`); unknown volunteer counts stay `null` with a note (`lib/data/site.ts:25`); unknown event pages call `notFound()` (`app/showcase/[slug]/page.tsx:34`) |
-| Test location | None established (no test script; TBD(owner)) |
+| Test location | Pure-helper tests beside their module as `lib/*.test.ts` (e.g. `lib/loop.test.ts`); no browser/DOM tests |
 
 ---
 
@@ -124,7 +125,7 @@ Repo-specific prohibitions. These are enforced like engine §8 Hard Rules.
 
 - [ ] Implements a `Locked` requirement, by ID
 - [ ] Build passes: `pnpm build`
-- [ ] Tests pass: TBD(owner) — no test command exists yet
+- [ ] Tests pass: `pnpm test`
 - [ ] Lint and typecheck clean
 - [ ] Acceptance criteria for the feature ID pass (PRD §3.1; no QAD in tier 2)
 - [ ] Docs updated if behavior changed; `INDEX` row bumped

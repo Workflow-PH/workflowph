@@ -7,7 +7,7 @@ doc_version: 0.1
 status: Draft
 owner: slvdrvncntjvr
 created: 2026-10-01
-updated: 2026-10-01
+updated: 2026-10-02
 reconciled: 2026-10-01
 ---
 
@@ -26,12 +26,12 @@ Built on SPINE 0.2.0
 | Document | File | Version | Status | Updated | Reconciled |
 |----------|------|---------|--------|---------|------------|
 | IDEA · Idea Brief | [idea-workflow-ph.md](idea-workflow-ph.md) | 0.1 | Draft | 2026-10-01 | 2026-10-01 |
-| BUILD · Build Guide | [build-workflow-ph.md](build-workflow-ph.md) | 0.1 | Draft | 2026-10-01 | 2026-10-01 |
+| BUILD · Build Guide | [build-workflow-ph.md](build-workflow-ph.md) | 0.1 | Draft | 2026-10-02 | 2026-10-01 |
 | PRD · Product Requirements | [prd-workflow-ph.md](prd-workflow-ph.md) | 0.1 | Draft | 2026-10-01 | 2026-10-01 |
-| SDD · System Design | [sdd-workflow-ph.md](sdd-workflow-ph.md) | 0.1 | Draft | 2026-10-01 | 2026-10-01 |
+| SDD · System Design | [sdd-workflow-ph.md](sdd-workflow-ph.md) | 0.1 | Draft | 2026-10-02 | 2026-10-01 |
 | QAD · QA & Test Plan | n/a | n/a | N/A (tier 2; deferred to tier 3) | n/a | n/a |
 | OPS · Ops & Observability | n/a | n/a | N/A (tier 2; deferred to tier 3) | n/a | n/a |
-| LOG · Session Log | [log-workflow-ph.md](log-workflow-ph.md) | 0.1 | Draft | 2026-10-01 | 2026-10-01 |
+| LOG · Session Log | [log-workflow-ph.md](log-workflow-ph.md) | 0.1 | Draft | 2026-10-02 | 2026-10-01 |
 
 **Materialized at repo root (not in `docs/`):** README.md, AGENTS.md (SPINE pointer), CLAUDE.md, GEMINI.md
 
@@ -93,4 +93,5 @@ column on a Must-Have row is a gap; report it rather than quietly filling it.
 - QAD/OPS are N/A by tier choice, not by oversight. The `no` entries in the QAD column above are the honest gap that records this.
 - Code already exists in the repo (site was built before docs). If the owner wants a retrofit firewall (inventory vs. intent), say so and the suite moves to engine §7.6; until then these docs describe intended behavior grounded in the repo README and data files, with gaps marked TBD(owner).
 - Batch and URL policy confirmed 2026-10-01 (`main` = production, `dev` = staging previews, vercel.app canonical; SITE_URL switched in code). Jem batch (thoughts + Astro reference in `jem/`) distilled into LOG Q4, Q6, Q15–Q18; one consistent update when answers land. Poster strip built manual (drag/scroll/snap, current theme); reports-to lines removed. State pushed to `dev` (`e4edd5a`, `e37a93d`); docs are git-tracked.
+- 2026-10-02 (uncommitted on `dev`): landing fixes + owner-approved motion (right-to-left auto-drifting poster loop, watermark landing, intro size handoff) and Vitest 5.0.3 + `pnpm test`/`pnpm typecheck`; see LOG §1.
 - Open TBD items live in IDEA §7, PRD §7, SDD §8, and LOG §2.

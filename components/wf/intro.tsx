@@ -2,7 +2,8 @@
 
 import { animate, motion, useMotionValue, useTransform } from 'motion/react'
 import { useEffect } from 'react'
-import { Mark, MarkOutline } from './mark'
+import { INTRO_DONE_EVENT } from '@/lib/intro'
+import { MARK_WIDTH, Mark, MarkOutline } from './mark'
 import { getLenis } from './smooth-scroll'
 
 const ease = [0.76, 0, 0.24, 1] as const
@@ -32,6 +33,7 @@ export function Intro() {
 
     const finish = () => {
       root.dataset.intro = 'done'
+      window.dispatchEvent(new Event(INTRO_DONE_EVENT))
       try {
         sessionStorage.setItem('wf-intro', '1')
       } catch {}
@@ -54,7 +56,7 @@ export function Intro() {
       style={{ clipPath: clip }}
       className="wf-intro fixed inset-0 z-[90] flex items-center justify-center bg-ink text-paper"
     >
-      <div className="relative w-[min(60vw,420px)]">
+      <div className={`relative ${MARK_WIDTH}`}>
         <motion.div style={{ opacity: outlineOpacity }} className="absolute inset-0">
           <MarkOutline draw={draw} className="h-auto w-full" />
         </motion.div>

@@ -1,9 +1,21 @@
 'use client'
 
 import Image from 'next/image'
-import { motion, transform, useScroll, useTransform, type MotionValue } from 'motion/react'
-import { useRef } from 'react'
-import { Mark, MarkOutline } from '@/components/wf/mark'
+import {
+  animate,
+  motion,
+  transform,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type AnimationPlaybackControls,
+  type MotionValue,
+} from 'motion/react'
+import { useEffect, useRef, type ReactNode } from 'react'
+import { MARK_WIDTH, Mark, MarkOutline } from '@/components/wf/mark'
+import { whenIntroDone } from '@/lib/intro'
+import { ghost, markOpacity, markScale as ghostScale } from '@/lib/stage-ghost'
 
 const INK = '#0e1614'
 const PAPER = '#f3f4f1'
@@ -37,6 +49,28 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
   const markY = useTransform(p, [0.8, 0.88], ['0vh', '-17vh'])
   const markScale = useTransform(p, [0.8, 0.88], [1, 0.62])
 
+  // Watermark: after the intro the mark settles behind AUTOMATE (faded, larger),
+  // then returns to full strength as AUTOMATE scrolls out (lib/stage-ghost).
+  const reduce = useReducedMotion()
+  const settle = useMotionValue(0)
+  useEffect(() => {
+    if (reduce) {
+      settle.set(1)
+      return
+    }
+    let run: AnimationPlaybackControls | undefined
+    const off = whenIntroDone(() => {
+      run = animate(settle, 1, { duration: 1.2, ease: [0.76, 0, 0.24, 1] })
+    })
+    return () => {
+      off()
+      run?.stop()
+    }
+  }, [reduce, settle])
+  const g = useTransform([settle, p], ([s, v]: number[]) => ghost(s, v))
+  const wrapOpacity = useTransform(g, markOpacity)
+  const wrapScale = useTransform([markScale, g], ([b, v]: number[]) => ghostScale(b, v))
+
   const o1 = useTransform(p, [0, 1], [0, 28])
   const o2 = useTransform(p, [0, 1], [0, -20])
   const o3 = useTransform(p, [0, 1], [0, 12])
@@ -68,7 +102,6 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
         </motion.div>
 
         <div aria-hidden="true" className="absolute inset-0">
-          <ChapterWord p={p} word="Automate" exit={[0.12, 0.2]} color={PAPER} />
           <ChapterWord p={p} word="Together" enter={[0.22, 0.31]} exit={[0.44, 0.51]} color={INK} />
           <ChapterWord p={p} word="Pilipinas" enter={[0.52, 0.61]} exit={[0.71, 0.78]} color={INK} />
         </div>
@@ -82,7 +115,10 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
           <Cutout p={p} src="/collage/chair.webp" w={579} h={811} enter={[0.55, 0.64]} exit={[0.7, 0.77]} rot={-10} className="right-[4%] bottom-[30%] h-[16vh] md:right-[28%] md:bottom-[3%] md:h-[32vh]" />
         </div>
 
-        <motion.div style={{ y: markY, scale: markScale }} className="relative z-10 w-[min(66vw,560px)]">
+        <motion.div
+          style={{ y: markY, scale: wrapScale, opacity: wrapOpacity }}
+          className={`relative z-10 ${MARK_WIDTH}`}
+        >
           <Mark
             className="h-auto w-full"
             left={{ x: lx, y: ly, rotate: lr }}
@@ -90,6 +126,11 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
             center={{ y: cy, rotate: cr, scale: cs }}
           />
         </motion.div>
+
+        {/* AUTOMATE reads in front of the watermarked mark, below the captions. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[15]">
+          <ChapterWord p={p} word="Automate" exit={[0.12, 0.2]} color={PAPER} settle={settle} />
+        </div>
 
         <div className="absolute inset-x-0 top-[58%] z-10 flex justify-center gap-6 px-6 md:gap-16">
           {stats.map((s, i) => (
@@ -119,6 +160,7 @@ function ChapterWord({
   enter,
   exit,
   color,
+  settle,
 }: {
   p: MotionValue<number>
   word: string
@@ -126,6 +168,8 @@ function ChapterWord({
   enter?: Range
   exit: Range
   color: string
+  /** 0 → 1 settle progress; when given, letters also rise in as it runs. */
+  settle?: MotionValue<number>
 }) {
   const letters = word.toUpperCase().split('')
   return (
@@ -134,7 +178,15 @@ function ChapterWord({
       style={{ color }}
     >
       {letters.map((l, i) => (
-        <Letter key={`${l}${i}`} p={p} i={i} n={letters.length} enter={enter} exit={exit}>
+        <Letter
+          key={`${l}${i}`}
+          p={p}
+          i={i}
+          n={letters.length}
+          enter={enter}
+          exit={exit}
+          settle={settle}
+        >
           {l}
         </Letter>
       ))}
@@ -148,6 +200,7 @@ function Letter({
   n,
   enter,
   exit,
+  settle,
   children,
 }: {
   p: MotionValue<number>
@@ -155,6 +208,7 @@ function Letter({
   n: number
   enter?: Range
   exit: Range
+  settle?: MotionValue<number>
   children: string
 }) {
   const outSpan = exit[1] - exit[0]
@@ -169,12 +223,42 @@ function Letter({
     output = ['110%', '0%', '0%', '-110%']
   }
   const y = useTransform(p, input, output)
+  const letter = (
+    <motion.span style={{ y }} className="inline-block">
+      {children}
+    </motion.span>
+  )
   return (
     <span className="inline-block overflow-hidden py-[0.04em]">
-      <motion.span style={{ y }} className="inline-block">
-        {children}
-      </motion.span>
+      {settle ? (
+        <SettleIn settle={settle} i={i} n={n}>
+          {letter}
+        </SettleIn>
+      ) : (
+        letter
+      )}
     </span>
+  )
+}
+
+/** Rises a letter in from below its mask as `settle` runs 0 → 1, staggered over 0..0.4. */
+function SettleIn({
+  settle,
+  i,
+  n,
+  children,
+}: {
+  settle: MotionValue<number>
+  i: number
+  n: number
+  children: ReactNode
+}) {
+  const start = n > 1 ? 0.4 * (i / (n - 1)) : 0
+  const y = useTransform(settle, [start, start + 0.6], ['110%', '0%'])
+  return (
+    <motion.span style={{ y }} className="inline-block">
+      {children}
+    </motion.span>
   )
 }
 

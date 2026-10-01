@@ -7,7 +7,7 @@ doc_version: 0.1
 status: Draft
 owner: slvdrvncntjvr
 created: 2026-10-01
-updated: 2026-10-01
+updated: 2026-10-02
 reconciled: 2026-10-01
 ---
 
@@ -37,6 +37,9 @@ reconciled: 2026-10-01
 | 2026-10-01 | Pushed to `dev`: batch commit `e4edd5a` (lorem-first build) then `e37a93d` (manual strip + reports-to removal). Docs are git-tracked; Vercel previews build from `dev`. | Push record so any session can locate the state | log |
 | 2026-10-01 | Batch status ledger: CONFIRMED — everything in prior rows plus reports-to removal and manual strip. TO FOLLOW — LinkedIn URLs (Jem compiling), partner details + namings, new-event details + winners scope, About concept, press-kit keep-or-drop, dev preview review, merge to main, docs lock. | Owner-ordered status freeze; anything not in CONFIRMED waits | all docs |
 | 2026-10-01 | Homepage poster strip approved in principle: poster cards in the current theme, not a redesign | Owner + Community Lead direction from Astro reference (`jem/reference-pic/previous_reference.jpeg`); repo design-final rule respected | sdd, log |
+| 2026-10-02 | Owner-approved motion changes on `dev` (uncommitted): poster strip now auto-drifts right-to-left as a seamless infinite loop (replacing the manual-only strip), keeps drag/swipe/Shift+wheel/arrow keys, and pauses on hover, keyboard focus, touch, off-screen, hidden tab, intro not done and reduced motion; the home mark lands as a background watermark after the intro so AUTOMATE stays readable, and is restored on scroll before the split; intro mark now hands off to the stage at a matching size. This OVERRIDES the README/BUILD §5 design-final rule ("no new motion") by explicit owner approval. Accepted gap: no persistent pause control, so WCAG 2.2.2 is knowingly not met for the strip (owner decision, hover-based pause only). Known risk, needs a device check: a touch fling that crosses a loop seam may stop or stutter on iOS/Android | Owner answers 1=b, 2=a, 3=a plus "strip should drift right to left" | sdd, log (`components/wf/poster-strip.tsx`, `components/home/stage.tsx`, `components/wf/mark.tsx`, `components/wf/intro.tsx`) |
+| 2026-10-02 | Test tooling added: Vitest pinned exact (5.0.3), Node environment, pure-helper tests in `lib/*.test.ts` (`lib/loop`, `lib/intro`, `lib/stage-ghost`), `pnpm test` = `vitest run`; `pnpm typecheck` = `tsc --noEmit`. Partially answers Q8 (test + typecheck pinned; commit format and lint still open) | Owner asked for a test that the strip drifts right-to-left; pure helpers keep tests free of a browser | build, log (`package.json`, `vitest.config.ts`) |
+| 2026-10-02 | Bugs fixed on `dev` (uncommitted): strip not scrollable on wide screens (too few posters to overflow; now enough loop copies to fill any width); mouse wheel never reached the strip (Shift+wheel now scrolls it, plain wheel still scrolls the page); scroll-snap fought drag; home mark covered AUTOMATE; intro-to-stage mark size jump at the curtain lift | Owner report ("the strips its not scrolling") plus codebase analysis | sdd, log |
 
 ## 2. Open questions
 
@@ -49,7 +52,7 @@ reconciled: 2026-10-01
 | Q5 | 2026-10-01 | Minimum evidence per event record before it goes public? | PRD-F1 acceptance | Resolved |
 | Q6 | 2026-10-01 | Press kit: keep the page or drop it? If kept, numbers must match verified stats. | PRD-F7 | Open |
 | Q7 | 2026-10-01 | PRD-F7/F8 priority for launch? | PRD scope | Resolved |
-| Q8 | 2026-10-01 | Commit format, test, lint, and typecheck conventions to pin in BUILD? (Branch policy resolved: main/dev.) | BUILD §3–§4 | Open |
+| Q8 | 2026-10-01 | Commit format, test, lint, and typecheck conventions to pin in BUILD? (Branch policy resolved: main/dev.) | BUILD §3–§4 | Open (2026-10-02: test = Vitest 5.0.3 and typecheck = `tsc --noEmit` pinned; commit format and lint still open) |
 | Q9 | 2026-10-01 | Should sitemap `lastModified` stay fixed or generate at build time? | SDD §8 | Open |
 | Q10 | 2026-10-01 | Photo consent/credit requirement before an event goes public? | SDD §8, PRD-F1 | Resolved |
 | Q11 | 2026-10-01 | Canonical URL: is workflowph.org connected, or is the vercel.app URL canonical for now? Production branch? | BUILD §5, SDD §1 | Resolved |

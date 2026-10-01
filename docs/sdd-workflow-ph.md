@@ -7,7 +7,7 @@ doc_version: 0.1
 status: Draft
 owner: slvdrvncntjvr
 created: 2026-10-01
-updated: 2026-10-01
+updated: 2026-10-02
 reconciled: 2026-10-01
 ---
 
@@ -40,7 +40,7 @@ static pages + /og image route + /sitemap.xml + /robots.txt
 
 | Component | Responsibility | Serves | Location |
 |-----------|---------------|--------|----------|
-| Home stage + record index | Presents tagline, verified stats, latest events, partner marquee | PRD-F1, PRD-F4, PRD-F5 | `app/page.tsx:1` |
+| Home stage + record index | Presents tagline, verified stats, latest events, partner marquee; after the intro the mark lands as a faded background watermark behind AUTOMATE (restored on scroll before the split), with the intro handing off at the same mark size (`MARK_WIDTH`) | PRD-F1, PRD-F4, PRD-F5 | `app/page.tsx:1`, `components/home/stage.tsx:1` |
 | Showcase list | Full event record index, newest-first | PRD-F1 | `app/showcase/page.tsx:1` |
 | Event detail | One page per event slug; metadata, numbers, recap, outcomes, people, outputs, links, photos; unknown slug → not-found | PRD-F1 | `app/showcase/[slug]/page.tsx:1` |
 | Builds list | Open outputs with status, stack, origin, credits | PRD-F2 | `app/builds/page.tsx:1` |
@@ -56,7 +56,7 @@ static pages + /og image route + /sitemap.xml + /robots.txt
 | Event helpers | Date sorting, slug lookup, per-person lookup, evidence score | PRD-F1 | `lib/data/events.ts:250` |
 | Shared presentation | Events index, big rows, page titles, marquees, reveal, nav, footer | PRD-F1–PRD-F7 | `components/wf/events-index.tsx:1`, `components/wf/big-rows.tsx:1`, `components/wf/nav.tsx:1`, `components/wf/footer.tsx:1` |
 | Redirects + headers | Legacy `/events` → `/showcase` mapping; security headers | PRD-F8 | `next.config.mjs:6` |
-| Poster strip | Manual drag/scroll/snap poster cards on home, current theme | PRD-F1 | `components/wf/poster-strip.tsx:1` |
+| Poster strip | Auto-drifting (right-to-left) infinite poster loop with manual drag/swipe/Shift+wheel; pauses on hover, focus, touch, off-screen, hidden tab, reduced motion | PRD-F1 | `components/wf/poster-strip.tsx:1`, `lib/loop.ts:1` |
 | Showcase partnerships | Chips of every collaborating org with event counts | PRD-F1 | `app/showcase/page.tsx:1` |
 | Ambassadors display | Logo strip plus roster rows for ambassador tier | PRD-F5 | `app/partners/page.tsx:1` |
 | LinkedIn icons | Profile links on roster rows, rendered only when a URL exists | PRD-F3 | `components/wf/big-rows.tsx:1` |
