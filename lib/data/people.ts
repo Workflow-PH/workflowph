@@ -40,28 +40,28 @@ export const people: Person[] = [
     name: 'Krystel Mae Austral',
     group: 'core',
     does: 'Vice President for External',
-    credential: 'Reports to Community Co-Lead. Leads Relations and Finance.',
+    credential: 'Leads Relations and Finance.',
   },
   {
     slug: 'lea-erika-veridiano',
     name: 'Lea Erika Veridiano',
     group: 'core',
     does: 'Vice President for Internal',
-    credential: 'Reports to Community Co-Lead. Leads Operations and Programs.',
+    credential: 'Leads Operations and Programs.',
   },
   {
     slug: 'merille-janine-pepito',
     name: 'Merille Janine Pepito',
     group: 'core',
     does: 'Secretary',
-    credential: 'Reports to Community Co-Lead. Keeps records and internal comms.',
+    credential: 'Keeps records and internal comms.',
   },
   {
     slug: 'vincent-javier',
     name: 'Vincent Javier',
     group: 'core',
     does: 'Technology Director',
-    credential: 'Reports to Community Co-Lead. Maintains this site and internal tooling.',
+    credential: 'Maintains this site and internal tooling.',
   },
   // ── External branch ─────────────────────────────────────────
   {
@@ -69,14 +69,14 @@ export const people: Person[] = [
     name: 'Mary Jean Navarro',
     group: 'core',
     does: 'Relations Manager',
-    credential: 'Reports to VP for External. Owns partnerships and relations pipeline.',
+    credential: 'Owns partnerships and relations pipeline.',
   },
   {
     slug: 'john-eric-samillano',
     name: 'John Eric Samillano',
     group: 'core',
     does: 'Assistant Relations Manager',
-    credential: 'Reports to Relations Manager. Supports partner outreach and follow-through.',
+    credential: 'Supports partner outreach and follow-through.',
   },
   // Finance Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
@@ -84,7 +84,7 @@ export const people: Person[] = [
     name: 'Sheun Georrell Pre',
     group: 'core',
     does: 'Assistant Finance Manager',
-    credential: 'Reports to Finance Manager. Helps track budgets and receipts.',
+    credential: 'Helps track budgets and receipts.',
   },
   // ── Internal branch ─────────────────────────────────────────
   {
@@ -92,28 +92,28 @@ export const people: Person[] = [
     name: 'Fahad A. Hadji Esmael',
     group: 'core',
     does: 'Operations Manager',
-    credential: 'Reports to VP for Internal. Runs logistics for events and programs.',
+    credential: 'Runs logistics for events and programs.',
   },
   {
     slug: 'denisse-jane-karim',
     name: 'Denisse Jane Karim',
     group: 'core',
     does: 'Assistant Operations Manager',
-    credential: 'Reports to Operations Manager. Supports on-site and async ops.',
+    credential: 'Supports on-site and async ops.',
   },
   {
     slug: 'ariane-joy-delos-reyes',
     name: 'Ariane Joy Delos Reyes',
     group: 'core',
     does: 'Programs Manager',
-    credential: 'Reports to VP for Internal. Owns program design and curriculum flow.',
+    credential: 'Owns program design and curriculum flow.',
   },
   {
     slug: 'zey-pagulayan',
     name: 'Zey Pagulayan',
     group: 'core',
     does: 'Assistant Programs Manager',
-    credential: 'Reports to Programs Manager. Supports session design and delivery.',
+    credential: 'Supports session design and delivery.',
   },
   // ── Secretary branch ────────────────────────────────────────
   {
@@ -121,7 +121,7 @@ export const people: Person[] = [
     name: 'VJ Evangelista',
     group: 'core',
     does: 'Assistant Secretary',
-    credential: 'Reports to Secretary. Helps with documentation and coordination.',
+    credential: 'Helps with documentation and coordination.',
   },
   // ── Technology branch ───────────────────────────────────────
   {
@@ -129,7 +129,7 @@ export const people: Person[] = [
     name: 'Dave Ailler Rivas',
     group: 'core',
     does: 'Assistant Technology Director',
-    credential: 'Reports to Technology Director. Helps with systems and event-day tech support.',
+    credential: 'Helps with systems and event-day tech support.',
   },
   // ── Creatives + Marketing ───────────────────────────────────
   {
@@ -144,7 +144,7 @@ export const people: Person[] = [
     name: 'Rijay Cereno',
     group: 'core',
     does: 'Assistant Creatives Manager',
-    credential: 'Reports to Creatives Manager. Supports graphics and media production.',
+    credential: 'Supports graphics and media production.',
   },
   // Marketing Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
@@ -152,7 +152,7 @@ export const people: Person[] = [
     name: 'CJ Eustaquio',
     group: 'core',
     does: 'Assistant Marketing Manager',
-    credential: 'Reports to Marketing Manager. Supports posting and campaigns.',
+    credential: 'Supports posting and campaigns.',
   },
   // Kept for event records only — not listed on /people.
   // Karen spoke at our events but is with another org (partner, not WorkFlow).
