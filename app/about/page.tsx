@@ -1,6 +1,7 @@
 import { BigRows } from '@/components/wf/big-rows'
 import { Finale } from '@/components/wf/finale'
 import { Diamond, Marquee } from '@/components/wf/marquee'
+import { NodeGraph } from '@/components/wf/node-graph'
 import { PageTitle } from '@/components/wf/page-title'
 import { Reveal } from '@/components/wf/reveal'
 import { activities, beliefs, history, longTerm, tracks, vision } from '@/lib/data/site'
@@ -24,6 +25,22 @@ export default function AboutPage() {
           Automation education in the Philippines was scattered. So volunteers started{' '}
           <span className="text-flow">teaching it together</span>, in public.
         </p>
+      </Reveal>
+
+      <Reveal className="px-7 pb-28 md:px-10 md:pb-40">
+        <div className="rounded-xl border border-border bg-muted/30 px-6 py-10 md:px-12 md:py-14">
+          <p className="font-mono text-[11px] tracking-widest text-muted-foreground uppercase">
+            One connected community
+          </p>
+          <h2 className="mt-3 max-w-3xl text-2xl leading-tight font-semibold text-balance md:text-4xl">
+            Everything we do loops back to the same place — a{' '}
+            <span className="text-flow">community</span> where builders, partners and
+            events are wired together.
+          </h2>
+          <div className="mx-auto mt-8 max-w-4xl md:mt-10">
+            <NodeGraph />
+          </div>
+        </div>
       </Reveal>
 
       <div className="flex flex-col gap-2 overflow-hidden pb-28 md:pb-40">
