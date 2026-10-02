@@ -131,6 +131,14 @@ export const partners: Partner[] = [
     since: 'TBC',
     logo: { src: '/images/ambassador/stellar.svg', width: 106, height: 26 },
   },
+  // TODO(portfolio): placeholder ambassador, details to follow
+  {
+    slug: 'grab-moveit-student-ambassador',
+    name: 'Grab x MoveIt Student Ambassador',
+    tier: 'ambassador',
+    what: 'Partnership details to follow.',
+    since: 'TBC',
+  },
 ]
 
 export const tierLabel: Record<PartnerTier, string> = {

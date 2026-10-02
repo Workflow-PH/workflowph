@@ -55,7 +55,7 @@ export function BigRows({ rows, label }: { rows: BigRow[]; label?: string }) {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`${r.title} on LinkedIn`}
-                      className="ml-4 inline-flex align-middle opacity-60 transition-opacity hover:opacity-100"
+                      className="ml-4 inline-flex align-middle opacity-80 transition-opacity hover:opacity-100"
                     >
                       <LinkedInIcon />
                     </a>

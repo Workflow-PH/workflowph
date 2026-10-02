@@ -41,6 +41,8 @@ export type EventRecord = {
   collaborators: string[]
   recap?: string
   outcomes: string[]
+  /** Optional, placeholder-friendly for this task: named winners/placers for hackathons. */
+  winners?: string[]
   numbers: EventNumber[]
   people: string[]
   outputs: string[]
@@ -216,6 +218,12 @@ export const events: EventRecord[] = [
     recap:
       'Run in two phases: the main hackathon from January 26 to March 17, and a Grand Finale from April 3 to April 13, 2026.',
     outcomes: [],
+    // TODO(portfolio): placeholder winners (lorem)
+    winners: [
+      'Lorem Ipsum — Champion',
+      'Dolor Sit Amet — 1st runner-up',
+      'Consectetur Adipiscing — 2nd runner-up',
+    ],
     numbers: [
       { label: 'Filipino teams entered', value: null },
       { label: 'Teams that submitted', value: null },
@@ -445,6 +453,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion', 'Dolor Sit Amet — 1st runner-up'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -493,6 +502,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion', 'Sed Do Eiusmod — 1st runner-up'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -541,6 +551,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -575,6 +586,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion', 'Tempor Incididunt — 1st runner-up'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -592,6 +604,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -786,3 +799,9 @@ export function evidenceFor(e: EventRecord) {
 }
 
 export const allCollaborators = Array.from(new Set(events.flatMap((e) => e.collaborators))).sort()
+
+export function winnersFor(e: EventRecord): string[] {
+  return e.winners ?? []
+}
+
+export const partnerRoleEvents = eventsByDate.filter((e) => /partner|community/i.test(e.role))

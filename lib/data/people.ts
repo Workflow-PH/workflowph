@@ -27,6 +27,8 @@ export const people: Person[] = [
     group: 'core',
     does: 'Community Lead',
     credential: 'Sets direction and final calls for WorkFlow PH.',
+    // TODO(portfolio): placeholder LinkedIn URL (all point to the same profile for now)
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'charisse-jen-salazar',
@@ -34,6 +36,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Community Co-Lead',
     credential: 'Runs day-to-day with the Community Lead. Oversees VPs and managers.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'krystel-mae-austral',
@@ -41,6 +44,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Vice President for External',
     credential: 'Leads Relations and Finance.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'lea-erika-veridiano',
@@ -48,6 +52,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Vice President for Internal',
     credential: 'Leads Operations and Programs.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'merille-janine-pepito',
@@ -55,6 +60,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Secretary',
     credential: 'Keeps records and internal comms.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'vincent-javier',
@@ -62,6 +68,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Technology Director',
     credential: 'Maintains this site and internal tooling.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // ── External branch ─────────────────────────────────────────
   {
@@ -70,6 +77,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Relations Manager',
     credential: 'Owns partnerships and relations pipeline.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'john-eric-samillano',
@@ -77,6 +85,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Relations Manager',
     credential: 'Supports partner outreach and follow-through.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // Finance Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
@@ -85,6 +94,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Finance Manager',
     credential: 'Helps track budgets and receipts.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // ── Internal branch ─────────────────────────────────────────
   {
@@ -93,6 +103,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Operations Manager',
     credential: 'Runs logistics for events and programs.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'denisse-jane-karim',
@@ -100,6 +111,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Operations Manager',
     credential: 'Supports on-site and async ops.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'ariane-joy-delos-reyes',
@@ -107,6 +119,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Programs Manager',
     credential: 'Owns program design and curriculum flow.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'zey-pagulayan',
@@ -114,6 +127,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Programs Manager',
     credential: 'Supports session design and delivery.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // ── Secretary branch ────────────────────────────────────────
   {
@@ -122,6 +136,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Secretary',
     credential: 'Helps with documentation and coordination.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // ── Technology branch ───────────────────────────────────────
   {
@@ -130,6 +145,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Technology Director',
     credential: 'Helps with systems and event-day tech support.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // ── Creatives + Marketing ───────────────────────────────────
   {
@@ -138,6 +154,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Creatives Manager',
     credential: 'Leads the design and creative department.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   {
     slug: 'rijay-cereno',
@@ -145,6 +162,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Creatives Manager',
     credential: 'Supports graphics and media production.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // Marketing Manager — vacant. Add here once confirmed, do not use a placeholder name.
   {
@@ -153,6 +171,7 @@ export const people: Person[] = [
     group: 'core',
     does: 'Assistant Marketing Manager',
     credential: 'Supports posting and campaigns.',
+    linkedin: 'https://www.linkedin.com/in/salvadorvincentjavier',
   },
   // Kept for event records only — not listed on /people.
   // Karen spoke at our events but is with another org (partner, not WorkFlow).
