@@ -449,7 +449,38 @@ export const events: EventRecord[] = [
     people: [],
     outputs: [],
     links: [],
-    photos: [],
+    photos: [
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_01.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame one)',
+        width: 1920,
+        height: 1080,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_02.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame two)',
+        width: 1920,
+        height: 1440,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_03.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame three)',
+        width: 1397,
+        height: 785,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_04.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame four)',
+        width: 1920,
+        height: 1080,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_05.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame five)',
+        width: 1536,
+        height: 2048,
+      },
+    ],
   },
   {
     slug: 'egovph-hackathon',
@@ -466,7 +497,38 @@ export const events: EventRecord[] = [
     people: [],
     outputs: [],
     links: [],
-    photos: [],
+    photos: [
+      {
+        src: '/images/events/2026_egovibes_gallery_01.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame one)',
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_02.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame two)',
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_03.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame three)',
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_04.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame four)',
+        width: 1280,
+        height: 960,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_05.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame five)',
+        width: 1080,
+        height: 596,
+      },
+    ],
   },
   {
     slug: 'stellar-apac-hackathon',
