@@ -41,6 +41,8 @@ export type EventRecord = {
   collaborators: string[]
   recap?: string
   outcomes: string[]
+  /** Optional, placeholder-friendly for this task: named winners/placers for hackathons. */
+  winners?: string[]
   numbers: EventNumber[]
   people: string[]
   outputs: string[]
@@ -216,6 +218,12 @@ export const events: EventRecord[] = [
     recap:
       'Run in two phases: the main hackathon from January 26 to March 17, and a Grand Finale from April 3 to April 13, 2026.',
     outcomes: [],
+    // TODO(portfolio): placeholder winners (lorem)
+    winners: [
+      'Lorem Ipsum — Champion',
+      'Dolor Sit Amet — 1st runner-up',
+      'Consectetur Adipiscing — 2nd runner-up',
+    ],
     numbers: [
       { label: 'Filipino teams entered', value: null },
       { label: 'Teams that submitted', value: null },
@@ -445,11 +453,43 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion', 'Dolor Sit Amet — 1st runner-up'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
     links: [],
-    photos: [],
+    photos: [
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_01.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame one)',
+        width: 1920,
+        height: 1080,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_02.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame two)',
+        width: 1920,
+        height: 1440,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_03.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame three)',
+        width: 1397,
+        height: 785,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_04.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame four)',
+        width: 1920,
+        height: 1080,
+      },
+      {
+        src: '/images/events/2026_stellar-hackathon_gallery_05.jpg',
+        alt: 'Photo from the Stellar Philippines Hackathon (frame five)',
+        width: 1536,
+        height: 2048,
+      },
+    ],
   },
   {
     slug: 'egovph-hackathon',
@@ -462,11 +502,43 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion', 'Sed Do Eiusmod — 1st runner-up'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
     links: [],
-    photos: [],
+    photos: [
+      {
+        src: '/images/events/2026_egovibes_gallery_01.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame one)',
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_02.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame two)',
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_03.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame three)',
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_04.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame four)',
+        width: 1280,
+        height: 960,
+      },
+      {
+        src: '/images/events/2026_egovibes_gallery_05.jpg',
+        alt: 'Photo from the eGovPH Hackathon (frame five)',
+        width: 1080,
+        height: 596,
+      },
+    ],
   },
   {
     slug: 'stellar-apac-hackathon',
@@ -479,6 +551,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -513,6 +586,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion', 'Tempor Incididunt — 1st runner-up'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -530,6 +604,7 @@ export const events: EventRecord[] = [
     role: 'TBC',
     collaborators: ['TBC'],
     outcomes: [],
+    winners: ['Lorem Ipsum — Champion'],
     numbers: [{ label: 'Details to follow', value: null }],
     people: [],
     outputs: [],
@@ -724,3 +799,9 @@ export function evidenceFor(e: EventRecord) {
 }
 
 export const allCollaborators = Array.from(new Set(events.flatMap((e) => e.collaborators))).sort()
+
+export function winnersFor(e: EventRecord): string[] {
+  return e.winners ?? []
+}
+
+export const partnerRoleEvents = eventsByDate.filter((e) => /partner|community/i.test(e.role))

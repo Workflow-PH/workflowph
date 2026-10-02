@@ -198,7 +198,11 @@ export function PosterStrip({ items }: { items: PosterItem[] }) {
     speed.current += (target - speed.current) * (1 - Math.exp(-dt / EASE_TAU))
     if (target === 0 && speed.current < 0.05) speed.current = 0
     if (speed.current === 0) return
-    pos.current = driftStep(pos.current, dt, speed.current, boost.get(), u)
+    // Page-scroll boost only amplifies active drift. While paused the strip is
+    // easing to a stop, so a scroll spike must not push it (hover/focus/touch
+    // would otherwise still creep the strip during the ease-out).
+    const b = paused ? 0 : boost.get()
+    pos.current = driftStep(pos.current, dt, speed.current, b, u)
     place()
   })
 

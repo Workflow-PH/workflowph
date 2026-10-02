@@ -54,22 +54,37 @@ export function Stage({ stats }: { stats: { value: string; label: string }[] }) 
   const reduce = useReducedMotion()
   const settle = useMotionValue(0)
   useEffect(() => {
-    if (reduce) {
-      settle.set(1)
-      return
-    }
+    // Read the media query directly: useReducedMotion() can report null under
+    // first render and some automation, and motion's animate() silently
+    // suppresses tweens when reduced motion is on — which would leave the mark
+    // at full strength, covering AUTOMATE. Settling the value directly keeps
+    // the watermark correct for reduced-motion users.
+    const prefersReduced =
+      reduce || window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let run: AnimationPlaybackControls | undefined
+    let raf = 0
     const off = whenIntroDone(() => {
+      if (prefersReduced) {
+        // Defer one frame so the transform subscriptions are live before the
+        // discrete set, then jump straight to the settled watermark.
+        raf = requestAnimationFrame(() => settle.set(1))
+        return
+      }
       run = animate(settle, 1, { duration: 1.2, ease: [0.76, 0, 0.24, 1] })
     })
     return () => {
       off()
       run?.stop()
+      if (raf) cancelAnimationFrame(raf)
     }
   }, [reduce, settle])
-  const g = useTransform([settle, p], ([s, v]: number[]) => ghost(s, v))
-  const wrapOpacity = useTransform(g, markOpacity)
-  const wrapScale = useTransform([markScale, g], ([b, v]: number[]) => ghostScale(b, v))
+  // Derive opacity and scale directly from the source values. Collapsing the
+  // chain (no transform-of-transform) means a discrete settle.set(1) — the
+  // reduced-motion path — reliably updates the DOM, not just animated frames.
+  const wrapOpacity = useTransform([settle, p], ([s, v]: number[]) => markOpacity(ghost(s, v)))
+  const wrapScale = useTransform([settle, p, markScale], ([s, v, b]: number[]) =>
+    ghostScale(b, ghost(s, v)),
+  )
 
   const o1 = useTransform(p, [0, 1], [0, 28])
   const o2 = useTransform(p, [0, 1], [0, -20])

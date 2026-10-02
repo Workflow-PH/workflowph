@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { PageTitle } from '@/components/wf/page-title'
 import { Reveal } from '@/components/wf/reveal'
 import { Diamond } from '@/components/wf/marquee'
-import { eventBySlug, events, eventsByDate, modeLabel } from '@/lib/data/events'
+import { eventBySlug, events, eventsByDate, modeLabel, winnersFor } from '@/lib/data/events'
 import { personBySlug } from '@/lib/data/people'
 import { formatDateRange } from '@/lib/format'
 import { pageMetadata } from '@/lib/seo'
@@ -42,6 +42,7 @@ export default async function EventPage({ params }: Props) {
     e.role,
   ].filter(Boolean) as string[]
   const speakers = e.people.map(personBySlug).filter((p) => p !== undefined)
+  const winners = winnersFor(e)
 
   return (
     <article>
@@ -87,6 +88,29 @@ export default async function EventPage({ params }: Props) {
                 ))}
               </ul>
             )}
+          </Reveal>
+        )}
+
+        {winners.length > 0 && (
+          <Reveal>
+            <div className="flex flex-col gap-8 rounded-sm bg-sun px-7 py-12 text-ink md:px-12 md:py-16">
+              <span className="font-mono text-[11px] tracking-widest uppercase opacity-70">
+                {/* TODO(portfolio): placeholder winners (lorem) until finalists are confirmed */}
+                Winners
+              </span>
+              <ol className="flex flex-col divide-y divide-ink/15">
+                {winners.map((w, k) => (
+                  <li key={w} className="flex items-baseline gap-5 py-5 first:pt-0 last:pb-0">
+                    <span className="display shrink-0 text-[12vw] leading-none md:text-[4.5vw]">
+                      {String(k + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-xl leading-snug font-medium text-balance md:text-3xl">
+                      {w}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </Reveal>
         )}
 
